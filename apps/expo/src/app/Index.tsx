@@ -1,18 +1,9 @@
 import { useState } from "react";
-import {
-  Button,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Button, Image, ScrollView, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import IoniIcons from "react-native-vector-icons/Ionicons";
 import { Stack, useRouter } from "expo-router";
-import { FlashList } from "@shopify/flash-list";
 
 import { api, type RouterOutputs } from "~/utils/api";
 
@@ -28,16 +19,17 @@ const Card: React.FC<{
   post: Post;
 }> = ({ post }) => {
   const router = useRouter();
+
   return (
-    <View style={styles.card}>
-      <View style={styles.profile}>
+    <View className="mt-5 h-[130px] w-[350px] rounded-md border-[1px] border-[#ddd]">
+      <View className="flex flex-row items-center space-x-3 pl-5 pt-5">
         <Image
           source={{
             uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
           }}
-          style={{ width: 40, height: 40, borderRadius: 100 }}
+          className="h-10 w-10 rounded-full"
         />
-        <Text style={{ fontSize: 15 }}>{post.name}</Text>
+        <Text className="text-base">{post.name}</Text>
         <Button
           title="Follow"
           onPress={() => {
@@ -46,8 +38,8 @@ const Card: React.FC<{
         />
       </View>
 
-      <Text style={{ marginTop: 2, paddingLeft: 10 }}>{post.content}</Text>
-      <View style={styles.iconView}>
+      <Text className="mt-2  pl-5">{post.content}</Text>
+      <View className="mt-5 flex flex-row space-x-1 pl-5">
         <AntDesign name="like2" size={15} color="#ddd" />
         <AntDesign name="hearto" size={15} color="#ddd" />
         <IoniIcons name="chatbubble-outline" size={15} color="#ddd" />
@@ -62,21 +54,20 @@ const Index = () => {
   const [search, setSearch] = useState<string>("");
   const postQuery = api.post.all.useQuery();
   return (
-    <SafeAreaView className="">
-      {/* Changes page title visible on the header */}
+    <SafeAreaView className="bg-[#f2f2f2]">
       <Stack.Screen options={{ title: "Home Page", headerShown: false }} />
 
       <ScrollView>
-        <View style={styles.nav}>
+        <View className="flex flex-row items-center gap-3 pl-5 pt-5">
           <Image
             source={{
               uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60.jpg",
             }}
-            style={{ width: 100, height: 100, borderRadius: 100 }}
+            className="h-20 w-20 rounded-full"
           />
           <View>
-            <Text style={{ fontSize: 20 }}>Brighton Mboya</Text>
-            <Text style={{ marginTop: 5 }}>Senior Manager at Netflix!!</Text>
+            <Text className="text-lg">Brighton Mboya</Text>
+            <Text className="pt-1 text-base">Senior Manager at Netflix!!</Text>
           </View>
 
           <Button
@@ -84,24 +75,15 @@ const Index = () => {
             // onPress={() => navigation.navigate("Profile", { name: "Jane" })}
           />
         </View>
-        <View style={[styles.container, styles.cardRow]}>
+
+        <View className="mt-[40px] flex flex-col items-center justify-center space-y-5 bg-white">
           <TextInput
-            style={{
-              height: 40,
-              borderColor: "gray",
-              borderWidth: 1,
-              width: 300,
-              padding: 10,
-              borderRadius: 5,
-            }}
+            className="h-[50px] w-[300px] rounded-md border-[1px] border-gray-500 px-5 "
             placeholder="Search for your favourite profiles"
             onChangeText={(text) => setSearch(text)}
             defaultValue={search}
           />
-          {/* <FlashList
-            data={postQuery.data}
-            renderItem={(item) => <Card post={item} />}
-          /> */}
+
           {postQuery.data
             ?.filter((profile: Post) => {
               if (search === "") {
@@ -120,45 +102,5 @@ const Index = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  nav: {
-    marginTop: 70,
-    marginLeft: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 20,
-  },
-
-  cardRow: {
-    gap: 20,
-    marginTop: 40,
-  },
-  card: {
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    width: 350,
-    height: 130,
-  },
-  profile: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    padding: 10,
-  },
-  iconView: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    padding: 10,
-  },
-});
 
 export default Index;
