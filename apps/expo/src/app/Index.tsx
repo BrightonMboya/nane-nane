@@ -7,7 +7,6 @@ import { Stack, useRouter } from "expo-router";
 
 import { api, type RouterOutputs } from "~/utils/api";
 
-// import { profiles } from "../components/dummyData";
 interface Post {
   id: string;
   name?: string;
@@ -52,9 +51,10 @@ const Card: React.FC<{
 const Index = () => {
   const utils = api.useContext();
   const [search, setSearch] = useState<string>("");
+  //@ts-ignore
   const postQuery = api.post.all.useQuery();
   return (
-    <SafeAreaView className="bg-[#f2f2f2]">
+    <SafeAreaView className="relative bg-[#f2f2f2]">
       <Stack.Screen options={{ title: "Home Page", headerShown: false }} />
 
       <ScrollView>
