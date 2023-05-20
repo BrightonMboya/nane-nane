@@ -60,7 +60,14 @@ const BottomTab: React.FC = () => {
       >
         <AntDesign name="pluscircleo" size={25} color="#ddd" />
       </TouchableHighlight>
-      <AntDesign name="hearto" size={25} color="#ddd" />
+
+      <TouchableHighlight
+        onPress={() => {
+          router.push("/resources");
+        }}
+      >
+        <AntDesign name="hearto" size={25} color="#ddd" />
+      </TouchableHighlight>
       <TouchableHighlight
         onPress={() => {
           router.push("/profile");
