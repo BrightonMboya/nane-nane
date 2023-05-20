@@ -2,19 +2,21 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
     previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
-    provider = "postgresql"
+    provider = "sqlite"
     url      = env("DATABASE_URL")
 }
 
 model Post {
     id      String @id @default(cuid())
-    title   String
-    content String
+    title   String?
+    content String?
+    name    String?
+
 }
 
 // NextAuth.js Models
@@ -57,6 +59,13 @@ model User {
     sessions      Session[]
 }
 
+model Profiles {
+    id  String @id @default(cuid())
+    name String
+    yearGroup Int
+    email String
+}
+
 model VerificationToken {
     identifier String
     token      String   @unique
@@ -64,3 +73,5 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+
