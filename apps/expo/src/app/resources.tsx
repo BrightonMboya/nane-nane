@@ -24,7 +24,7 @@ const JobPost: React.FC<{
 }> = ({ post }) => {
   return (
     <>
-      <View className="gap-1">
+      <View className="w-[350px] gap-1 border-b-[1px] border-b-gray-300 pb-3 pt-5">
         <Text className="text-xl font-medium">{post.title}</Text>
         <Text className="text-[15px]">{post.company}</Text>
         <Text className="text-gray-700">4 days ago</Text>
@@ -49,16 +49,15 @@ const Index = () => {
             </Text>
           </TouchableHighlight>
         </View>
-        <View className="mt-5 flex flex-col pl-5">
+        <View className="mt-5 flex flex-col  pl-5">
           {jobsRouter.data?.map((job) => (
             <JobPost post={job} />
           ))}
-
-          {jobsRouter.isLoading && <Text>Loading...</Text>}
-          {jobsRouter.isError && (
-            <Text className="text-red-500">{jobsRouter.error.message}</Text>
-          )}
         </View>
+        {jobsRouter.isLoading && <Text>Loading...</Text>}
+        {jobsRouter.isError && (
+          <Text className="text-red-500">{jobsRouter.error.message}</Text>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
