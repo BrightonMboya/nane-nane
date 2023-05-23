@@ -51,6 +51,7 @@ const Card: React.FC<{
 const Index = () => {
   const utils = api.useContext();
   const [search, setSearch] = useState<string>("");
+  const [showSearch, setShowSearch] = useState<boolean>(false);
   //@ts-ignore
   const postQuery = api.post.all.useQuery();
   return (
@@ -58,25 +59,24 @@ const Index = () => {
       <Stack.Screen options={{ title: "Home Page", headerShown: false }} />
 
       <ScrollView>
-        <View className="flex flex-row items-center gap-3 pl-5 pt-5">
+        <View className="">
+          {/* <TouchableHighlight
+            className="absolute right-[70px] top-[30px]"
+            onPress={() => {
+              setShowSearch(true);
+            }}
+          >
+            <AntDesign name="search1" size={25} color="#ddd" />
+          </TouchableHighlight> */}
           <Image
             source={{
               uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60.jpg",
             }}
-            className="h-20 w-20 rounded-full"
-          />
-          <View>
-            <Text className="text-lg">Brighton Mboya</Text>
-            <Text className="pt-1 text-base">Senior Manager at Netflix!!</Text>
-          </View>
-
-          <Button
-            title="Edit"
-            // onPress={() => navigation.navigate("Profile", { name: "Jane" })}
+            className="absolute right-5 top-5 h-10 w-10 rounded-full"
           />
         </View>
 
-        <View className="mt-[40px] flex flex-col items-center justify-center space-y-5 bg-white">
+        <View className="mt-[60px] flex flex-col items-center justify-center space-y-5 bg-white">
           <TextInput
             className="h-[50px] w-[300px] rounded-md border-[1px] border-gray-500 px-5 "
             placeholder="Search for your favourite profiles"
@@ -97,6 +97,8 @@ const Index = () => {
             .map((post: Post) => (
               <Card key={post.id} post={post} />
             ))}
+
+          {postQuery.isLoading && <Text>Loading...</Text>}
         </View>
       </ScrollView>
     </SafeAreaView>
