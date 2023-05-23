@@ -1,7 +1,8 @@
 import React from "react";
-import { Image, Text, TouchableHighlight, View } from "react-native";
+import { TouchableHighlight, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {
   // This example uses a basic Layout component, but you can use any Layout.
   Slot,
@@ -11,12 +12,21 @@ import {
   useRouter,
 } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
 
 import { TRPCProvider } from "~/utils/api";
 
 // This is the main layout of the app
 // It wraps your pages with the providers they need
 const RootLayout = () => {
+  let [fontsLoaded] = useFonts({
+    Inter_900Black,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <TRPCProvider>
       <SafeAreaProvider className="relative">
@@ -66,19 +76,18 @@ const BottomTab: React.FC = () => {
           router.push("/resources");
         }}
       >
-        <AntDesign name="hearto" size={25} color="#ddd" />
+        <MaterialCommunityIcons
+          name="briefcase-edit-outline"
+          size={25}
+          color="#ddd"
+        />
       </TouchableHighlight>
       <TouchableHighlight
         onPress={() => {
           router.push("/profile");
         }}
       >
-        <Image
-          source={{
-            uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
-          }}
-          className="h-10 w-10 rounded-full"
-        />
+        <AntDesign name="mail" size={25} color="#ddd" />
       </TouchableHighlight>
     </View>
   );

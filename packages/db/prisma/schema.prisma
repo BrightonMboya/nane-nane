@@ -74,4 +74,14 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
+model Jobs {
+    id String @id @default(cuid())
+    title String
+    company String
+    location String
+    description String
+    link String
+    createdAt DateTime @default(now())
+}
+
 

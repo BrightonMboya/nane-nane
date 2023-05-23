@@ -38,8 +38,7 @@ const Card: React.FC<{
       </View>
 
       <Text className="mt-2  pl-5">{post.content}</Text>
-      <View className="mt-5 flex flex-row space-x-1 pl-5">
-        <AntDesign name="like2" size={15} color="#ddd" />
+      <View className="mt-5 flex flex-row items-center space-x-1 pl-5">
         <AntDesign name="hearto" size={15} color="#ddd" />
         <IoniIcons name="chatbubble-outline" size={15} color="#ddd" />
         <IoniIcons name="paper-plane-outline" size={15} color="#ddd" />
@@ -85,7 +84,7 @@ const Index = () => {
           />
 
           {postQuery.data
-            ?.filter((profile: Post) => {
+            ?.filter((profile) => {
               if (search === "") {
                 return profile;
               } else if (
@@ -94,11 +93,12 @@ const Index = () => {
                 return profile;
               }
             })
-            .map((post: Post) => (
-              <Card key={post.id} post={post} />
+            .map((post) => (
+              <Card key={post.id} post={post as Post} />
             ))}
 
           {postQuery.isLoading && <Text>Loading...</Text>}
+          {postQuery.isError && <Text>Error...</Text>}
         </View>
       </ScrollView>
     </SafeAreaView>
