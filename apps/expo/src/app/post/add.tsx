@@ -29,14 +29,12 @@ const Add = () => {
           <Text className="text-center text-xl">Adding a new Nane-Nane </Text>
           <TextInput
             className="mb-2 mt-5  w-[300px] rounded border-[1px] border-[#ddd] p-2"
-            placeholderTextColor=""
             value={name}
             onChangeText={setName}
             placeholder="Name"
           />
           <TextInput
             className="mb-2 mt-5  w-[300px] rounded border-[1px] border-[#ddd] p-2"
-            placeholderTextColor=""
             value={title}
             onChangeText={setTitle}
             placeholder="Title"
@@ -48,7 +46,6 @@ const Add = () => {
           )}
           <TextInput
             className="mb-2 mt-5  w-[300px] rounded border-[1px] border-[#ddd] p-2"
-            placeholderTextColor=""
             value={content}
             onChangeText={setContent}
             placeholder="Content"

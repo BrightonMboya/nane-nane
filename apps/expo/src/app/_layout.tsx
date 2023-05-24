@@ -73,7 +73,7 @@ const BottomTab: React.FC = () => {
 
       <TouchableHighlight
         onPress={() => {
-          router.push("/resources");
+          router.push("/resources/index");
         }}
       >
         <MaterialCommunityIcons
