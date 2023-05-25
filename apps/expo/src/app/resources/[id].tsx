@@ -1,18 +1,25 @@
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
 } from "react-native";
+import * as Linking from "expo-linking";
 import { SplashScreen, Stack, useSearchParams } from "expo-router";
 
 import { api } from "~/utils/api";
 
+type openURLButtonProps = {
+  url: string;
+  children: string;
+};
+
 const Post: React.FC = () => {
   const { id } = useSearchParams();
   if (!id || typeof id !== "string") throw new Error("unreachable");
-  const { data } = api.resources.byId.useQuery({ id });
+  const { data, isLoading, error } = api.resources.byId.useQuery({ id });
   //   if (!data) return <SplashScreen />;
 
   return (
@@ -20,24 +27,29 @@ const Post: React.FC = () => {
       <Stack.Screen />
       <ScrollView>
         <View className="pl-5 pt-5">
-          <Text className="mt-[5rem] text-3xl font-bold text-green-500">
-            The Job listing post
-          </Text>
-
-          <View className="flex flex-col ">
-            <Text className="mt-5 text-xl font-medium">{data?.title}</Text>
+          <View className="pb-[2rem]">
+            <Text className="mt-2 text-xl font-medium">{data?.title}</Text>
             <Text className="mt-2 text-purple-500">{`${data?.company}, ${data?.location}`}</Text>
-            <TouchableHighlight>
-              <Text className="mt-3 w-[90px] bg-indigo-500  px-4 py-2 text-center text-lg font-medium text-white">
+            <TouchableOpacity
+              onPress={() => Linking.openURL(data?.link as string)}
+            >
+              <Text className="mt-2 w-[80px] bg-purple-500 px-4 py-1 text-center text-lg text-white">
                 Apply
               </Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
+            {/* <Button
+              title="Apply"
+              onPress={() => Linking.openURL(data?.link as string)}
+              style={{ backgroundColor: "purple" }}
+            /> */}
+
             <Text className="mt-5 text-base tracking-wider">
               {data?.description}
             </Text>
           </View>
 
-          {/* <Text className="py-4 text-white">{data.content}</Text> */}
+          {isLoading && <Text>Loading...</Text>}
+          {error && <Text className="text-red-500">{error.message}</Text>}
         </View>
       </ScrollView>
     </SafeAreaView>
