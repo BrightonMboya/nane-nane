@@ -56,7 +56,7 @@ const BottomTab: React.FC = () => {
     <View className="absolute bottom-0 flex h-[60px] w-full flex-row items-center justify-around border-t-[1px] border-[#ddd] bg-white">
       <TouchableHighlight
         onPress={() => {
-          router.push("/Index");
+          router.push("/");
         }}
       >
         <AntDesign name="home" size={25} color="#ddd" />
@@ -73,7 +73,7 @@ const BottomTab: React.FC = () => {
 
       <TouchableHighlight
         onPress={() => {
-          router.push("/resources/index");
+          router.push("/resources");
         }}
       >
         <MaterialCommunityIcons

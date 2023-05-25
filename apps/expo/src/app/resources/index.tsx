@@ -40,9 +40,8 @@ const JobPost: React.FC<{
 
 const Index = () => {
   const jobsRouter = api.resources.all.useQuery();
-
   return (
-    <SafeAreaView className="relative bg-[#f2f2f2] font-sans">
+    <SafeAreaView className="relative bg-[#f2f2f2] ">
       <ScrollView>
         <Stack.Screen options={{ title: "Profile Page", headerShown: false }} />
         <View className="mt-5 flex flex-col items-center">
