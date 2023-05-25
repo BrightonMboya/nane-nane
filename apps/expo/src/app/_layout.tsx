@@ -12,21 +12,12 @@ import {
   useRouter,
 } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
 
 import { TRPCProvider } from "~/utils/api";
 
 // This is the main layout of the app
 // It wraps your pages with the providers they need
 const RootLayout = () => {
-  let [fontsLoaded] = useFonts({
-    Inter_900Black,
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
   return (
     <TRPCProvider>
       <SafeAreaProvider className="relative">
@@ -35,11 +26,11 @@ const RootLayout = () => {
           It also allows you to configure your screens 
         */}
         <Stack
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: "#f472b6",
-            },
-          }}
+        // screenOptions={{
+        //   headerStyle: {
+        //     backgroundColor: "#f472b6",
+        //   },
+        // }}
         />
         <StatusBar />
         <BottomTab />

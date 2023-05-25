@@ -1,5 +1,4 @@
 import {
-  Button,
   SafeAreaView,
   ScrollView,
   Text,
@@ -11,11 +10,6 @@ import { SplashScreen, Stack, useSearchParams } from "expo-router";
 
 import { api } from "~/utils/api";
 
-type openURLButtonProps = {
-  url: string;
-  children: string;
-};
-
 const Post: React.FC = () => {
   const { id } = useSearchParams();
   if (!id || typeof id !== "string") throw new Error("unreachable");
@@ -24,7 +18,9 @@ const Post: React.FC = () => {
 
   return (
     <SafeAreaView className="">
-      <Stack.Screen />
+      <Stack.Screen
+        options={{ title: "", headerStyle: { backgroundColor: "#fgjg34" } }}
+      />
       <ScrollView>
         <View className="pl-5 pt-5">
           <View className="pb-[2rem]">
@@ -37,11 +33,6 @@ const Post: React.FC = () => {
                 Apply
               </Text>
             </TouchableOpacity>
-            {/* <Button
-              title="Apply"
-              onPress={() => Linking.openURL(data?.link as string)}
-              style={{ backgroundColor: "purple" }}
-            /> */}
 
             <Text className="mt-5 text-base tracking-wider">
               {data?.description}

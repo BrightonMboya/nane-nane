@@ -49,7 +49,7 @@ const Index = () => {
             Want to help the ALU community get hired?
           </Text>
           <TouchableHighlight>
-            <Text className="rounded-base mt-3 w-[170px] bg-pink-500  px-1  py-2 text-center text-lg">
+            <Text className="rounded-base mt-3 w-[170px] bg-indigo-500 px-1  py-2  text-center text-lg text-white">
               Share Opportunity
             </Text>
           </TouchableHighlight>

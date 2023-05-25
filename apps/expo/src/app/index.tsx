@@ -59,14 +59,6 @@ const Index = () => {
 
       <ScrollView>
         <View className="">
-          {/* <TouchableHighlight
-            className="absolute right-[70px] top-[30px]"
-            onPress={() => {
-              setShowSearch(true);
-            }}
-          >
-            <AntDesign name="search1" size={25} color="#ddd" />
-          </TouchableHighlight> */}
           <Image
             source={{
               uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60.jpg",
