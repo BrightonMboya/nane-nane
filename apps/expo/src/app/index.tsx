@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Button, Image, ScrollView, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  Image,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import IoniIcons from "react-native-vector-icons/Ionicons";
@@ -18,7 +26,6 @@ const Card: React.FC<{
   post: Post;
 }> = ({ post }) => {
   const router = useRouter();
-
   return (
     <View className="mt-5 h-[130px] w-[350px] rounded-md border-[1px] border-[#ddd]">
       <View className="flex flex-row items-center space-x-3 pl-5 pt-5">
@@ -28,6 +35,7 @@ const Card: React.FC<{
           }}
           className="h-10 w-10 rounded-full"
         />
+
         <Text className="text-base">{post.name}</Text>
         <Button
           title="Follow"
@@ -50,21 +58,27 @@ const Card: React.FC<{
 const Index = () => {
   const utils = api.useContext();
   const [search, setSearch] = useState<string>("");
-  const [showSearch, setShowSearch] = useState<boolean>(false);
   //@ts-ignore
   const postQuery = api.post.all.useQuery();
+  const router = useRouter();
   return (
     <SafeAreaView className="relative bg-[#f2f2f2]">
       <Stack.Screen options={{ title: "Home Page", headerShown: false }} />
 
       <ScrollView>
         <View className="">
-          <Image
-            source={{
-              uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60.jpg",
+          <TouchableOpacity
+            onPress={() => {
+              router.push(`/profile`);
             }}
-            className="absolute right-5 top-5 h-10 w-10 rounded-full"
-          />
+          >
+            <Image
+              source={{
+                uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60.jpg",
+              }}
+              className="absolute right-5 top-5 h-10 w-10 rounded-full"
+            />
+          </TouchableOpacity>
         </View>
 
         <View className="mt-[60px] flex flex-col items-center justify-center space-y-5 bg-white">

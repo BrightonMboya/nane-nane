@@ -46,7 +46,7 @@ const Index = () => {
       <ScrollView>
         <Stack.Screen options={{ title: "Profile Page", headerShown: false }} />
         <View className="flex flex-col items-center">
-          <View className="mt-5 flex h-[100px] w-[300px] flex-col items-center rounded-md  shadow-md">
+          <View className="mt-5 flex h-[100px] w-[300px] flex-col items-center rounded-md">
             <Text className="font-medium">
               Want to help the ALU community get hired?
             </Text>
