@@ -26,7 +26,7 @@ export const postRouter = createTRPCRouter({
     return ctx.prisma.post.delete({ where: { id: input } });
   }),
 
-  getCommunitues: publicProcedure.query(({ ctx }) => {
+  getCommunities: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.communities.findMany();
   }),
 });

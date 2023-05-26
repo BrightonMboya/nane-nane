@@ -1,7 +1,8 @@
 import React from "react";
-import { Text, TouchableHighlight, View } from "react-native";
+import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import IoniIcons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {
   // This example uses a basic Layout component, but you can use any Layout.
@@ -52,7 +53,14 @@ const BottomTab: React.FC = () => {
       >
         <AntDesign name="home" size={25} color="#ddd" />
       </TouchableHighlight>
-      <AntDesign name="search1" size={25} color="#ddd" />
+      {/* <AntDesign name="search1" size={25} color="#ddd" /> */}
+      <TouchableOpacity
+        onPress={() => {
+          router.push("/communities");
+        }}
+      >
+        <IoniIcons name="people-outline" size={25} color="#ddd" />
+      </TouchableOpacity>
 
       <TouchableHighlight
         onPress={() => {
