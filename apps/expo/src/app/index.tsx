@@ -27,7 +27,7 @@ const Card: React.FC<{
 }> = ({ post }) => {
   const router = useRouter();
   return (
-    <View className="mt-5 h-[130px] w-[350px] rounded-md border-[1px] border-[#ddd]">
+    <View className="mt-5 h-[130px] w-[350px] rounded-md border-[1px] border-[#ddd] bg-white shadow-md ">
       <View className="flex flex-row items-center space-x-3 pl-5 pt-5">
         <Image
           source={{
@@ -58,14 +58,12 @@ const Card: React.FC<{
 const Index = () => {
   const utils = api.useContext();
   const [search, setSearch] = useState<string>("");
-  //@ts-ignore
   const postQuery = api.post.all.useQuery();
   const router = useRouter();
   return (
     <SafeAreaView className="relative bg-[#f2f2f2]">
-      <Stack.Screen options={{ title: "Home Page", headerShown: false }} />
-
       <ScrollView>
+        <Stack.Screen options={{ title: "Home Page", headerShown: false }} />
         <View className="">
           <TouchableOpacity
             onPress={() => {
@@ -81,7 +79,7 @@ const Index = () => {
           </TouchableOpacity>
         </View>
 
-        <View className="mt-[60px] flex flex-col items-center justify-center space-y-5 bg-white">
+        <View className="mt-[80px] flex flex-col items-center justify-center space-y-5 ">
           <TextInput
             className="h-[50px] w-[300px] rounded-md border-[1px] border-gray-500 px-5 "
             placeholder="Search for your favourite profiles"
@@ -106,6 +104,7 @@ const Index = () => {
           {postQuery.isLoading && <Text>Loading...</Text>}
           {postQuery.isError && <Text>Error...</Text>}
         </View>
+        <View className="mt-5 h-10" />
       </ScrollView>
     </SafeAreaView>
   );
