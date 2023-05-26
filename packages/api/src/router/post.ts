@@ -29,4 +29,7 @@ export const postRouter = createTRPCRouter({
   getCommunities: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.communities.findMany();
   }),
+  getCommunityById: publicProcedure.input(z.string()).query(({ ctx, input }) => {
+    return ctx.prisma.communities.findFirst({ where: { id: input } });
+  })
 });

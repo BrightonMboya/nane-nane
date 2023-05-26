@@ -9,13 +9,11 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import IoniIcons from "react-native-vector-icons/Ionicons";
 import { Stack, useRouter } from "expo-router";
 
 import { api, type RouterOutputs } from "~/utils/api";
 
 const Index = () => {
-  const utils = api.useContext();
   const [search, setSearch] = useState<string>("");
   const communityRouter = api.post.getCommunities.useQuery();
   const router = useRouter();
