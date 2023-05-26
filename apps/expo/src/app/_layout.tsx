@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableHighlight, View } from "react-native";
+import { Text, TouchableHighlight, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -44,7 +44,7 @@ export default RootLayout;
 const BottomTab: React.FC = () => {
   const router = useRouter();
   return (
-    <View className="absolute bottom-0 flex h-[60px] w-full flex-row items-center justify-around border-t-[1px] border-[#ddd] bg-white">
+    <View className="] absolute bottom-0 flex h-[60px] w-full flex-row items-center justify-around border-t-[1px] border-[#ddd] bg-white">
       <TouchableHighlight
         onPress={() => {
           router.push("/");

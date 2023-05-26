@@ -89,6 +89,7 @@ const Index = () => {
         {jobsRouter.isError && (
           <Text className="text-red-500">{jobsRouter.error.message}</Text>
         )}
+        <View className="mt-5 h-10" />
       </ScrollView>
     </SafeAreaView>
   );

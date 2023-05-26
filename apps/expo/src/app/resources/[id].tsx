@@ -42,6 +42,7 @@ const Post: React.FC = () => {
           {isLoading && <Text>Loading...</Text>}
           {error && <Text className="text-red-500">{error.message}</Text>}
         </View>
+        <View className="mt-5 h-10" />
       </ScrollView>
     </SafeAreaView>
   );
