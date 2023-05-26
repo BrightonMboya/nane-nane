@@ -81,7 +81,7 @@ const Index = () => {
 
         <View className="mt-[80px] flex flex-col items-center justify-center space-y-5 ">
           <TextInput
-            className="h-[50px] w-[300px] rounded-md border-[1px] border-gray-500 px-5 "
+            className="h-[50px] w-[300px] rounded-md border-[1px] border-[#ddd] px-5 "
             placeholder="Search for your favourite profiles"
             onChangeText={(text) => setSearch(text)}
             defaultValue={search}

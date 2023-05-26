@@ -85,3 +85,9 @@ model Jobs {
 }
 
 
+model Communities {
+    id String @id @default(cuid())
+    name String
+    description String
+    imagePreview String
+}
