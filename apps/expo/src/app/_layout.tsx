@@ -13,7 +13,7 @@ import {
   useRouter,
 } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { ClerkProvider } from "@clerk/clerk-expo";
+import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 
 import { TRPCProvider } from "~/utils/api";
 
@@ -22,23 +22,30 @@ import { TRPCProvider } from "~/utils/api";
 const RootLayout = () => {
   return (
     <ClerkProvider publishableKey="pk_test_aG9uZXN0LWJvYmNhdC01OS5jbGVyay5hY2NvdW50cy5kZXYk">
-      <TRPCProvider>
-        <SafeAreaProvider className="relative">
-          {/*
+      <SignedIn>
+        <TRPCProvider>
+          <SafeAreaProvider className="relative">
+            {/*
           The Stack component displays the current page.
           It also allows you to configure your screens 
         */}
-          <Stack
-          // screenOptions={{
-          //   headerStyle: {
-          //     backgroundColor: "#f472b6",
-          //   },
-          // }}
-          />
-          <StatusBar />
-          <BottomTab />
-        </SafeAreaProvider>
-      </TRPCProvider>
+            <Stack
+            // screenOptions={{
+            //   headerStyle: {
+            //     backgroundColor: "#f472b6",
+            //   },
+            // }}
+            />
+            <StatusBar />
+            <BottomTab />
+          </SafeAreaProvider>
+        </TRPCProvider>
+      </SignedIn>
+      <SignedOut>
+        <Text className="pt-[200px] text-center text-xl">
+          You are not Signed In{" "}
+        </Text>
+      </SignedOut>
     </ClerkProvider>
   );
 };
