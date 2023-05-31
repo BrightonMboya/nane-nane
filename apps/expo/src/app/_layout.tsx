@@ -13,6 +13,7 @@ import {
   useRouter,
 } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { ClerkProvider } from "@clerk/clerk-expo";
 
 import { TRPCProvider } from "~/utils/api";
 
@@ -20,23 +21,25 @@ import { TRPCProvider } from "~/utils/api";
 // It wraps your pages with the providers they need
 const RootLayout = () => {
   return (
-    <TRPCProvider>
-      <SafeAreaProvider className="relative">
-        {/*
+    <ClerkProvider publishableKey="pk_test_aG9uZXN0LWJvYmNhdC01OS5jbGVyay5hY2NvdW50cy5kZXYk">
+      <TRPCProvider>
+        <SafeAreaProvider className="relative">
+          {/*
           The Stack component displays the current page.
           It also allows you to configure your screens 
         */}
-        <Stack
-        // screenOptions={{
-        //   headerStyle: {
-        //     backgroundColor: "#f472b6",
-        //   },
-        // }}
-        />
-        <StatusBar />
-        <BottomTab />
-      </SafeAreaProvider>
-    </TRPCProvider>
+          <Stack
+          // screenOptions={{
+          //   headerStyle: {
+          //     backgroundColor: "#f472b6",
+          //   },
+          // }}
+          />
+          <StatusBar />
+          <BottomTab />
+        </SafeAreaProvider>
+      </TRPCProvider>
+    </ClerkProvider>
   );
 };
 
