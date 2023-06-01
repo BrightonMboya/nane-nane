@@ -12,17 +12,39 @@ import {
   Stack,
   useRouter,
 } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 import { StatusBar } from "expo-status-bar";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 
 import { TRPCProvider } from "~/utils/api";
 import SignUpScreen from "~/components/Signup";
 
+// fn to secure the cache from clerk
+const tokenCache = {
+  async getToken(key: string) {
+    try {
+      return SecureStore.getItemAsync(key);
+    } catch (err) {
+      return null;
+    }
+  },
+  async saveToken(key: string, value: string) {
+    try {
+      return SecureStore.setItemAsync(key, value);
+    } catch (err) {
+      return;
+    }
+  },
+};
+
 // This is the main layout of the app
 // It wraps your pages with the providers they need
 const RootLayout = () => {
   return (
-    <ClerkProvider publishableKey="pk_test_aG9uZXN0LWJvYmNhdC01OS5jbGVyay5hY2NvdW50cy5kZXYk">
+    <ClerkProvider
+      publishableKey="pk_test_aG9uZXN0LWJvYmNhdC01OS5jbGVyay5hY2NvdW50cy5kZXYk"
+      tokenCache={tokenCache}
+    >
       <SignedIn>
         <TRPCProvider>
           <SafeAreaProvider className="relative">

@@ -11,6 +11,7 @@ export default function SignUpScreen() {
   const [code, setCode] = React.useState("");
   const [error, setError] = React.useState("");
   const [verifyEmailError, setVerifyEmailError] = React.useState("");
+
   // start the sign up process.
   const onSignUpPress = async () => {
     if (!isLoaded) {
