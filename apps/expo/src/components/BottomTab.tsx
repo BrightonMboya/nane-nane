@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import IoniIcons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -16,7 +16,6 @@ const BottomTab: React.FC = () => {
       >
         <AntDesign name="home" size={25} color="#ddd" />
       </TouchableHighlight>
-      {/* <AntDesign name="search1" size={25} color="#ddd" /> */}
       <TouchableOpacity
         onPress={() => {
           router.push("/communities");
