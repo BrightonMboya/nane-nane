@@ -16,6 +16,7 @@ import { StatusBar } from "expo-status-bar";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 
 import { TRPCProvider } from "~/utils/api";
+import SignUpScreen from "~/components/Signup";
 
 // This is the main layout of the app
 // It wraps your pages with the providers they need
@@ -42,9 +43,7 @@ const RootLayout = () => {
         </TRPCProvider>
       </SignedIn>
       <SignedOut>
-        <Text className="pt-[200px] text-center text-xl">
-          You are not Signed In{" "}
-        </Text>
+        <SignUpScreen />
       </SignedOut>
     </ClerkProvider>
   );
