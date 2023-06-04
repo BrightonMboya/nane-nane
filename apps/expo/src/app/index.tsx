@@ -6,10 +6,7 @@ import IoniIcons from "react-native-vector-icons/Ionicons";
 import { Stack, useRouter } from "expo-router";
 
 import { api, type RouterOutputs } from "~/utils/api";
-
-global.TextEncoder = require("text-encoding").TextEncoder;
-
-// import SideBar from "~/components/Sidebar";
+import SideBar from "~/components/SideBar";
 
 interface Post {
   id: string;
@@ -74,7 +71,7 @@ const Index = () => {
             />
           </TouchableOpacity> */}
 
-          {/* <SideBar /> */}
+          <SideBar />
         </View>
 
         <View className="mt-[80px] flex flex-col items-center justify-center space-y-5 ">
