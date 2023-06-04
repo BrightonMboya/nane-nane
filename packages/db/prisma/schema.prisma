@@ -7,63 +7,124 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
 }
 
 model Post {
-    id      String @id @default(cuid())
+    id      String  @id @default(cuid())
     title   String?
     content String?
     name    String?
-
-}
-
-// NextAuth.js Models
-// NOTE: When using postgresql, mysql or sqlserver, 
-// uncomment the @db.Text annotations below
-// @see https://next-auth.js.org/schemas/models
-model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String? // @db.Text
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-    @@unique([provider, providerAccountId])
-}
-
-model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
+    id               String       @id @default(uuid())
+    username         String       @unique
+    name             String?
+    bio              String?      @db.Text
+    website          String?
+    email            String?      @unique
+    provider         String
+    password         String?
+    badge            String?
+    bgImage          String?
+    profileImage     String?
+    createdAt        DateTime     @default(now())
+    followersCount   Int          @default(0)
+    followingCount   Int          @default(0)
+    likeCount        Int          @default(0)
+    tweets           Tweet[]
+    likes            Like[]
+    retweets         Retweet[]
+    replies          Reply[]
+    bookmarks        Bookmark[]
+    messagesSent     Message[]    @relation("sender")
+    messagesReceived Message[]    @relation("recipient")
+    followers        UserFollow[] @relation("follower")
+    following        UserFollow[] @relation("following")
+}
+
+model UserFollow {
+    id          String   @id @default(uuid())
+    follower    User     @relation("follower", fields: [followerId], references: [id])
+    followerId  String
+    following   User     @relation("following", fields: [followingId], references: [id])
+    followingId String
+    createdAt   DateTime @default(now())
+}
+
+model Message {
+    id          String   @id @default(uuid())
+    sender      User     @relation("sender", fields: [senderId], references: [id])
+    senderId    String
+    recipient   User     @relation("recipient", fields: [recipientId], references: [id])
+    recipientId String
+    body        String   @db.Text
+    image       String?
+    createdAt   DateTime @default(now())
+}
+
+model Tweet {
+    id     String @id @default(uuid())
+    userId String
+    body   String @db.Text
+
+    likeCount    Int        @default(0)
+    retweetCount Int        @default(0)
+    replyCount   Int        @default(0)
+    createdAt    DateTime   @default(now())
+    user         User       @relation(fields: [userId], references: [id])
+    likes        Like[]
+    retweets     Retweet[]
+    replies      Reply[]
+    Bookmark     Bookmark[]
+}
+
+model Retweet {
+    id          String   @id @default(uuid())
+    tweetId     String
+    userId      String
+    retweetDate DateTime @default(now())
+    tweet       Tweet    @relation(fields: [tweetId], references: [id])
+    user        User     @relation(fields: [userId], references: [id])
+}
+
+model Like {
+    id        String   @id @default(uuid())
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
+    tweet     Tweet    @relation(fields: [tweetId], references: [id])
+    tweetId   String
+    createdAt DateTime @default(now())
+}
+
+model Reply {
+    id      String @id @default(uuid())
+    user    User   @relation(fields: [userId], references: [id])
+    userId  String
+    tweet   Tweet  @relation(fields: [tweetId], references: [id])
+    tweetId String
+    body    String @db.Text
+
+    createdAt DateTime @default(now())
+}
+
+model Bookmark {
+    id        String   @id @default(uuid())
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
+    tweet     Tweet    @relation(fields: [tweetId], references: [id])
+    tweetId   String
+    createdAt DateTime @default(now())
 }
 
 model Profiles {
-    id  String @id @default(cuid())
-    name String
+    id        String @id @default(cuid())
+    name      String
     yearGroup Int
-    email String
+    email     String
 }
 
 model VerificationToken {
@@ -75,19 +136,18 @@ model VerificationToken {
 }
 
 model Jobs {
-    id String @id @default(cuid())
-    title String
-    company String
-    location String
+    id          String   @id @default(cuid())
+    title       String
+    company     String
+    location    String
     description String
-    link String
-    createdAt DateTime @default(now())
+    link        String
+    createdAt   DateTime @default(now())
 }
 
-
 model Communities {
-    id String @id @default(cuid())
-    name String
-    description String
+    id           String @id @default(cuid())
+    name         String
+    description  String
     imagePreview String
 }
