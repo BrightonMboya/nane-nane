@@ -22,5 +22,19 @@ export const resourcesRouter = createTRPCRouter({
         )
         .mutation(({ ctx, input }) => {
             return ctx.prisma.jobs.create({ data: input });
-        })
+        }),
+    add: publicProcedure
+        .input(
+            z.object({
+                title: z.string().min(1),
+                company: z.string().min(1),
+                location: z.string().min(1),
+                description: z.string().min(1),
+                link: z.string().min(1),
+            })
+        )
+        .mutation(({ ctx, input }) => {
+            return ctx.prisma.jobs.create({ data: input });
+        }
+        ),
 })

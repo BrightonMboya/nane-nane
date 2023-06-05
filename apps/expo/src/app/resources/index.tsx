@@ -1,7 +1,6 @@
 import {
   ScrollView,
   Text,
-  Touchable,
   TouchableHighlight,
   TouchableOpacity,
   View,
@@ -41,6 +40,7 @@ const JobPost: React.FC<{
 
 const Index = () => {
   const jobsRouter = api.resources.all.useQuery();
+  const router = useRouter();
   return (
     <SafeAreaView className="relative bg-[#f2f2f2] ">
       <ScrollView>
@@ -50,7 +50,9 @@ const Index = () => {
             <Text className="font-medium">
               Want to help the ALU community get hired?
             </Text>
-            <TouchableHighlight>
+            <TouchableHighlight
+              onPress={() => router.push("/resources/addJob")}
+            >
               <Text className="rounded-base mt-3 w-[170px] bg-indigo-500 px-1  py-2  text-center text-base text-white">
                 Share Opportunity
               </Text>

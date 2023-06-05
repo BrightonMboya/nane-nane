@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Button, Image, ScrollView, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  Image,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import IoniIcons from "react-native-vector-icons/Ionicons";
@@ -58,7 +66,7 @@ const Index = () => {
       <ScrollView>
         <Stack.Screen options={{ title: "Home Page", headerShown: false }} />
         <View className="">
-          {/* <TouchableOpacity
+          <TouchableOpacity
             onPress={() => {
               router.push(`/profile`);
             }}
@@ -69,7 +77,7 @@ const Index = () => {
               }}
               className="absolute right-5 top-5 h-10 w-10 rounded-full"
             />
-          </TouchableOpacity> */}
+          </TouchableOpacity>
 
           <SideBar />
         </View>
