@@ -16,7 +16,15 @@ const AddJob = () => {
     "font-regular w-[350px] rounded-md border-b-[1px] border-[#000] pb-2 pt-3";
   const titleClassName = "text-[18px] font-medium";
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    console.log(
+      form.title,
+      form.company,
+      form.location,
+      form.description,
+      form.link,
+    );
+  }
 
   return (
     <SafeAreaView>
@@ -31,7 +39,7 @@ const AddJob = () => {
             <Text className={titleClassName}>Job Title</Text>
             <TextInput
               placeholder="Add the job Title"
-              value={formStates.title}
+              value={form.title}
               placeholderTextColor="#000"
               className={inputClassName}
               onChangeText={(text) => setForm({ ...form, title: text })}
@@ -42,7 +50,7 @@ const AddJob = () => {
             <Text className={titleClassName}>Company</Text>
             <TextInput
               placeholder="Google Inc"
-              value={formStates.company}
+              value={form.company}
               onChangeText={(text) => setForm({ ...form, company: text })}
               className={inputClassName}
               placeholderTextColor="#000"
@@ -53,7 +61,7 @@ const AddJob = () => {
             <Text className={titleClassName}>Location</Text>
             <TextInput
               placeholder="Kigali, Rwanda"
-              value={formStates.location}
+              value={form.location}
               onChangeText={(text) => setForm({ ...form, location: text })}
               className={inputClassName}
               placeholderTextColor="#000"
@@ -65,7 +73,7 @@ const AddJob = () => {
             <TextInput
               placeholder="Add the job Description"
               numberOfLines={40}
-              value={formStates.description}
+              value={form.description}
               onChangeText={(text) => setForm({ ...form, description: text })}
               className={inputClassName}
               placeholderTextColor="#000"
@@ -76,7 +84,7 @@ const AddJob = () => {
             <Text className={titleClassName}>External Link</Text>
             <TextInput
               placeholder="Add link for application"
-              value={formStates.link}
+              value={form.link}
               onChangeText={(text) => setForm({ ...form, link: text })}
               className={inputClassName}
               placeholderTextColor="#000"
