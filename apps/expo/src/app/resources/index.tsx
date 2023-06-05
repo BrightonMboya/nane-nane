@@ -50,13 +50,11 @@ const Index = () => {
             <Text className="font-medium">
               Want to help the ALU community get hired?
             </Text>
-            <TouchableHighlight
-              onPress={() => router.push("/resources/addJob")}
-            >
+            <TouchableOpacity onPress={() => router.push("/resources/addJob")}>
               <Text className="rounded-base mt-3 w-[170px] bg-indigo-500 px-1  py-2  text-center text-base text-white">
-                Share Opportunity
+                Share Opportunity!
               </Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
           <View className="mt-5 flex w-[350px] flex-col items-center rounded-md border-[1px]  border-[#ddd] bg-[#fffdfd] py-5 shadow-md">

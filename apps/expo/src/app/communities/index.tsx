@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Button,
   Image,
   ScrollView,
   Text,
