@@ -2,16 +2,11 @@ import React from "react";
 import Constants from "expo-constants";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
+import { createWSClient, wsLink } from "@trpc/client/links/wsLink";
 import { createTRPCReact } from "@trpc/react-query";
 import superjson from "superjson";
 
 import { type AppRouter } from "@acme/api";
-
-/**
- * A set of typesafe hooks for consuming your API.
- */
-export const api = createTRPCReact<AppRouter>();
-export { type RouterInputs, type RouterOutputs } from "@acme/api";
 
 /**
  * Extend this function when going to production by
@@ -40,6 +35,30 @@ const getBaseUrl = () => {
 };
 
 /**
+ * function to get the end links for the client
+ */
+
+const url = `${getBaseUrl()}/api/trpc`;
+function getEndingLink() {
+  if (typeof window === "undefined") {
+    return httpBatchLink({
+      url,
+    });
+  }
+  const client = createWSClient({
+    url: process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:3011",
+  });
+
+  return wsLink({ client });
+}
+
+/**
+ * A set of typesafe hooks for consuming your API.
+ */
+export const api = createTRPCReact<AppRouter>();
+export { type RouterInputs, type RouterOutputs } from "@acme/api";
+
+/**
  * A wrapper for your app that provides the TRPC context.
  * Use only in _app.tsx
  */
@@ -50,11 +69,12 @@ export const TRPCProvider: React.FC<{ children: React.ReactNode }> = ({
   const [trpcClient] = React.useState(() =>
     api.createClient({
       transformer: superjson,
-      links: [
-        httpBatchLink({
-          url: `${getBaseUrl()}/api/trpc`,
-        }),
-      ],
+      links: [getEndingLink()],
+      // links: [
+      //   httpBatchLink({
+      //     url: `${getBaseUrl()}/api/trpc`,
+      //   }),
+      // ],
     }),
   );
 
