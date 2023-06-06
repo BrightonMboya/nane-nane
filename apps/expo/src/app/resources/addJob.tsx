@@ -9,9 +9,20 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Stack } from "expo-router";
+
+import { api } from "~/utils/api";
 
 const AddJob = () => {
   const formStates = {
+    title: "",
+    description: "",
+    location: "",
+    company: "",
+    link: "",
+  };
+
+  const freshFormStates = {
     title: "",
     description: "",
     location: "",
@@ -23,18 +34,24 @@ const AddJob = () => {
     "font-regular w-[350px] rounded-md border-b-[1px] border-[#000] pb-2 pt-3";
   const titleClassName = "text-[18px] font-medium";
 
+  const utils = api.useContext();
+
+  const { mutate, error } = api.resources.add.useMutation({
+    async onSuccess() {
+      // invalidating the cache
+      //@ts-ignore
+      await utils.resources.all.invalidate();
+    },
+  });
+
   function handleSubmit() {
-    console.log(
-      form.title,
-      form.company,
-      form.location,
-      form.description,
-      form.link,
-    );
+    mutate(form);
+    setForm(freshFormStates);
   }
 
   return (
     <SafeAreaView>
+      <Stack.Screen options={{ title: "" }} />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={100}
@@ -107,6 +124,12 @@ const AddJob = () => {
                 Share Opportunity!
               </Text>
             </TouchableHighlight>
+
+            {error?.data?.zodError?.fieldErrors.content && (
+              <Text className="mb-2 text-red-500">
+                {error.data.zodError.fieldErrors.content}
+              </Text>
+            )}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
