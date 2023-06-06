@@ -70,6 +70,12 @@ export const TRPCProvider: React.FC<{ children: React.ReactNode }> = ({
     api.createClient({
       transformer: superjson,
       links: [getEndingLink()],
+      // headers() {
+      //   if (ctx?.req) {
+      //     return { ...ctx.req.headers };
+      //   }
+      //   return {};
+      // },
       // links: [
       //   httpBatchLink({
       //     url: `${getBaseUrl()}/api/trpc`,

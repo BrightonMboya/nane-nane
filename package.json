@@ -27,6 +27,7 @@
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",
     "react-native-vector-icons": "^9.2.0",
+    "ts-node-dev": "^2.0.0",
     "turbo": "^1.9.6",
     "typescript": "^5.0.4"
   },
