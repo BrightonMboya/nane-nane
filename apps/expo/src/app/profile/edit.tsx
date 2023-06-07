@@ -1,7 +1,7 @@
 import { Image, ScrollView, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack, useRouter } from "expo-router";
+import { Stack } from "expo-router";
 import { useAuth, useUser } from "@clerk/clerk-expo";
 
 import { api } from "~/utils/api";
@@ -36,7 +36,6 @@ const Index = () => {
   });
   console.log(data, "data");
   const { signOut } = useAuth();
-  const router = useRouter();
   return (
     <SafeAreaView className="relative bg-[#f2f2f2]">
       <Stack.Screen
@@ -60,15 +59,9 @@ const Index = () => {
                 <Text>{profileData.location}</Text>
                 <Text>{`Class of ${profileData.classOf}`}</Text>
               </View>
-              <View className="flex flex-row  items-center gap-3 pt-2">
-                <TouchableOpacity onPress={() => signOut()}>
-                  <Text className="font-medium text-blue-500">Sign Out</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={() => router.push("/profile/edit")}>
-                  <Text>Edit Profile</Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity onPress={() => signOut()}>
+                <Text className="pt-2 font-medium text-blue-500">Sign Out</Text>
+              </TouchableOpacity>
             </View>
           </View>
 

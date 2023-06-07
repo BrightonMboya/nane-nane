@@ -16,7 +16,13 @@ export const userRouter = createTRPCRouter({
             email: z.string().email(),
         }))
         .query(({ ctx, input }) => {
-            return ctx.prisma.user.findUnique({ where: { email: input.email } });
+            return ctx.prisma.user.findUnique({
+                where: { email: input.email },
+                select: {
+                    username: true,
+                    bio: true,
+                }
+            });
         })
 
 })
