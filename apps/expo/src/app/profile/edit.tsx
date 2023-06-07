@@ -9,8 +9,8 @@ import {
 } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
-import { useAuth, useUser } from "@clerk/clerk-expo";
+import { Stack, useRouter } from "expo-router";
+import { useUser } from "@clerk/clerk-expo";
 
 import { api } from "~/utils/api";
 
@@ -20,24 +20,30 @@ const Index = () => {
     email: user?.primaryEmailAddress?.emailAddress as string,
   });
 
-  const [userName, setUserName] = React.useState("");
-  const [currentRole, setCurrentRole] = React.useState("");
-
-  // const profileInfo = {
-  //   userName: data?.username as string,
-  //   currentRole: data?.currentRole as string,
-  // };
   const profileInfo = {
     userName: "",
     currentRole: "",
     location: "",
     about: "",
+    email: "",
+    classOf: "",
   };
 
   const [profileData, setProfileData] = React.useState(profileInfo);
+  const router = useRouter();
+  const { mutate, error } = api.users.editProfile.useMutation({
+    async onSuccess() {
+      // invalidating the cache
+      //@ts-ignore
+      await utils.users.profile.invalidate();
+      router.push("/profile");
+    },
+  });
+  const utils = api.useContext();
 
   function editProfile() {
-    console.log(profileData.userName, profileData.currentRole);
+    mutate(profileData);
+    setProfileData(profileInfo);
   }
 
   React.useEffect(() => {
@@ -47,6 +53,8 @@ const Index = () => {
       currentRole: data?.currentRole as string,
       location: data?.location as string,
       about: data?.about as string,
+      email: user?.primaryEmailAddress?.emailAddress as string,
+      classOf: data?.classOf as string,
     });
     return;
   }, [data]);
@@ -125,6 +133,19 @@ const Index = () => {
                   className="font-regular w-[250px] rounded-md border-b-[1px] border-[#000] pb-2 "
                 />
               </View>
+              <View className="flex flex-col gap-1 pl-5 pt-5">
+                <Text className="text-[16px] font-medium">Class Of</Text>
+                <TextInput
+                  value={profileData.classOf}
+                  placeholder="The Year you started studies"
+                  numberOfLines={40}
+                  placeholderTextColor={"#000"}
+                  onChangeText={(text) =>
+                    setProfileData({ ...profileData, classOf: text })
+                  }
+                  className="font-regular w-[250px] rounded-md border-b-[1px] border-[#000] pb-2 "
+                />
+              </View>
             </View>
 
             <View className="mt-5 min-h-min w-[350px] rounded-md border-[1px] border-[#ddd] bg-white pb-3 shadow-md">
@@ -132,17 +153,14 @@ const Index = () => {
                 <Text className="text-base">Mentoring Areas</Text>
               </View>
             </View>
-
-            <View className="mt-5 min-h-min w-[350px] rounded-md border-[1px] border-[#ddd] bg-white pb-3 shadow-md">
-              <View className=" pl-5 pt-5">
-                <Text className="text-base">Experience</Text>
+            <TouchableOpacity onPress={editProfile}>
+              <View className="mt-5 w-[100px] rounded-md bg-pink-500 ">
+                <Text className="px-4 py-2 text-center text-lg font-medium text-white">
+                  Edit
+                </Text>
               </View>
-              <TouchableOpacity onPress={editProfile}>
-                <View className="flex h-10 w-[350px] flex-row items-center justify-center rounded-md border-[1px] border-[#ddd] bg-[#f2f2f2] shadow-md">
-                  <Text className="text-base">Edit Profile</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
+
             <View className="mt-5 h-10" />
           </View>
         </ScrollView>
