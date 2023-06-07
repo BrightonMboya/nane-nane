@@ -20,7 +20,10 @@ export const userRouter = createTRPCRouter({
                 where: { email: input.email },
                 select: {
                     username: true,
-                    bio: true,
+                    about: true,
+                    currentRole: true,
+                    classOf: true,
+
                 }
             });
         })

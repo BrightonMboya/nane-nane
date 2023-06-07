@@ -23,13 +23,12 @@ model User {
     id               String       @id @default(uuid())
     username         String?       @unique
     name             String?
-    website          String?
+    location          String?
     email            String?      @unique
     about            String?      @db.Text
     currentRole     String?
     classOf          String?
     mentoringAreas  String?      @db.Text
-    bgImage          String?
     profileImage     String?
     createdAt        DateTime?     @default(now())
     followersCount   Int          @default(0)
