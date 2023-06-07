@@ -14,6 +14,12 @@ import { ZodError } from "zod";
 import { getServerSession, type Session } from "@acme/auth";
 import { prisma } from "@acme/db";
 
+import EventEmitter from "stream"
+import ws from "ws";
+import { IncomingMessage } from "http";
+import { NodeHTTPCreateContextFnOptions } from "@trpc/server/dist/adapters/node-http";
+import { TRPCClientIncomingMessage } from "@trpc/server/rpc";
+
 /**
  * 1. CONTEXT
  *
@@ -26,6 +32,8 @@ import { prisma } from "@acme/db";
 type CreateContextOptions = {
   session: Session | null;
 };
+
+const eventEmitter = new EventEmitter();
 
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use
@@ -40,6 +48,7 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     session: opts.session,
     prisma,
+    eventEmitter,
   };
 };
 
@@ -48,7 +57,8 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createTRPCContext = async (opts: CreateNextContextOptions) => {
+export const createTRPCContext = async (
+  opts: CreateNextContextOptions | NodeHTTPCreateContextFnOptions<IncomingMessage, ws>) => {
   const { req, res } = opts;
 
   // Get the session from the server using the unstable_getServerSession wrapper function
