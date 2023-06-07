@@ -1,6 +1,7 @@
 import { FlatList, Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
+import { useUser } from "@clerk/clerk-expo";
 
 const profileData = {
   name: "Asha Bonge",
@@ -26,11 +27,13 @@ const profileData = {
 };
 
 const Index = () => {
+  const { isLoaded, isSignedIn, user } = useUser();
+  console.log(user?.primaryEmailAddress?.emailAddress);
   return (
     <SafeAreaView className="relative bg-[#f2f2f2]">
       <Stack.Screen
         options={{
-          title: "Profile Page",
+          title: "",
         }}
       />
       <ScrollView>
@@ -38,7 +41,7 @@ const Index = () => {
           <View className="relative mt-[25px] h-[160px] w-[350px] rounded-md border-[1px] border-[#ddd] bg-white shadow-md">
             <Image
               source={{
-                uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60.jpg",
+                uri: user?.profileImageUrl,
               }}
               className="absolute left-[37%] top-[-30px] h-20 w-20 rounded-full"
             />

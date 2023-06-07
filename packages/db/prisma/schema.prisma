@@ -21,17 +21,16 @@ model Post {
 
 model User {
     id               String       @id @default(uuid())
-    username         String       @unique
+    username         String?       @unique
     name             String?
     bio              String?      @db.Text
     website          String?
     email            String?      @unique
-    provider         String
     password         String?
     badge            String?
     bgImage          String?
     profileImage     String?
-    createdAt        DateTime     @default(now())
+    createdAt        DateTime?     @default(now())
     followersCount   Int          @default(0)
     followingCount   Int          @default(0)
     likeCount        Int          @default(0)

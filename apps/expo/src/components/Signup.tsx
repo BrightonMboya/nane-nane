@@ -2,6 +2,8 @@ import * as React from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
 
+import { api } from "~/utils/api";
+
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
 
@@ -11,6 +13,9 @@ export default function SignUpScreen() {
   const [code, setCode] = React.useState("");
   const [error, setError] = React.useState("");
   const [verifyEmailError, setVerifyEmailError] = React.useState("");
+
+  // recording the userEmail to our database
+  const { mutate } = api.users.createEmail.useMutation();
 
   // start the sign up process.
   const onSignUpPress = async () => {
@@ -45,6 +50,7 @@ export default function SignUpScreen() {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code,
       });
+      mutate({ email: completeSignUp.emailAddress as string });
 
       await setActive({ session: completeSignUp.createdSessionId });
     } catch (err: any) {
