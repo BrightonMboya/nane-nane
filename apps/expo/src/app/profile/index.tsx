@@ -7,13 +7,6 @@ import { useAuth, useUser } from "@clerk/clerk-expo";
 import { api } from "~/utils/api";
 
 const profileData = {
-  name: "Asha Bonge",
-  currentRole: "Software Engineer",
-  location: "London, UK",
-  classOf: "2019",
-  about: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum, quibusdam, quia, quos voluptates voluptate voluptatibus quas doloribus quidem voluptatem. Quisquam voluptatum`,
-  profilePic:
-    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60.jpg",
   mentoringAread: ["Software Engineering", "Product Management", "UX Design"],
   experience: [
     {
@@ -46,7 +39,7 @@ const Index = () => {
       />
       <ScrollView>
         <View className="flex flex-col items-center ">
-          <View className="relative mt-[25px] h-[160px] w-[350px] rounded-md border-[1px] border-[#ddd] bg-white shadow-md">
+          <View className="relative mt-[25px] max-h-[300px] w-[350px] rounded-md border-[1px] border-[#ddd] bg-white shadow-md">
             <Image
               source={{
                 uri: user?.profileImageUrl,
@@ -55,18 +48,26 @@ const Index = () => {
             />
             <View className="mt-[60px] flex flex-col items-center">
               <Text className="text-lg">{data?.username}</Text>
-              <Text>{profileData.currentRole}</Text>
+              <Text>{data?.currentRole}</Text>
               <View className="flex flex-row gap-3 pt-[10px]">
-                <Text>{profileData.location}</Text>
-                <Text>{`Class of ${profileData.classOf}`}</Text>
+                <Text>{data?.location}</Text>
+                <Text>{`Class of ${data?.classOf}`}</Text>
               </View>
               <View className="flex flex-row  items-center gap-3 pt-2">
                 <TouchableOpacity onPress={() => signOut()}>
-                  <Text className="font-medium text-blue-500">Sign Out</Text>
+                  <View className="mb-5 h-[40px] w-[100px] rounded-md bg-red-500">
+                    <Text className="px-4 py-2 text-center text-base font-medium text-white">
+                      Sign Out
+                    </Text>
+                  </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => router.push("/profile/edit")}>
-                  <Text>Edit Profile</Text>
+                  <View className="mb-5 h-[40px] w-[110px] rounded-md bg-indigo-500">
+                    <Text className="px-4 py-2 text-center text-base font-medium text-white">
+                      Edit Profile
+                    </Text>
+                  </View>
                 </TouchableOpacity>
               </View>
             </View>
@@ -76,7 +77,7 @@ const Index = () => {
             <View className=" pl-5 pt-5">
               <Text className="text-base">About</Text>
               <Text className="mt-3 text-base ">
-                {data?.bio ? data.bio : "No Bio "}
+                {data?.about ? data.about : "No Bio "}
               </Text>
             </View>
           </View>
