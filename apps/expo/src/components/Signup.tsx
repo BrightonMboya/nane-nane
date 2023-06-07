@@ -9,6 +9,7 @@ export default function SignUpScreen() {
 
   const [emailAddress, setEmailAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [userName, setUserName] = React.useState("");
   const [pendingVerification, setPendingVerification] = React.useState(false);
   const [code, setCode] = React.useState("");
   const [error, setError] = React.useState("");
@@ -50,7 +51,10 @@ export default function SignUpScreen() {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code,
       });
-      mutate({ email: completeSignUp.emailAddress as string });
+      mutate({
+        email: completeSignUp.emailAddress as string,
+        username: userName,
+      });
 
       await setActive({ session: completeSignUp.createdSessionId });
     } catch (err: any) {
@@ -68,7 +72,16 @@ export default function SignUpScreen() {
             Create an account to get started
           </Text>
           <View className="mt-10">
-            {/* <Text className="text-sm font-medium">Email Address</Text> */}
+            <TextInput
+              autoCapitalize="none"
+              value={userName}
+              placeholder="John Doe"
+              placeholderTextColor="#383838"
+              className="mt-2 w-full border-b-[1px] border-[#383838] py-2"
+              onChangeText={(userName) => setUserName(userName)}
+            />
+          </View>
+          <View className="mt-3">
             <TextInput
               autoCapitalize="none"
               value={emailAddress}
@@ -79,8 +92,7 @@ export default function SignUpScreen() {
             />
           </View>
 
-          <View>
-            {/* <Text className="mt-5 text-sm font-medium">Email Address</Text> */}
+          <View className="mt-3">
             <TextInput
               value={password}
               placeholder="Password..."

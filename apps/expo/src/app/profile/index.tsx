@@ -1,7 +1,8 @@
 import { FlatList, Image, ScrollView, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
-import { useUser } from "@clerk/clerk-expo";
+import { useAuth, useUser } from "@clerk/clerk-expo";
 
 const profileData = {
   name: "Asha Bonge",
@@ -29,6 +30,7 @@ const profileData = {
 const Index = () => {
   const { isLoaded, isSignedIn, user } = useUser();
   console.log(user?.primaryEmailAddress?.emailAddress);
+  const { signOut } = useAuth();
   return (
     <SafeAreaView className="relative bg-[#f2f2f2]">
       <Stack.Screen
@@ -52,6 +54,9 @@ const Index = () => {
                 <Text>{profileData.location}</Text>
                 <Text>{`Class of ${profileData.classOf}`}</Text>
               </View>
+              <TouchableOpacity onPress={() => signOut()}>
+                <Text className="pt-2 font-medium text-blue-500">Sign Out</Text>
+              </TouchableOpacity>
             </View>
           </View>
 

@@ -5,9 +5,18 @@ export const userRouter = createTRPCRouter({
     createEmail: publicProcedure
         .input(z.object({
             email: z.string().email(),
+            username: z.string(),
         }))
         .mutation(({ ctx, input }) => {
             return ctx.prisma.user.create({ data: input });
+        }),
+
+    profile: publicProcedure
+        .input(z.object({
+            email: z.string().email(),
+        }))
+        .query(({ ctx, input }) => {
+            return ctx.prisma.user.findUnique({ where: { email: input.email } });
         })
 
 })
