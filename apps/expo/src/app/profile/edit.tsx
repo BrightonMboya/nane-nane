@@ -21,7 +21,7 @@ const Index = () => {
   });
 
   const profileInfo = {
-    userName: "",
+    username: "",
     currentRole: "",
     location: "",
     about: "",
@@ -43,13 +43,14 @@ const Index = () => {
 
   function editProfile() {
     mutate(profileData);
+    console.log(profileData, "profileData");
     setProfileData(profileInfo);
   }
 
   React.useEffect(() => {
     setProfileData({
       ...profileData,
-      userName: data?.username as string,
+      username: data?.username as string,
       currentRole: data?.currentRole as string,
       location: data?.location as string,
       about: data?.about as string,
@@ -82,10 +83,10 @@ const Index = () => {
                 <View className="flex flex-col gap-2">
                   <Text className="text-[16px] font-medium">Name</Text>
                   <TextInput
-                    value={profileData.userName}
+                    value={profileData.username}
                     placeholder="Your Name"
                     onChangeText={(text) =>
-                      setProfileData({ ...profileData, userName: text })
+                      setProfileData({ ...profileData, username: text })
                     }
                     className="font-regular w-[250px] rounded-md border-b-[1px] border-[#000] pb-2 "
                   />
