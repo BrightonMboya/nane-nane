@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { useUser } from "@clerk/clerk-expo";
 
 import { api } from "~/utils/api";
@@ -11,6 +11,7 @@ const Add = () => {
   const [content, setContent] = useState("");
 
   const utils = api.useContext();
+  const router = useRouter();
   const { user } = useUser();
   const { data } = api.users.returnUserName.useQuery({
     email: user?.primaryEmailAddress?.emailAddress as string,
@@ -19,9 +20,8 @@ const Add = () => {
   const { mutate, error } = api.post.create.useMutation({
     async onSuccess() {
       setContent("");
-
-      // @ts-ignore
       await utils.post.all.invalidate();
+      router.push(`/`);
     },
   });
 

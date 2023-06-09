@@ -15,7 +15,7 @@ const TweetCard: React.FC<{
 }> = ({ post }) => {
   const router = useRouter();
   return (
-    <View className="mt-5 h-[130px] w-[350px] rounded-md border-[1px] border-[#ddd] bg-white shadow-md ">
+    <View className="mt-5 min-h-[130px] w-[350px] rounded-md border-[1px] border-[#ddd] bg-white shadow-md ">
       <View className="flex flex-row items-center space-x-3 pl-5 pt-5">
         <Image
           source={{
