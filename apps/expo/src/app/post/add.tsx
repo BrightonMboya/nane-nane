@@ -23,32 +23,25 @@ const Add = () => {
   });
   return (
     <>
-      <SafeAreaView className="relative h-screen bg-[#a09a9a]">
-        <Stack.Screen options={{ title: "Add Page", headerShown: false }} />
+      <SafeAreaView className="relative h-screen bg-[#f2f2f2]">
+        <Stack.Screen options={{ title: "Add Page" }} />
         <View className="fflex flex-col items-center justify-center ">
-          <Text className="text-center text-xl">Adding a new Nane-Nane </Text>
-          <TextInput
-            className="mb-2 mt-5  w-[300px] rounded border-[1px] border-[#ddd] p-2"
-            value={name}
-            onChangeText={setName}
-            placeholder="Name"
-          />
-          <TextInput
-            className="mb-2 mt-5  w-[300px] rounded border-[1px] border-[#ddd] p-2"
-            value={title}
-            onChangeText={setTitle}
-            placeholder="Title"
-          />
+          {/* <Text className="text-center text-xl">
+            What do you want to talk about{" "}
+          </Text> */}
+
           {error?.data?.zodError?.fieldErrors.title && (
             <Text className="mb-2 text-red-500">
               {error.data.zodError.fieldErrors.title}
             </Text>
           )}
           <TextInput
-            className="mb-2 mt-5  w-[300px] rounded border-[1px] border-[#ddd] p-2"
+            className="mb-2 mt-5  w-[300px] rounded border-b-[1px] border-b-[#ddd] p-2 "
             value={content}
             onChangeText={setContent}
-            placeholder="Content"
+            placeholder="What do you want to talk about"
+            numberOfLines={50}
+            multiline={true}
           />
           {error?.data?.zodError?.fieldErrors.content && (
             <Text className="mb-2 text-red-500">
@@ -65,7 +58,9 @@ const Add = () => {
               });
             }}
           >
-            <Text className="font-semibold text-white">Publish post</Text>
+            <Text className="text-center font-semibold text-white">
+              Publish post
+            </Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
