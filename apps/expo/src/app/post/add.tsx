@@ -1,26 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
+import { useUser } from "@clerk/clerk-expo";
 
 import { api } from "~/utils/api";
 
 const Add = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [name, setName] = useState("");
-  const utils = api.useContext();
 
-  //@ts-ignore
+  const utils = api.useContext();
+  const { user } = useUser();
+  const { data } = api.users.returnUserName.useQuery({
+    email: user?.primaryEmailAddress?.emailAddress as string,
+  });
+
   const { mutate, error } = api.post.create.useMutation({
     async onSuccess() {
-      setTitle("");
       setContent("");
-      setName("");
+
       // @ts-ignore
       await utils.post.all.invalidate();
     },
   });
+
   return (
     <>
       <SafeAreaView className="relative h-screen bg-[#f2f2f2]">
@@ -36,12 +40,13 @@ const Add = () => {
             </Text>
           )}
           <TextInput
-            className="mb-2 mt-5  w-[300px] rounded border-b-[1px] border-b-[#ddd] p-2 "
+            className="mb-2 mt-5  w-[300px] rounded border-b-[1px] border-b-[#36454F] p-2 "
             value={content}
             onChangeText={setContent}
             placeholder="What do you want to talk about"
             numberOfLines={50}
             multiline={true}
+            placeholderTextColor="#36454F"
           />
           {error?.data?.zodError?.fieldErrors.content && (
             <Text className="mb-2 text-red-500">
@@ -49,18 +54,15 @@ const Add = () => {
             </Text>
           )}
           <TouchableOpacity
-            className="w-[150px] rounded bg-pink-400  px-4 py-2 "
+            className="mt-5 w-[100px] rounded bg-pink-400  px-4 py-2 "
             onPress={() => {
               mutate({
-                title,
                 content,
-                name,
+                name: data?.username as string,
               });
             }}
           >
-            <Text className="text-center font-semibold text-white">
-              Publish post
-            </Text>
+            <Text className="text-center font-semibold text-white">Post</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
