@@ -57,7 +57,6 @@ const Card: React.FC<{
 };
 
 const Index = () => {
-  const utils = api.useContext();
   const [search, setSearch] = useState<string>("");
   const postQuery = api.post.all.useQuery();
   const router = useRouter();
