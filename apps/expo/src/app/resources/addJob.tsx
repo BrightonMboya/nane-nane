@@ -105,6 +105,7 @@ const AddJob = () => {
                 onChangeText={(text) => setForm({ ...form, description: text })}
                 className={inputClassName}
                 placeholderTextColor="#000"
+                multiline={true}
               />
             </View>
 
