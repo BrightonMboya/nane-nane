@@ -18,7 +18,6 @@ import EventEmitter from "stream"
 import ws from "ws";
 import { IncomingMessage } from "http";
 import { NodeHTTPCreateContextFnOptions } from "@trpc/server/dist/adapters/node-http";
-import { TRPCClientIncomingMessage } from "@trpc/server/rpc";
 
 /**
  * 1. CONTEXT
@@ -101,6 +100,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
  * @see https://trpc.io/docs/router
  */
 export const createTRPCRouter = t.router;
+
 
 /**
  * Public (unauthed) procedure

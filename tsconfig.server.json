@@ -1,13 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist",
     "module": "commonjs",
+    "outDir": "dist",
     "target": "ES2019",
     "lib": ["ES2019", "DOM"],
     "isolatedModules": false,
-    "noEmit": false,
-    "esModuleInterop": true
+    "noEmit": false
   },
-  "include": [".eslintrc.js", "prettier.config.cjs"]
+  "include": ["packages/api/src/**/*.ts", "packages/api/src/**/*.tsx"]
 }
