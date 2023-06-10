@@ -44,30 +44,39 @@ function RoomPage() {
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
-  const { mutateAsync: sendMessagesMutation } =
+  const { mutateAsync: sendMessageMutation } =
     api.room.sendMessage.useMutation();
 
   api.room.onSendMessage.useSubscription(
+    { input: { roomId: roomId } },
     {
-      roomId: roomId as string,
-    },
-    {},
-  );
-  trpc.useSubscription(
-    [
-      "room.onSendMessage",
-      {
-        roomId,
-      },
-    ],
-    {
-      onNext: (message) => {
+      //   onNext: (message) => {
+      //     setMessages((m) => {
+      //       return [...m, message];
+      //     });
+      //   },
+      onData: (message) => {
         setMessages((m) => {
           return [...m, message];
         });
       },
     },
   );
+  //   trpc.useSubscription(
+  //     [
+  //       "room.onSendMessage",
+  //       {
+  //         roomId,
+  //       },
+  //     ],
+  //     {
+  //       onNext: (message) => {
+  //         setMessages((m) => {
+  //           return [...m, message];
+  //         });
+  //       },
+  //     },
+  //   );
 
   if (!session) {
     return (
@@ -94,8 +103,12 @@ function RoomPage() {
           e.preventDefault();
 
           sendMessageMutation({
-            roomId,
-            message,
+            input: {
+              roomId,
+              message,
+            },
+            // roomId,
+            // message,
           });
 
           setMessage("");
