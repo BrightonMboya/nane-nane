@@ -1,8 +1,8 @@
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { randomUUID } from "crypto";
 import * as trpc from "@trpc/server";
+import { observable } from '@trpc/server/observable';
 import { z } from "zod"
-import { customAlphabet } from "nanoid";
 
 
 export enum Events {
@@ -31,7 +31,6 @@ export const messageSubSchema = z.object({
 });
 
 
-
 export const roomRouter = createTRPCRouter({
     sendMessage: publicProcedure.input(
         z.object({
@@ -51,26 +50,31 @@ export const roomRouter = createTRPCRouter({
             };
             ctx.eventEmitter.emit(Events.SEND_MESSAGE, message);
             return message;
-        })
-});
+        }),
 
-export const roomRouters = createRouter()
-
-    .subscription("onSendMessage", {
-        input: messageSubSchema,
-        resolve({ ctx, input }) {
-            return new trpc.Subscription<Message>((emit) => {
+    onSendMessage: publicProcedure
+        .input(
+            z.object({
+                input: messageSubSchema,
+            })
+        )
+        .subscription(({ ctx, input }) => {
+            return observable<Message>((emit) => {
                 function onMessage(data: Message) {
-                    if (input.roomId === data.roomId) {
-                        emit.data(data);
+                    if (input.input.roomId === data.roomId) {
+                        emit.next(data);
                     }
                 }
 
-                ctx.ee.on(Events.SEND_MESSAGE, onMessage);
+                ctx.eventEmitter.on(Events.SEND_MESSAGE, onMessage);
 
                 return () => {
-                    ctx.ee.off(Events.SEND_MESSAGE, onMessage);
+                    ctx.eventEmitter.off(Events.SEND_MESSAGE, onMessage);
                 };
             });
-        },
-    });
+
+        })
+
+
+});
+
