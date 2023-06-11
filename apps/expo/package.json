@@ -13,6 +13,7 @@
   "dependencies": {
     "@clerk/clerk-expo": "^0.17.6",
     "@expo-google-fonts/inter": "^0.2.3",
+    "@expo-google-fonts/poppins": "^0.2.3",
     "@expo/html-elements": "^0.4.2",
     "@expo/metro-config": "^0.7.1",
     "@react-navigation/drawer": "^6.6.2",
@@ -22,6 +23,7 @@
     "@trpc/react-query": "^10.27.1",
     "@trpc/server": "^10.27.1",
     "expo": "^48.0.17",
+    "expo-app-loading": "^2.1.1",
     "expo-auth-session": "~4.0.3",
     "expo-constants": "~14.2.1",
     "expo-crypto": "~12.2.1",

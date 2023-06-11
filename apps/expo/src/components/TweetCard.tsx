@@ -3,6 +3,8 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import IoniIcons from "react-native-vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 
+import P from "./DesignSys/Text";
+
 export interface Post {
   id: string;
   name?: string;
@@ -24,7 +26,7 @@ const TweetCard: React.FC<{
           className="h-10 w-10 rounded-full"
         />
 
-        <Text className="text-base">{post.name}</Text>
+        <P style="text-3xl">{post.name}</P>
         <Button
           title="Follow"
           onPress={() => {
@@ -33,7 +35,7 @@ const TweetCard: React.FC<{
         />
       </View>
 
-      <Text className="mt-2  pl-5">{post.content}</Text>
+      <P style="mt-2 pl-5">{post.content}</P>
       <View className="mt-5 flex flex-row items-center space-x-1 pl-5">
         <AntDesign name="hearto" size={15} color="#ddd" />
         <IoniIcons name="chatbubble-outline" size={15} color="#ddd" />
