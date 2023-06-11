@@ -4,7 +4,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Text,
   View,
 } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
@@ -13,6 +12,7 @@ import { Stack, useRouter } from "expo-router";
 import { useUser } from "@clerk/clerk-expo";
 
 import { api } from "~/utils/api";
+import P from "~/components/DesignSys/Text";
 
 const Index = () => {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -79,9 +79,11 @@ const Index = () => {
                 }}
                 className="absolute left-[37%] top-[-30px] h-20 w-20 rounded-full"
               />
-              <View className="mt-[60px] pl-5">
+              <View className="mt-[60px] pl-[20px] ">
                 <View className="flex flex-col gap-2">
-                  <Text className="text-[16px] font-medium">Name</Text>
+                  <P style="text-[16px]" textType="medium">
+                    Name
+                  </P>
                   <TextInput
                     value={profileData.username}
                     placeholder="Your Name"
@@ -93,7 +95,9 @@ const Index = () => {
                 </View>
 
                 <View className="flex flex-col gap-1 pt-5">
-                  <Text className="text-[16px] font-medium">Current Role</Text>
+                  <P style="text-[16px] " textType="medium">
+                    Current Role
+                  </P>
                   <TextInput
                     value={profileData.currentRole}
                     placeholder="Your current Role"
@@ -106,7 +110,9 @@ const Index = () => {
                 </View>
 
                 <View className="flex flex-col gap-1 pt-5">
-                  <Text className="text-[16px] font-medium">Location</Text>
+                  <P style="text-[16px] " textType="medium">
+                    Location
+                  </P>
                   <TextInput
                     value={profileData.location}
                     placeholder="Your current location"
@@ -122,12 +128,13 @@ const Index = () => {
 
             <View className="mt-5 min-h-min w-[350px] rounded-md border-[1px] border-[#ddd] bg-white pb-3 shadow-md">
               <View className="flex flex-col gap-1 pl-5 pt-5">
-                <Text className="text-[16px] font-medium">About</Text>
+                <P style="text-[16px] font-medium">About</P>
                 <TextInput
                   value={profileData.about}
                   placeholder="Add Your bio"
                   numberOfLines={40}
                   placeholderTextColor={"#000"}
+                  multiline={true}
                   onChangeText={(text) =>
                     setProfileData({ ...profileData, about: text })
                   }
@@ -135,7 +142,9 @@ const Index = () => {
                 />
               </View>
               <View className="flex flex-col gap-1 pl-5 pt-5">
-                <Text className="text-[16px] font-medium">Class Of</Text>
+                <P style="text-[16px] " textType="medium">
+                  Class Of
+                </P>
                 <TextInput
                   value={profileData.classOf}
                   placeholder="The Year you started studies"
@@ -151,14 +160,14 @@ const Index = () => {
 
             <View className="mt-5 min-h-min w-[350px] rounded-md border-[1px] border-[#ddd] bg-white pb-3 shadow-md">
               <View className=" pl-5 pt-5">
-                <Text className="text-base">Mentoring Areas</Text>
+                <P style="text-base">Mentoring Areas</P>
               </View>
             </View>
             <TouchableOpacity onPress={editProfile}>
               <View className="mt-5 w-[100px] rounded-md bg-pink-500 ">
-                <Text className="px-4 py-2 text-center text-lg font-medium text-white">
+                <P style="px-4 py-2 text-center text-lg font-medium text-white">
                   Edit
-                </Text>
+                </P>
               </View>
             </TouchableOpacity>
 
