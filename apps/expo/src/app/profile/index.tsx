@@ -1,10 +1,11 @@
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useRouter } from "expo-router";
 import { useAuth, useUser } from "@clerk/clerk-expo";
 
 import { api } from "~/utils/api";
+import P from "~/components/DesignSys/Text";
 
 const profileData = {
   mentoringAread: ["Software Engineering", "Product Management", "UX Design"],
@@ -47,26 +48,34 @@ const Index = () => {
               className="absolute left-[37%] top-[-30px] h-20 w-20 rounded-full"
             />
             <View className="mt-[60px] flex flex-col items-center">
-              <Text className="text-lg">{data?.username}</Text>
-              <Text>{data?.currentRole}</Text>
+              <P style="text-lg" textType="medium">
+                {data?.username}
+              </P>
+              <P>{data?.currentRole}</P>
               <View className="flex flex-row gap-3 pt-[10px]">
-                <Text>{data?.location}</Text>
-                <Text>{`Class of ${data?.classOf}`}</Text>
+                <P>{data?.location}</P>
+                <P>{`Class of ${data?.classOf}`}</P>
               </View>
               <View className="flex flex-row  items-center gap-3 pt-2">
                 <TouchableOpacity onPress={() => signOut()}>
                   <View className="mb-5 h-[40px] w-[100px] rounded-md bg-red-500">
-                    <Text className="px-4 py-2 text-center text-base font-medium text-white">
+                    <P
+                      style="px-4 py-2 text-center text-base text-white"
+                      textType="medium"
+                    >
                       Sign Out
-                    </Text>
+                    </P>
                   </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => router.push("/profile/edit")}>
                   <View className="mb-5 h-[40px] w-[110px] rounded-md bg-indigo-500">
-                    <Text className="px-4 py-2 text-center text-base font-medium text-white">
+                    <P
+                      style="px-4 py-2 text-center text-base text-white"
+                      textType="medium"
+                    >
                       Edit Profile
-                    </Text>
+                    </P>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -75,23 +84,27 @@ const Index = () => {
 
           <View className="mt-5 min-h-min w-[350px] rounded-md border-[1px] border-[#ddd] bg-white pb-3 shadow-md">
             <View className=" pl-5 pt-5">
-              <Text className="text-base">About</Text>
-              <Text className="mt-3 text-base ">
+              <P style="text-base" textType="medium">
+                About
+              </P>
+              <P style="mt-2 text-sm ">
                 {data?.about ? data.about : "No Bio "}
-              </Text>
+              </P>
             </View>
           </View>
 
           <View className="mt-5 min-h-min w-[350px] rounded-md border-[1px] border-[#ddd] bg-white pb-3 shadow-md">
             <View className=" pl-5 pt-5">
-              <Text className="text-base">Mentoring Areas</Text>
+              <P style="text-base" textType="medium">
+                Mentoring Areas
+              </P>
               <View className="flex flex-col gap-3 pt-3">
                 {profileData.mentoringAread.map((area) => (
                   <View
                     className="max-w-[200px] rounded-md bg-[#f2f2f2] px-3 py-1 text-center"
                     key={area}
                   >
-                    <Text className="text-center">{area}</Text>
+                    <P style="text-center">{area}</P>
                   </View>
                 ))}
               </View>
@@ -100,16 +113,18 @@ const Index = () => {
 
           <View className="mt-5 min-h-min w-[350px] rounded-md border-[1px] border-[#ddd] bg-white pb-3 shadow-md">
             <View className=" pl-5 pt-5">
-              <Text className="text-base">Experience</Text>
+              <P style="text-base" textType="medium">
+                Experience
+              </P>
               <View className="flex flex-col gap-3 pt-3">
                 {profileData.experience.map((exp) => (
                   <View
                     className="max-w-[200px] rounded-md  "
                     key={exp.company}
                   >
-                    <Text className="text-lg font-medium ">{exp.company}</Text>
-                    <Text className="">{exp.role}</Text>
-                    <Text className="text-gray-700">{exp.duration}</Text>
+                    <P style="text-lg font-medium ">{exp.company}</P>
+                    <P style="">{exp.role}</P>
+                    <P style="text-gray-700">{exp.duration}</P>
                   </View>
                 ))}
               </View>
