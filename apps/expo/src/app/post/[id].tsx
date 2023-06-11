@@ -1,7 +1,8 @@
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import { SplashScreen, Stack, useSearchParams } from "expo-router";
 
 import { api } from "~/utils/api";
+import P from "~/components/DesignSys/Text";
 
 const Post: React.FC = () => {
   const { id } = useSearchParams();
@@ -14,8 +15,10 @@ const Post: React.FC = () => {
     <SafeAreaView className="bg-[#1F104A]">
       <Stack.Screen options={{ title: data.title as string }} />
       <View className="h-full w-full p-4">
-        <Text className="py-2 text-3xl font-bold text-white">{data.title}</Text>
-        <Text className="py-4 text-white">{data.content}</Text>
+        <P style="py-2 text-3xl text-white" textType="semiBold">
+          {data.title}
+        </P>
+        <P style="py-4 text-white">{data.content}</P>
       </View>
     </SafeAreaView>
   );

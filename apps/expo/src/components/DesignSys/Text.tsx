@@ -40,7 +40,7 @@ const P: React.FC<{
   const [fontsLoaded] = useFonts({
     regular: Poppins_400Regular,
     medium: Poppins_500Medium,
-    Poppins_600SemiBold,
+    semiBold: Poppins_600SemiBold,
     Poppins_700Bold,
     Poppins_800ExtraBold,
     Poppins_900Black,
@@ -57,16 +57,7 @@ const P: React.FC<{
     return null;
   }
   return (
-    <Text
-      className={`${style} `}
-      style={textStyle}
-      //   style={{
-      //     fontFamily: "regular",
-      //     // fontSize: 16,
-      //     // lineHeight: 22,
-      //     // color: "#000000",
-      //   }}
-    >
+    <Text className={`${style} `} style={textStyle}>
       {children}
     </Text>
   );
@@ -80,6 +71,9 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontFamily: "Bold",
+  },
+  semiBold: {
+    fontFamily: "SemiBold",
   },
   light: {
     fontFamily: "Light",
