@@ -1,5 +1,5 @@
-import React, { Children, useCallback } from "react";
-import { Text } from "react-native";
+import React, { useCallback } from "react";
+import { StyleSheet, Text } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import {
   Poppins_400Regular,
@@ -16,11 +16,30 @@ SplashScreen.preventAutoHideAsync();
 
 const P: React.FC<{
   children: React.ReactNode;
-  style: string;
-}> = ({ children, style }) => {
+  style?: string;
+  textType?: "regular" | "medium" | "semiBold" | "bold" | "extraBold" | "light";
+}> = ({ children, style, textType }) => {
+  let textStyle: {};
+  switch (textType) {
+    case "regular":
+      textStyle = styles.regular;
+      break;
+    case "bold":
+      textStyle = styles.bold;
+      break;
+    case "light":
+      textStyle = styles.light;
+      break;
+    case "medium":
+      textStyle = styles.medium;
+      break;
+    default:
+      textStyle = styles.regular;
+      break;
+  }
   const [fontsLoaded] = useFonts({
     regular: Poppins_400Regular,
-    Poppins_500Medium,
+    medium: Poppins_500Medium,
     Poppins_600SemiBold,
     Poppins_700Bold,
     Poppins_800ExtraBold,
@@ -40,12 +59,13 @@ const P: React.FC<{
   return (
     <Text
       className={`${style} `}
-      style={{
-        fontFamily: "regular",
-        // fontSize: 16,
-        // lineHeight: 22,
-        // color: "#000000",
-      }}
+      style={textStyle}
+      //   style={{
+      //     fontFamily: "regular",
+      //     // fontSize: 16,
+      //     // lineHeight: 22,
+      //     // color: "#000000",
+      //   }}
     >
       {children}
     </Text>
@@ -53,3 +73,18 @@ const P: React.FC<{
 };
 
 export default P;
+
+const styles = StyleSheet.create({
+  regular: {
+    fontFamily: "regular",
+  },
+  bold: {
+    fontFamily: "Bold",
+  },
+  light: {
+    fontFamily: "Light",
+  },
+  medium: {
+    fontFamily: "medium",
+  },
+});
