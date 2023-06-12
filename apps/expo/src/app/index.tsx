@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   Image,
   ScrollView,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
@@ -11,6 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useRouter } from "expo-router";
 
 import { api, type RouterOutputs } from "~/utils/api";
+import P from "~/components/DesignSys/Text";
 import SideBar from "~/components/SideBar";
 import TweetCard, { type Post } from "~/components/TweetCard";
 
@@ -62,8 +62,8 @@ const Index = () => {
               <TweetCard key={post.id} post={post as Post} />
             ))}
 
-          {postQuery.isLoading && <Text>Loading...</Text>}
-          {postQuery.isError && <Text>Error...</Text>}
+          {postQuery.isLoading && <P>Loading...</P>}
+          {postQuery.isError && <P>Error...</P>}
         </View>
         <View className="mt-5 h-10" />
       </ScrollView>
