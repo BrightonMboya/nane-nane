@@ -16,6 +16,7 @@ model Post {
     id      String  @id @default(cuid())
     content String
     name    String
+    userId String
 }
 
 model User {
