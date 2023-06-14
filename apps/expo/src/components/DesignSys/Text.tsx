@@ -33,6 +33,8 @@ const P: React.FC<{
     case "medium":
       textStyle = styles.medium;
       break;
+    case "semiBold":
+      textStyle = styles.semiBold;
     default:
       textStyle = styles.regular;
       break;
@@ -40,7 +42,7 @@ const P: React.FC<{
   const [fontsLoaded] = useFonts({
     regular: Poppins_400Regular,
     medium: Poppins_500Medium,
-    semiBold: Poppins_600SemiBold,
+    Poppins_600SemiBold,
     Poppins_700Bold,
     Poppins_800ExtraBold,
     Poppins_900Black,
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
     fontFamily: "Bold",
   },
   semiBold: {
-    fontFamily: "SemiBold",
+    fontFamily: "Poppins_600SemiBold",
   },
   light: {
     fontFamily: "Light",

@@ -18,7 +18,7 @@ const BottomTab: React.FC = () => {
       </TouchableHighlight>
       <TouchableOpacity
         onPress={() => {
-          router.push("/communities");
+          router.push("/events");
         }}
       >
         <IoniIcons name="people-outline" size={25} color="#ddd" />
