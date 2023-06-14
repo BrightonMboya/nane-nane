@@ -8,7 +8,6 @@ import { api } from "~/utils/api";
 import P from "~/components/DesignSys/Text";
 
 const Add = () => {
-  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const utils = api.useContext();
@@ -31,10 +30,6 @@ const Add = () => {
       <SafeAreaView className="relative h-screen bg-[#f2f2f2]">
         <Stack.Screen options={{ title: "Add Page" }} />
         <View className="fflex flex-col items-center justify-center ">
-          {/* <Text className="text-center text-xl">
-            What do you want to talk about{" "}
-          </Text> */}
-
           {error?.data?.zodError?.fieldErrors.title && (
             <P style="mb-2 text-red-500">
               {error.data.zodError.fieldErrors.title}
@@ -60,6 +55,7 @@ const Add = () => {
               mutate({
                 content,
                 name: data?.username as string,
+                userId: user?.id as string,
               });
             }}
           >
