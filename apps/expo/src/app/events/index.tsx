@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Key, useState } from "react";
 import {
   Image,
   SafeAreaView,
@@ -10,33 +10,17 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack, useRouter } from "expo-router";
 
+import { api } from "~/utils/api";
 import P from "~/components/DesignSys/Text";
 
-const dummyEvents = [
-  {
-    id: "1",
-    title: "Martin Odegard Dribling MasterClass",
-    imagePreview:
-      "https://plus.unsplash.com/premium_photo-1664790560098-1fac17eb495e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGV2ZW50c3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
-  },
-  {
-    id: "2",
-    title: "A small Dinner brunch",
-    imagePreview:
-      "https://images.unsplash.com/photo-1515169067868-5387ec356754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGV2ZW50c3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
-  },
-  {
-    id: "3",
-    title: "Jazz Night",
-    imagePreview:
-      "https://images.unsplash.com/photo-1587407627257-27b7127c868c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGV2ZW50c3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
-  },
-];
-
-function EventCard(props: { title: string; imagePreview: string }) {
+function EventCard(props: { name: string; imagePreview: string; id: string }) {
   const router = useRouter();
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        router.push(`/events/${props.id}`);
+      }}
+    >
       <View className="relative mt-5 w-[300px]">
         <Image
           source={{
@@ -52,7 +36,7 @@ function EventCard(props: { title: string; imagePreview: string }) {
             style="text-white text-lg absolute bottom-2 left-2"
             textType="medium"
           >
-            {props.title}
+            {props.name}
           </P>
         </LinearGradient>
       </View>
@@ -61,7 +45,9 @@ function EventCard(props: { title: string; imagePreview: string }) {
 }
 
 export default function Index() {
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState("");
+  const { data, isLoading, isError } = api.events.all.useQuery();
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -81,24 +67,32 @@ export default function Index() {
             defaultValue={search}
           />
           <View className="">
-            {dummyEvents
-              .filter((event) => {
+            {data
+              ?.filter((event) => {
                 if (search === "") {
                   return event;
                 } else if (
-                  event.title.toLowerCase().includes(search.toLowerCase())
+                  event.name.toLowerCase().includes(search.toLowerCase())
                 ) {
                   return event;
                 }
               })
               .map((event) => (
                 <EventCard
-                  title={event.title}
+                  name={event.name}
                   imagePreview={event.imagePreview}
                   key={event.id}
+                  id={event.id}
                 />
               ))}
           </View>
+
+          {isLoading && <P style="text-lg">Loading ...</P>}
+          {isError && (
+            <P style="text-red-500 text-lg" textType="medium">
+              Error while loading events
+            </P>
+          )}
         </View>
         <View className="h-[100px]" />
       </ScrollView>
