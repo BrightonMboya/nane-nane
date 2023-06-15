@@ -24,7 +24,7 @@ enum PosterSource {
   RAW
   GITHUB
 }
-model Postss {
+model Chats {
   id     String       @id @default(uuid())
   name   String
   text   String
