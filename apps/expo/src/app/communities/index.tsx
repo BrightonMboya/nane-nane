@@ -73,6 +73,7 @@ const Index = () => {
 
           {communityRouter.isLoading && <Text>Loading...</Text>}
           {communityRouter.isError && <Text>Error...</Text>}
+          <Text>{communityRouter.status}</Text>
         </View>
         <View className="mt-5 h-10" />
       </ScrollView>

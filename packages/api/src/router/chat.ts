@@ -44,7 +44,7 @@ const interval = setInterval(() => {
 }, 3e3);
 process.on('SIGTERM', () => clearInterval(interval));
 
-export const postRouter = createTRPCRouter({
+export const chatRouter = createTRPCRouter({
     add: publicProcedure
         .input(
             z.object({
