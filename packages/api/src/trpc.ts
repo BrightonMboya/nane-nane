@@ -18,6 +18,7 @@ import EventEmitter from "stream"
 import ws from "ws";
 import { IncomingMessage } from "http";
 import { NodeHTTPCreateContextFnOptions } from "@trpc/server/dist/adapters/node-http";
+import { getSession } from "next-auth/react";
 
 /**
  * 1. CONTEXT
@@ -29,7 +30,7 @@ import { NodeHTTPCreateContextFnOptions } from "@trpc/server/dist/adapters/node-
  *
  */
 type CreateContextOptions = {
-  session: Session | null;
+  session: Session | null | undefined;
 };
 
 const eventEmitter = new EventEmitter();
@@ -57,16 +58,20 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
  * @link https://trpc.io/docs/context
  */
 export const createTRPCContext = async (
-  opts: CreateNextContextOptions | NodeHTTPCreateContextFnOptions<IncomingMessage, ws>) => {
-  const { req, res } = opts;
+  opts?: CreateNextContextOptions | NodeHTTPCreateContextFnOptions<IncomingMessage, ws>) => {
+  // const { req, res } = opts;
+  const req = opts?.req;
+  const res = opts?.res;
 
   // Get the session from the server using the unstable_getServerSession wrapper function
-  const session = await getServerSession({ req, res });
+  const session = req && res && (await getSession({ req }));
+  // const session = await getServerSession({ req, res });
 
   return createInnerTRPCContext({
     session,
   });
 };
+
 
 /**
  * 2. INITIALIZATION
