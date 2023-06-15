@@ -1,26 +1,19 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { Session } from "next-auth";
-import { signIn, useSession } from "next-auth/react";
 
 import { Message } from "@acme/api/src/router/room";
 
 import { api } from "~/utils/api";
 
-function MessageItem({
-  message,
-  session,
-}: {
-  message: Message;
-  session: Session;
-}) {
+function MessageItem({ message }: { message: Message }) {
   const baseStyles =
     "mb-4 text-md w-7/12 p-4 text-gray-700 border border-gray-700 rounded-md";
 
   const liStyles =
-    message.sender.name === session.user?.name
+    message.sender.name === "Tony"
       ? baseStyles
       : baseStyles.concat(" self-end bg-gray-700 text-white");
+  console.log(message, "Hope I am not null");
 
   return (
     <li className={liStyles}>
@@ -40,7 +33,6 @@ function MessageItem({
 function RoomPage() {
   const { query } = useRouter();
   const roomId = query.roomId as string;
-  const { data: session } = useSession();
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -62,28 +54,29 @@ function RoomPage() {
       },
     },
   );
-  //   trpc.useSubscription(
-  //     [
-  //       "room.onSendMessage",
-  //       {
-  //         roomId,
-  //       },
-  //     ],
-  //     {
-  //       onNext: (message) => {
-  //         setMessages((m) => {
-  //           return [...m, message];
-  //         });
-  //       },
-  //     },
-  //   );
 
-  if (!session) {
-    return (
-      <div>
-        <button onClick={() => signIn()}>Login</button>
-      </div>
-    );
+  // if (!session) {
+  //   return (
+  //     <div>
+  //       <button onClick={() => signIn()}>Login</button>
+  //     </div>
+  //   );
+  // }
+
+  function onSubmitHandler(e: any) {
+    console.log("submity");
+    e.preventDefault();
+
+    sendMessageMutation({
+      input: {
+        roomId,
+        message,
+      },
+      // roomId,
+      // message,
+    });
+
+    setMessage("");
   }
 
   return (
@@ -91,28 +84,29 @@ function RoomPage() {
       <div className="flex-1">
         <ul className="flex flex-col p-4">
           {messages.map((m) => {
-            return <MessageItem key={m.id} message={m} session={session} />;
+            // return <MessageItem key={m.id} message={m} session={session} />;
+            return <MessageItem key={m.id} message={m} />;
           })}
         </ul>
       </div>
 
       <form
         className="flex"
-        onSubmit={(e) => {
-          console.log("submity");
-          e.preventDefault();
+        // onSubmit={(e) => {
+        //   console.log("submity");
+        //   e.preventDefault();
 
-          sendMessageMutation({
-            input: {
-              roomId,
-              message,
-            },
-            // roomId,
-            // message,
-          });
+        //   sendMessageMutation({
+        //     input: {
+        //       roomId,
+        //       message,
+        //     },
+        //     // roomId,
+        //     // message,
+        //   });
 
-          setMessage("");
-        }}
+        //   setMessage("");
+        // }}
       >
         <textarea
           className="black w-full rounded-md border border-gray-700 bg-gray-50 p-2.5 text-gray-700"
@@ -121,7 +115,11 @@ function RoomPage() {
           placeholder="What do you want to say"
         />
 
-        <button className="flex-1 bg-gray-900 p-2.5 text-white" type="submit">
+        <button
+          className="flex-1 bg-gray-900 p-2.5 text-white"
+          type="submit"
+          onClick={onSubmitHandler}
+        >
           Send message
         </button>
       </form>
