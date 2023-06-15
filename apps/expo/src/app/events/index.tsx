@@ -34,6 +34,7 @@ const dummyEvents = [
 ];
 
 function EventCard(props: { title: string; imagePreview: string }) {
+  const router = useRouter();
   return (
     <TouchableOpacity>
       <View className="relative mt-5 w-[300px]">

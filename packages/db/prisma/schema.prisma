@@ -34,6 +34,7 @@ model User {
     followersCount   Int          @default(0)
     followingCount   Int          @default(0)
     likeCount        Int          @default(0)
+    events          Events[]
     tweets           Tweet[]
     likes            Like[]
     retweets         Retweet[]
@@ -141,3 +142,17 @@ model Communities {
     description  String
     imagePreview String
 }
+
+model Events {
+    id          String @id @default(cuid())
+    name        String
+    description String @db.Text
+    date        DateTime
+    location    String
+    attendees   User @relation(fields: [attendeesId], references: [id])
+    attendeesId String
+
+    @@index([attendeesId])
+}
+
+
