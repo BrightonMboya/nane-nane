@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { Stack, useRouter } from "expo-router";
 
 import P from "~/components/DesignSys/Text";
@@ -42,12 +43,17 @@ function EventCard(props: { title: string; imagePreview: string }) {
           }}
           className="h-[200px] w-[300px] rounded-md object-cover  "
         />
-        <P
-          style="text-white text-lg absolute bottom-2 left-2"
-          textType="medium"
+        <LinearGradient
+          colors={["transparent", "rgba(0,0,0,0.9)"]}
+          className="absolute bottom-0 h-[100px] w-[300px]"
         >
-          {props.title}
-        </P>
+          <P
+            style="text-white text-lg absolute bottom-2 left-2"
+            textType="medium"
+          >
+            {props.title}
+          </P>
+        </LinearGradient>
       </View>
     </TouchableOpacity>
   );
