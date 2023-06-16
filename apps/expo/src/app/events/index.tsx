@@ -46,7 +46,7 @@ function EventCard(props: { name: string; imagePreview: string; id: string }) {
 
 export default function Index() {
   const [search, setSearch] = useState("");
-  const { data, isLoading, isError } = api.events.all.useQuery();
+  const { data, isLoading, isError, status } = api.events.all.useQuery();
 
   return (
     <SafeAreaView>
@@ -91,6 +91,12 @@ export default function Index() {
           {isError && (
             <P style="text-red-500 text-lg" textType="medium">
               Error while loading events
+            </P>
+          )}
+          <P>{status}</P>
+          {data && !isError && !isLoading && (
+            <P style="text-lg" textType="medium">
+              No events found
             </P>
           )}
         </View>

@@ -21,10 +21,20 @@ const PendingEmailVerification = ({ userName }: any) => {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code,
       });
-      mutate({
-        email: completeSignUp.emailAddress as string,
-        username: userName,
-      });
+      mutate(
+        {
+          email: completeSignUp.emailAddress as string,
+          username: userName,
+        },
+        {
+          onSuccess: () => {
+            console.log("success");
+          },
+          onError: (error: any) => {
+            console.log("error", error);
+          },
+        },
+      );
 
       await setActive({ session: completeSignUp.createdSessionId });
     } catch (err: any) {
