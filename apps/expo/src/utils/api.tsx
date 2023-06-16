@@ -91,18 +91,18 @@ export const TRPCProvider: React.FC<{ children: React.ReactNode }> = ({
   const [trpcClient] = React.useState(() =>
     api.createClient({
       transformer: superjson,
-      links: [getEndingLink()],
+      // links: [getEndingLink()],
       // headers() {
       //   if (ctx?.req) {
       //     return { ...ctx.req.headers };
       //   }
       //   return {};
       // },
-      // links: [
-      //   httpBatchLink({
-      //     url: `${getBaseUrl()}/api/trpc`,
-      //   }),
-      // ],
+      links: [
+        httpBatchLink({
+          url: `${getBaseUrl()}/api/trpc`,
+        }),
+      ],
     }),
   );
 
