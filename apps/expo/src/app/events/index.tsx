@@ -13,6 +13,12 @@ import { Stack, useRouter } from "expo-router";
 import { api } from "~/utils/api";
 import P from "~/components/DesignSys/Text";
 
+interface eventProps {
+  name: string;
+  imagePreview: string;
+  id: string;
+}
+
 function EventCard(props: { name: string; imagePreview: string; id: string }) {
   const router = useRouter();
   return (
@@ -46,6 +52,7 @@ function EventCard(props: { name: string; imagePreview: string; id: string }) {
 
 export default function Index() {
   const [search, setSearch] = useState("");
+  //@ts-ignore
   const { data, isLoading, isError, status } = api.events.all.useQuery();
 
   return (
@@ -68,7 +75,7 @@ export default function Index() {
           />
           <View className="">
             {data
-              ?.filter((event) => {
+              ?.filter((event: eventProps) => {
                 if (search === "") {
                   return event;
                 } else if (
@@ -77,7 +84,7 @@ export default function Index() {
                   return event;
                 }
               })
-              .map((event) => (
+              .map((event: eventProps) => (
                 <EventCard
                   name={event.name}
                   imagePreview={event.imagePreview}
@@ -91,12 +98,6 @@ export default function Index() {
           {isError && (
             <P style="text-red-500 text-lg" textType="medium">
               Error while loading events
-            </P>
-          )}
-          <P>{status}</P>
-          {data && !isError && !isLoading && (
-            <P style="text-lg" textType="medium">
-              No events found
             </P>
           )}
         </View>
