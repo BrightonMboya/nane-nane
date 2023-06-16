@@ -51,7 +51,29 @@ function getEndingLink() {
 
   return wsLink({ client });
 }
-
+// function getEndingLink(ctx: any) {
+//   if (typeof window === "undefined") {
+//     return httpBatchLink({
+//       url: `${url}/api/trpc`,
+//       headers() {
+//         if (!ctx?.req?.headers) {
+//           return {};
+//         }
+//         // on ssr, forward client's headers to the server
+//         return {
+//           ...ctx.req.headers,
+//           "x-ssr": "1",
+//         };
+//       },
+//     });
+//   }
+//   const client = createWSClient({
+//     url: url,
+//   });
+//   return wsLink<AppRouter>({
+//     client,
+//   });
+// }
 /**
  * A set of typesafe hooks for consuming your API.
  */

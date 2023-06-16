@@ -16,7 +16,7 @@ export const postRouter = createTRPCRouter({
       z.object({
         content: z.string().min(1),
         name: z.string().min(1),
-        userId: z.string()
+        userId: z.string().min(1)
       }),
     )
     .mutation(({ ctx, input }) => {

@@ -1,13 +1,16 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "module": "CommonJS",
     "outDir": "dist",
-    "module": "commonjs",
     "target": "ES2019",
     "lib": ["ES2019", "DOM"],
     "isolatedModules": false,
-    "noEmit": false,
-    "esModuleInterop": true
+    "noEmit": false
   },
-  "include": [".eslintrc.js", "prettier.config.cjs"]
+  "include": [
+    "packages/api/src/**/*.ts",
+    "packages/api/src/**/*.tsx",
+    "apps/nextjs/next-env.d.ts"
+  ]
 }

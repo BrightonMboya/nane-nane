@@ -36,7 +36,7 @@ const JobPost: React.FC<{
 };
 
 const Index = () => {
-  const jobsRouter = api.resources.all.useQuery();
+  const { data, isLoading, isError, error } = api.resources.all.useQuery();
   const router = useRouter();
   return (
     <SafeAreaView className="relative bg-[#f2f2f2] ">
@@ -78,13 +78,16 @@ const Index = () => {
         <P style="mt-5 pl-5 text-base font-medium">Available Jobs</P>
 
         <View className="mt-1 flex flex-col  pl-5">
-          {jobsRouter.data?.map((job) => (
+          {data?.map((job: jobPost) => (
             <JobPost post={job} key={job.id} />
           ))}
         </View>
-        {jobsRouter.isLoading && <P>Loading...</P>}
-        {jobsRouter.isError && (
-          <P style="text-red-500">{jobsRouter.error.message}</P>
+        {isLoading && <P>Loading...</P>}
+        {isError && <P style="text-red-500">{error.message}</P>}
+        {!data && !isLoading && !isError && (
+          <P style="text-lg" textType="medium">
+            No events found
+          </P>
         )}
         <View className="mt-5 h-10" />
       </ScrollView>

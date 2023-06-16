@@ -1,6 +1,7 @@
 {
   "name": "create-t3-turbo",
   "private": true,
+  "type": "module",
   "engines": {
     "node": ">=v18.16.0"
   },
@@ -12,6 +13,10 @@
     "db:generate": "turbo db:generate",
     "db:push": "turbo db:push db:generate",
     "dev": "turbo dev --parallel",
+    "dev:ws": "ts-node --project tsconfig.server.json packages/api/src/wssDevServer.ts",
+    "dev:wsold": "ts-node --project tsconfig.server.json --respawn --transpile-only packages/api/src/wssDevServer.ts",
+    "dev:wss": "cross-env PORT=3001 tsx watch packages/api/src/wssDevServer.ts --tsconfig tsconfig.server.json ",
+    "dev:next": "next dev",
     "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path .gitignore",
     "lint": "turbo lint && manypkg check",
     "lint:fix": "turbo lint:fix && manypkg fix",
@@ -23,6 +28,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
     "@manypkg/cli": "^0.20.0",
     "@types/prettier": "^2.7.2",
+    "cross-env": "^7.0.3",
     "eslint": "^8.40.0",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",
@@ -32,6 +38,7 @@
     "typescript": "^5.0.4"
   },
   "devDependencies": {
-    "@types/react-native-vector-icons": "^6.4.13"
+    "@types/react-native-vector-icons": "^6.4.13",
+    "@types/ws": "^8.5.4"
   }
 }
