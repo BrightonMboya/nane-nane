@@ -4,24 +4,18 @@ import { SplashScreen, Stack, useSearchParams } from "expo-router";
 import { api } from "~/utils/api";
 import P from "~/components/DesignSys/Text";
 
-function Post() {
+function EventDetails() {
   const { id } = useSearchParams();
   if (!id || typeof id !== "string") throw new Error("unreachable");
-  const { data } = api.post.byId.useQuery({ id });
-
+  const { data } = api.events.byId.useQuery({ id });
+  console.log(data, "some fata");
   if (!data) return <SplashScreen />;
-
   return (
     <SafeAreaView className="bg-[#1F104A]">
-      <Stack.Screen options={{ title: data.title as string }} />
-      <View className="h-full w-full p-4">
-        <P style="py-2 text-3xl text-white" textType="semiBold">
-          {data.title}
-        </P>
-        <P style="py-4 text-white">{data.content}</P>
+      {/* <Stack.Screen options={{ title: data.title as string }} /> */}
+      <View>
+        <P>Hello World</P>
       </View>
     </SafeAreaView>
   );
 }
-
-export default Post;

@@ -43,8 +43,8 @@ const RootLayout = () => {
       publishableKey="pk_test_aG9uZXN0LWJvYmNhdC01OS5jbGVyay5hY2NvdW50cy5kZXYk"
       tokenCache={tokenCache}
     >
-      <SignedIn>
-        <TRPCProvider>
+      <TRPCProvider>
+        <SignedIn>
           <SafeAreaProvider className="relative">
             {/*
           The Stack component displays the current page.
@@ -54,11 +54,11 @@ const RootLayout = () => {
             <StatusBar />
             <BottomTab />
           </SafeAreaProvider>
-        </TRPCProvider>
-      </SignedIn>
-      <SignedOut>
-        <SignUpScreen />
-      </SignedOut>
+        </SignedIn>
+        <SignedOut>
+          <SignUpScreen />
+        </SignedOut>
+      </TRPCProvider>
     </ClerkProvider>
   );
 };

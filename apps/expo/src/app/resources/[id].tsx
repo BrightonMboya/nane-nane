@@ -9,6 +9,7 @@ import * as Linking from "expo-linking";
 import { SplashScreen, Stack, useSearchParams } from "expo-router";
 
 import { api } from "~/utils/api";
+import P from "~/components/DesignSys/Text";
 
 const Post: React.FC = () => {
   const { id } = useSearchParams();
@@ -24,23 +25,21 @@ const Post: React.FC = () => {
       <ScrollView>
         <View className="pl-5 pt-5">
           <View className="pb-[2rem]">
-            <Text className="mt-2 text-xl font-medium">{data?.title}</Text>
-            <Text className="mt-2 text-purple-500">{`${data?.company}, ${data?.location}`}</Text>
+            <P style="P-xl mt-2 font-medium">{data?.title}</P>
+            <P style="mt-2 text-purple-500">{`${data?.company}, ${data?.location}`}</P>
             <TouchableOpacity
               onPress={() => Linking.openURL(data?.link as string)}
             >
-              <Text className="mt-2 w-[80px] bg-purple-500 px-4 py-1 text-center text-lg text-white">
+              <P style="mt-2 w-[100px] bg-purple-500 px-4 py-1 text-center text-lg text-white">
                 Apply
-              </Text>
+              </P>
             </TouchableOpacity>
 
-            <Text className="mt-5 text-base tracking-wider">
-              {data?.description}
-            </Text>
+            <P style="mt-5 text-base tracking-wider">{data?.description}</P>
           </View>
 
-          {isLoading && <Text>Loading...</Text>}
-          {error && <Text className="text-red-500">{error.message}</Text>}
+          {isLoading && <P>Loading...</P>}
+          {error && <P style="text-red-500">{error.message}</P>}
         </View>
         <View className="mt-5 h-10" />
       </ScrollView>

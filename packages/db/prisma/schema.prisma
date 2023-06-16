@@ -14,9 +14,9 @@ datasource db {
 
 model Post {
     id      String  @id @default(cuid())
-    title   String?
-    content String?
-    name    String?
+    content String
+    name    String
+    userId String
 }
 
 // this is the schema for the messages table
@@ -67,27 +67,26 @@ model Session {
 }
 model User {
     id               String       @id @default(uuid())
-    username         String       @unique
+    username         String?       @unique
     name             String?
-    bio              String?      @db.Text
-    website          String?
+    location          String?
     email            String?      @unique
-    provider         String
-    password         String?
-    badge            String?
-    bgImage          String?
+    about            String?      @db.Text
+    currentRole     String?
+    classOf          String?
+    mentoringAreas  String?      @db.Text
     profileImage     String?
-    createdAt        DateTime     @default(now())
+    createdAt        DateTime?     @default(now())
     followersCount   Int          @default(0)
     followingCount   Int          @default(0)
     likeCount        Int          @default(0)
     accounts      Account[]
     sessions      Session[]
+    events          Events[]
     tweets           Tweet[]
     likes            Like[]
     retweets         Retweet[]
     replies          Reply[]
-    bookmarks        Bookmark[]
     messagesSent     Message[]    @relation("sender")
     messagesReceived Message[]    @relation("recipient")
     followers        UserFollow[] @relation("follower")
@@ -127,7 +126,7 @@ model Tweet {
     likes        Like[]
     retweets     Retweet[]
     replies      Reply[]
-    Bookmark     Bookmark[]
+    
 }
 
 model Retweet {
@@ -159,14 +158,6 @@ model Reply {
     createdAt DateTime @default(now())
 }
 
-model Bookmark {
-    id        String   @id @default(uuid())
-    user      User     @relation(fields: [userId], references: [id])
-    userId    String
-    tweet     Tweet    @relation(fields: [tweetId], references: [id])
-    tweetId   String
-    createdAt DateTime @default(now())
-}
 
 model Profiles {
     id        String @id @default(cuid())
@@ -199,3 +190,18 @@ model Communities {
     description  String
     imagePreview String
 }
+
+model Events {
+    id          String @id @default(cuid())
+    name        String
+    description String @db.Text
+    date        DateTime
+    location    String
+    attendees   User @relation(fields: [attendeesId], references: [id])
+    attendeesId String
+    imagePreview String
+
+    @@index([attendeesId])
+}
+
+

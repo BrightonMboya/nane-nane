@@ -1,15 +1,13 @@
-import { FlatList, Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
+import { useAuth, useUser } from "@clerk/clerk-expo";
+
+import { api } from "~/utils/api";
+import P from "~/components/DesignSys/Text";
 
 const profileData = {
-  name: "Asha Bonge",
-  currentRole: "Software Engineer",
-  location: "London, UK",
-  classOf: "2019",
-  about: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum, quibusdam, quia, quos voluptates voluptate voluptatibus quas doloribus quidem voluptatem. Quisquam voluptatum`,
-  profilePic:
-    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60.jpg",
   mentoringAread: ["Software Engineering", "Product Management", "UX Design"],
   experience: [
     {
@@ -26,49 +24,87 @@ const profileData = {
 };
 
 const Index = () => {
+  const { isLoaded, isSignedIn, user } = useUser();
+  const { data } = api.users.profile.useQuery({
+    email: user?.primaryEmailAddress?.emailAddress as string,
+  });
+  console.log(data, "data");
+  const { signOut } = useAuth();
+  const router = useRouter();
   return (
     <SafeAreaView className="relative bg-[#f2f2f2]">
       <Stack.Screen
         options={{
-          title: "Profile Page",
+          title: "",
         }}
       />
       <ScrollView>
         <View className="flex flex-col items-center ">
-          <View className="relative mt-[25px] h-[160px] w-[350px] rounded-md border-[1px] border-[#ddd] bg-white shadow-md">
+          <View className="relative mt-[25px] max-h-[300px] w-[350px] rounded-md border-[1px] border-[#ddd] bg-white shadow-md">
             <Image
               source={{
-                uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60.jpg",
+                uri: user?.profileImageUrl,
               }}
               className="absolute left-[37%] top-[-30px] h-20 w-20 rounded-full"
             />
             <View className="mt-[60px] flex flex-col items-center">
-              <Text className="text-lg">{profileData.name}</Text>
-              <Text>{profileData.currentRole}</Text>
+              <P style="text-lg" textType="medium">
+                {data?.username}
+              </P>
+              <P>{data?.currentRole}</P>
               <View className="flex flex-row gap-3 pt-[10px]">
-                <Text>{profileData.location}</Text>
-                <Text>{`Class of ${profileData.classOf}`}</Text>
+                <P>{data?.location}</P>
+                <P>{`Class of ${data?.classOf}`}</P>
+              </View>
+              <View className="flex flex-row  items-center gap-3 pt-2">
+                <TouchableOpacity onPress={() => signOut()}>
+                  <View className="mb-5 h-[40px] w-[100px] rounded-md bg-red-500">
+                    <P
+                      style="px-4 py-2 text-center text-base text-white"
+                      textType="medium"
+                    >
+                      Sign Out
+                    </P>
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => router.push("/profile/edit")}>
+                  <View className="mb-5 h-[40px] w-[110px] rounded-md bg-indigo-500">
+                    <P
+                      style="px-4 py-2 text-center text-base text-white"
+                      textType="medium"
+                    >
+                      Edit Profile
+                    </P>
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
 
           <View className="mt-5 min-h-min w-[350px] rounded-md border-[1px] border-[#ddd] bg-white pb-3 shadow-md">
             <View className=" pl-5 pt-5">
-              <Text className="text-base">About</Text>
-              <Text className="mt-3 text-base ">{profileData.about}</Text>
+              <P style="text-base" textType="medium">
+                About
+              </P>
+              <P style="mt-2 text-sm ">
+                {data?.about ? data.about : "No Bio "}
+              </P>
             </View>
           </View>
 
           <View className="mt-5 min-h-min w-[350px] rounded-md border-[1px] border-[#ddd] bg-white pb-3 shadow-md">
             <View className=" pl-5 pt-5">
-              <Text className="text-base">Mentoring Areas</Text>
+              <P style="text-base" textType="medium">
+                Mentoring Areas
+              </P>
               <View className="flex flex-col gap-3 pt-3">
                 {profileData.mentoringAread.map((area) => (
                   <View
                     className="max-w-[200px] rounded-md bg-[#f2f2f2] px-3 py-1 text-center"
                     key={area}
                   >
-                    <Text className="text-center">{area}</Text>
+                    <P style="text-center">{area}</P>
                   </View>
                 ))}
               </View>
@@ -77,16 +113,18 @@ const Index = () => {
 
           <View className="mt-5 min-h-min w-[350px] rounded-md border-[1px] border-[#ddd] bg-white pb-3 shadow-md">
             <View className=" pl-5 pt-5">
-              <Text className="text-base">Experience</Text>
+              <P style="text-base" textType="medium">
+                Experience
+              </P>
               <View className="flex flex-col gap-3 pt-3">
                 {profileData.experience.map((exp) => (
                   <View
                     className="max-w-[200px] rounded-md  "
                     key={exp.company}
                   >
-                    <Text className="text-lg font-medium ">{exp.company}</Text>
-                    <Text className="">{exp.role}</Text>
-                    <Text className="text-gray-700">{exp.duration}</Text>
+                    <P style="text-lg font-medium ">{exp.company}</P>
+                    <P style="">{exp.role}</P>
+                    <P style="text-gray-700">{exp.duration}</P>
                   </View>
                 ))}
               </View>
