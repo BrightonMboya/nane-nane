@@ -1,25 +1,26 @@
 import { Image, TouchableOpacity } from "react-native";
-import { useRouter, withLayoutContext } from "expo-router";
-import {
-  // Import the types
-  DrawerNavigationOptions,
-  // Import the creation function
-  createDrawerNavigator,
-} from "@react-navigation/drawer";
+// import { Stack, useRouter, withLayoutContext } from "expo-router";
+// import {
+//   // Import the types
+//   DrawerNavigationOptions,
+//   // Import the creation function
+//   createDrawerNavigator,
+// } from "@react-navigation/drawer";
 
 // import { Drawer } from "expo-router/drawer";
-// import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
 
 import Index from "~/app/resources";
 import Profile from "./profile";
 
-const { Navigator } = createDrawerNavigator();
+// const { Navigator } = createDrawerNavigator();
 
-// This can be used like `<Drawer />`
-export const Drawer = withLayoutContext<
-  DrawerNavigationOptions,
-  typeof Navigator
->(Navigator);
+// // This can be used like `<Drawer />`
+// export const Drawer = withLayoutContext<
+//   DrawerNavigationOptions,
+//   typeof Navigator
+// >(Navigator);
 
 function ProfileIcon() {
   return (
@@ -34,31 +35,27 @@ function ProfileIcon() {
   );
 }
 
-{
-  /* <Drawer.Navigator
-      useLegacyImplementation
-      initialRouteName="Index"
-      screenOptions={({ navigation }) => ({
-        // headerLeft: (props) => <Icon navigation={navigation} />,
-        drawerStyle: {
-          backgroundColor: "#c6cbef",
-          width: 240,
-        },
-      })}
-    ></Drawer.Navigator> */
-}
+// function MyDrawer() {
+//   return (
+//     <Drawer screenOptions={({ navigation }) => ({})}>
+//       <Drawer.Screen
+//         name="profile/index"
+//         options={{ drawerLabel: "Profile" }}
+//       />
+//       {/* <Drawer.Screen name="Community" options={{ drawerLabel: "Index" }} /> */}
+//     </Drawer>
+//   );
+// }
 
+const Drawer = createDrawerNavigator();
 function MyDrawer() {
   return (
-    <Drawer screenOptions={({ navigation }) => ({})}>
-      <Drawer.Screen name="Profile" options={{ drawerLabel: "Profile" }} />
-      <Drawer.Screen name="Community" options={{ drawerLabel: "Index" }} />
-    </Drawer>
+    <Drawer.Navigator>
+      <Drawer.Screen name="Profile" component={Profile} />
+    </Drawer.Navigator>
   );
 }
 
 export default function SideBar() {
-  const router = useRouter();
-
   return <MyDrawer />;
 }

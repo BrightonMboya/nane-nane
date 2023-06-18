@@ -15,7 +15,9 @@ import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 
 import { TRPCProvider } from "~/utils/api";
 import BottomTab from "~/components/BottomTab";
+import { Drawer } from "~/components/Drawer";
 import SignUpScreen from "~/components/Signup";
+import MyDrawer from "./MyDrawer";
 
 // fn to secure the cache from clerk
 const tokenCache = {
@@ -50,7 +52,9 @@ const RootLayout = () => {
           The Stack component displays the current page.
           It also allows you to configure your screens 
         */}
-            <Stack />
+            {/* <Stack /> */}
+            <MyDrawer />
+            {/* <Drawer /> */}
             <StatusBar />
             <BottomTab />
           </SafeAreaProvider>
