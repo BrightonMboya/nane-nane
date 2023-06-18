@@ -184,6 +184,13 @@ model Jobs {
     createdAt   DateTime @default(now())
 }
 
+model LearningResources {
+    id          String   @id @default(cuid())
+    title       String
+    description String   @db.LongText
+    category   String
+}
+
 model Communities {
     id           String @id @default(cuid())
     name         String

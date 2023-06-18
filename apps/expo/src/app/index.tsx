@@ -22,7 +22,7 @@ const Index = () => {
   return (
     <SafeAreaView className="relative min-h-screen bg-[#f2f2f2]">
       <ScrollView>
-        <Stack.Screen options={{ title: "Home Page", headerShown: false }} />
+        <Stack.Screen options={{ title: "Home Page" }} />
         <View className="">
           <TouchableOpacity
             onPress={() => {

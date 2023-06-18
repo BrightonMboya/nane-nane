@@ -25,7 +25,7 @@ const JobPost: React.FC<{
       }}
     >
       <View className="w-[350px] gap-1 border-b-[1px] border-b-gray-300 pb-3 pt-5">
-        <P style="text-lg font-medium" textType="medium">
+        <P style="text-lg text-green-600 font-medium" textType="medium">
           {post.title}
         </P>
         <P style="text-[15px]">{post.company}</P>
@@ -41,41 +41,25 @@ const Index = () => {
   return (
     <SafeAreaView className="relative bg-[#f2f2f2] ">
       <ScrollView>
-        <Stack.Screen options={{ title: "Profile Page", headerShown: false }} />
+        <Stack.Screen options={{ title: "Learning Hub" }} />
         <View className="flex flex-col items-center">
-          <View className="mt-5 flex h-[100px] w-[300px] flex-col items-center rounded-md">
-            <P style="font-medium text-center">
-              Want to help the ALU community get hired?
+          <View className="mt-5 ">
+            <P style="text-lg" textType="regular">
+              Learning Hub,
             </P>
-            <TouchableOpacity onPress={() => router.push("/resources/addJob")}>
-              <P style="rounded-base mt-3 w-[170px] bg-indigo-500 px-1  py-2  text-center text-base text-white">
-                Share Opportunity!
-              </P>
-            </TouchableOpacity>
-          </View>
-
-          <View className="mt-5 flex w-[350px] flex-col items-center rounded-md border-[1px]  border-[#ddd] bg-[#fffdfd] py-5 shadow-md">
-            <P style="text-center font-medium" textType="medium">
-              HandShake: For early career job hunters and seekers
+            <P style="text-lg pt-2" textType="medium">
+              Here you will learn different skills and get access to resources
+              that will elavate different aspects of your career.
             </P>
-            <P style="mt-3 text-center tracking-wide">
-              If you are a recent graduate looking for an additional job
-              opportunity, or you represent an organization seeking to hire
-              young talent. Please visit the university employer connection
-              system
-            </P>
-
-            <TouchableOpacity
-              onPress={() => Linking.openURL("https://www.alueducation.com/")}
-            >
-              <P style="mt-4  bg-purple-500 px-4 py-2 text-center text-base text-white">
-                HandShake
-              </P>
-            </TouchableOpacity>
           </View>
         </View>
 
-        <P style="mt-5 pl-5 text-base font-medium">Available Jobs</P>
+        <P
+          style="text-base font-medium pl-3 mt-5 text-indigo-500"
+          textType="medium"
+        >
+          Available Resources
+        </P>
 
         <View className="mt-1 flex flex-col  pl-5">
           {data?.map((job: jobPost) => (

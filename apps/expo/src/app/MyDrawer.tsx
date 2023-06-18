@@ -46,6 +46,11 @@ export default function MyDrawer() {
       />
 
       <Drawer.Screen
+        name="learningHub/index"
+        options={{ drawerLabel: "Learning Hub" }}
+      />
+
+      <Drawer.Screen
         name="oldIndex"
         options={{
           drawerItemStyle: {
