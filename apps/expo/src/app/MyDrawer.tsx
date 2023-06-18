@@ -33,12 +33,7 @@ function ProfileIcon() {
 
 export default function MyDrawer() {
   return (
-    <Drawer
-      screenOptions={({ navigation }) => ({
-        drawerIcon: () => <ProfileIcon />,
-      })}
-      initialRouteName="index"
-    >
+    <Drawer screenOptions={({ navigation }) => ({})} initialRouteName="index">
       <Drawer.Screen name="index" options={{ drawerLabel: "Index" }} />
       <Drawer.Screen
         name="profile/index"
@@ -52,6 +47,14 @@ export default function MyDrawer() {
 
       <Drawer.Screen
         name="oldIndex"
+        options={{
+          drawerItemStyle: {
+            display: "none",
+          },
+        }}
+      />
+      <Drawer.Screen
+        name="learningHub/[id]"
         options={{
           drawerItemStyle: {
             display: "none",

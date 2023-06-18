@@ -37,4 +37,14 @@ export const resourcesRouter = createTRPCRouter({
             return ctx.prisma.jobs.create({ data: input });
         }
         ),
+    learningResources: publicProcedure.query(({ ctx }) => {
+        return ctx.prisma.learningResources.findMany();
+    }
+    ),
+    learningResourceById: publicProcedure
+        .input(z.object({ id: z.string() }))
+        .query(({ ctx, input }) => {
+            return ctx.prisma.learningResources.findFirst({ where: { id: input.id } });
+        }
+        ),
 })

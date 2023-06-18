@@ -22,9 +22,9 @@ const Index = () => {
   return (
     <SafeAreaView className="relative min-h-screen bg-[#f2f2f2]">
       <ScrollView>
-        <Stack.Screen options={{ title: "Home Page" }} />
+        <Stack.Screen options={{ title: "" }} />
         <View className="">
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => {
               router.push(`/profile`);
             }}
@@ -35,12 +35,10 @@ const Index = () => {
               }}
               className="absolute right-5 top-5 h-10 w-10 rounded-full"
             />
-          </TouchableOpacity>
-
-          <SideBar />
+          </TouchableOpacity> */}
         </View>
 
-        <View className="mt-[80px] flex flex-col items-center justify-center space-y-5 ">
+        <View className=" flex flex-col items-center justify-center space-y-5 ">
           <TextInput
             className="h-[50px] w-[300px] rounded-md border-[1px] border-[#ddd] px-5 "
             placeholder="Search for your favourite profiles"

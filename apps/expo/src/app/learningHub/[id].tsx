@@ -1,20 +1,15 @@
-import {
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { SafeAreaView, ScrollView, View } from "react-native";
 import * as Linking from "expo-linking";
 import { SplashScreen, Stack, useSearchParams } from "expo-router";
 
 import { api } from "~/utils/api";
 import P from "~/components/DesignSys/Text";
 
-const Post: React.FC = () => {
+const Index: React.FC = () => {
   const { id } = useSearchParams();
-  // if (!id || typeof id !== "string") throw new Error("unreachable");
-  const { data, isLoading, error } = api.resources.byId.useQuery({ id });
+  //   if (!id || typeof id !== "string") throw new Error("unreachable");
+  const { data, isLoading, error } =
+    api.resources.learningResourceById.useQuery({ id });
   //   if (!data) return <SplashScreen />;
 
   return (
@@ -25,15 +20,8 @@ const Post: React.FC = () => {
       <ScrollView>
         <View className="pl-5 pt-5">
           <View className="pb-[2rem]">
-            <P style="P-xl mt-2 font-medium">{data?.title}</P>
-            <P style="mt-2 text-purple-500">{`${data?.company}, ${data?.location}`}</P>
-            <TouchableOpacity
-              onPress={() => Linking.openURL(data?.link as string)}
-            >
-              <P style="mt-2 w-[100px] bg-purple-500 px-4 py-1 text-center text-lg text-white">
-                Apply
-              </P>
-            </TouchableOpacity>
+            <P style="text-xl mt-2 font-medium">{data?.title}</P>
+            <P style="mt-2 text-purple-500">{`Category: ${data?.category}`}</P>
 
             <P style="mt-5 text-base tracking-wider">{data?.description}</P>
           </View>
@@ -47,4 +35,4 @@ const Post: React.FC = () => {
   );
 };
 
-export default Post;
+export default Index;

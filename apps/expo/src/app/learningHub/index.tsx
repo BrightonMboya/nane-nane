@@ -9,8 +9,7 @@ import P from "~/components/DesignSys/Text";
 interface jobPost {
   id: string;
   title?: string;
-  company?: string;
-  location?: string;
+  category?: string;
   description?: string;
 }
 
@@ -21,14 +20,14 @@ const JobPost: React.FC<{
   return (
     <TouchableOpacity
       onPress={() => {
-        router.push(`/resources/${post.id}`);
+        router.push(`/learningHub/${post.id}`);
       }}
     >
       <View className="w-[350px] gap-1 border-b-[1px] border-b-gray-300 pb-3 pt-5">
         <P style="text-lg text-green-600 font-medium" textType="medium">
           {post.title}
         </P>
-        <P style="text-[15px]">{post.company}</P>
+        <P style=" text-pink-600 text-[15px] ">{post.category}</P>
         <P style="text-gray-700">4 days ago</P>
       </View>
     </TouchableOpacity>
@@ -36,7 +35,8 @@ const JobPost: React.FC<{
 };
 
 const Index = () => {
-  const { data, isLoading, isError, error } = api.resources.all.useQuery();
+  const { data, isLoading, isError, error } =
+    api.resources.learningResources.useQuery();
   const router = useRouter();
   return (
     <SafeAreaView className="relative bg-[#f2f2f2] ">
