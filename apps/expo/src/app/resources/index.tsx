@@ -18,6 +18,7 @@ const JobPost: React.FC<{
   post: jobPost;
 }> = ({ post }) => {
   const router = useRouter();
+
   return (
     <TouchableOpacity
       onPress={() => {

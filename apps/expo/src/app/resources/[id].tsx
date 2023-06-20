@@ -1,10 +1,4 @@
-import {
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
 import * as Linking from "expo-linking";
 import { SplashScreen, Stack, useSearchParams } from "expo-router";
 
@@ -14,7 +8,9 @@ import P from "~/components/DesignSys/Text";
 const Post: React.FC = () => {
   const { id } = useSearchParams();
   // if (!id || typeof id !== "string") throw new Error("unreachable");
-  const { data, isLoading, error } = api.resources.byId.useQuery({ id });
+  const { data, isLoading, error } = api.resources.byId.useQuery({
+    id: id as string,
+  });
   //   if (!data) return <SplashScreen />;
 
   return (

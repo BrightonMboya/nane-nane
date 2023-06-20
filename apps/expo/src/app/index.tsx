@@ -1,17 +1,10 @@
 import { useState } from "react";
-import {
-  Image,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ScrollView, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useRouter } from "expo-router";
 
 import { api, type RouterOutputs } from "~/utils/api";
 import P from "~/components/DesignSys/Text";
-import SideBar from "~/components/SideBar";
 import TweetCard, { type Post } from "~/components/TweetCard";
 
 const Index = () => {

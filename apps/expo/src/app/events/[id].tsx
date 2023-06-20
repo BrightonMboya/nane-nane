@@ -6,8 +6,9 @@ import P from "~/components/DesignSys/Text";
 
 const EventDetails: React.FC = () => {
   const { id } = useSearchParams();
-  // if (!id || typeof id !== "string") throw new Error("unreachable");
-  const { data } = api.events.byId.useQuery({ id });
+  if (!id || typeof id !== "string") throw new Error("unreachable");
+  const { data } = api.events.byId.useQuery({ id: id as string });
+
   if (!data) return <SplashScreen />;
   return (
     <SafeAreaView className="">
