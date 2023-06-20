@@ -34,13 +34,15 @@ function AddMessageForm({ onMessagePost }: { onMessagePost: () => void }) {
         onSubmitEditing={async (e) => {
           await postMessage();
         }}
+        className="w-full rounded-lg border-b-2 border-b-white p-2"
       />
       <TouchableOpacity
         onPress={async (e) => {
           await postMessage();
         }}
+        className="ml-3 mt-5 w-[80px] rounded-md bg-pink-500 px-4 py-2"
       >
-        <P style="text-blue-500" textType="medium">
+        <P style="text-white text-center" textType="medium">
           Send
         </P>
       </TouchableOpacity>
