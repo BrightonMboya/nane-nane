@@ -44,6 +44,12 @@ export default function MyDrawer() {
         name="learningHub/index"
         options={{ drawerLabel: "Learning Hub" }}
       />
+      <Drawer.Screen
+        name="communities/index"
+        options={{
+          drawerLabel: "Communities",
+        }}
+      />
 
       <Drawer.Screen
         name="oldIndex"
@@ -112,14 +118,6 @@ export default function MyDrawer() {
       />
       <Drawer.Screen
         name="communities/[id]"
-        options={{
-          drawerItemStyle: {
-            display: "none",
-          },
-        }}
-      />
-      <Drawer.Screen
-        name="communities/index"
         options={{
           drawerItemStyle: {
             display: "none",
