@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ScrollView, TextInput, TouchableOpacity } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { api } from "~/utils/api";
@@ -21,8 +22,25 @@ function AddMessageForm({ onMessagePost }: { onMessagePost: () => void }) {
   }
   const isTyping = api.chat.isTyping.useMutation();
 
+  //  const onFocusEffect = useCallback(() => {
+  //    AvoidSoftInput.setAdjustPan();
+  //    return () => {
+  //      AvoidSoftInput.setDefaultAppSoftInputMode();
+  //    };
+  //  }, []);
+
+  //  useFocusEffect(onFocusEffect);
+
   return (
-    <>
+    <KeyboardAwareScrollView
+      enableOnAndroid={true}
+      enableResetScrollToCoords={false}
+      bounces={false}
+      // contentContainerStyle={commonStyles.scrollContainer}
+      contentInsetAdjustmentBehavior="always"
+      overScrollMode="always"
+      showsVerticalScrollIndicator={true}
+    >
       <TextInput
         value={message}
         onChangeText={(e) => setMessage(e)}
@@ -53,7 +71,7 @@ function AddMessageForm({ onMessagePost }: { onMessagePost: () => void }) {
           {addPost.error.message}
         </P>
       )}
-    </>
+    </KeyboardAwareScrollView>
   );
 }
 
