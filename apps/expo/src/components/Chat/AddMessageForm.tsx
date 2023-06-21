@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { TextInput, TouchableOpacity, View } from "react-native";
+import { ScrollView, TextInput, TouchableOpacity } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { api } from "~/utils/api";
 import P from "../DesignSys/Text";
@@ -19,6 +20,7 @@ function AddMessageForm({ onMessagePost }: { onMessagePost: () => void }) {
     } catch {}
   }
   const isTyping = api.chat.isTyping.useMutation();
+
   return (
     <>
       <TextInput
@@ -34,7 +36,7 @@ function AddMessageForm({ onMessagePost }: { onMessagePost: () => void }) {
         onSubmitEditing={async (e) => {
           await postMessage();
         }}
-        className="w-full rounded-lg border-b-2 border-b-white p-2"
+        className="w-screen rounded-lg  bg-[#383A40] px-2 py-4"
       />
       <TouchableOpacity
         onPress={async (e) => {

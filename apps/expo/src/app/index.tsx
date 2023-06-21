@@ -5,6 +5,7 @@ import { Stack, useRouter } from "expo-router";
 
 import { api, type RouterOutputs } from "~/utils/api";
 import P from "~/components/DesignSys/Text";
+import SideBar from "~/components/SideBar";
 import TweetCard, { type Post } from "~/components/TweetCard";
 
 const Index = () => {

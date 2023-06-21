@@ -1,9 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
+import Animated, {
+  useAnimatedKeyboard,
+  useAnimatedStyle,
+} from "react-native-reanimated";
 import { SplashScreen, Stack, useSearchParams } from "expo-router";
 
 import { api } from "~/utils/api";
 import AddMessageForm from "~/components/Chat/AddMessageForm";
+import KeyBoardAvoidView from "~/components/DesignSys/KeyBoardAvoidView";
 import P from "~/components/DesignSys/Text";
 
 const Community = () => {
@@ -53,7 +58,6 @@ const Community = () => {
   useEffect(() => {
     const msgs = postsQuery.data?.pages.map((page) => page.items).flat();
     addMessages(msgs);
-    console.log(messages, "mamaaaaaa");
   }, [postsQuery.data?.pages, addMessages]);
 
   const scrollToBottomOfList = useCallback(() => {
@@ -88,8 +92,17 @@ const Community = () => {
       setCurrentlyTyping(data);
     },
   });
+
+  // some animations for the keyboard
+  const keyboard = useAnimatedKeyboard();
+  const translateStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: -keyboard.height.value }],
+    };
+  });
+
   return (
-    <>
+    <KeyBoardAvoidView>
       <SafeAreaView>
         <ScrollView>
           <Stack.Screen
@@ -100,13 +113,15 @@ const Community = () => {
               <View className="flex h-full flex-col justify-end space-y-4 bg-gray-700 p-4">
                 <View className="space-y-4 overflow-y-auto">
                   <TouchableOpacity onPress={() => fetchPreviousPage()}>
-                    <P style="text-white">
-                      {isFetchingPreviousPage
-                        ? "Loading more..."
-                        : hasPreviousPage
-                        ? "Load More"
-                        : "Nothing more to load"}
-                    </P>
+                    <View className="w-[170px] rounded-md bg-indigo-600 py-4">
+                      <P style="text-white text-center" textType="medium">
+                        {isFetchingPreviousPage
+                          ? "Loading more..."
+                          : hasPreviousPage
+                          ? "Load More"
+                          : "Nothing more to load"}
+                      </P>
+                    </View>
                   </TouchableOpacity>
 
                   <View className="space-y-4">
@@ -118,9 +133,9 @@ const Community = () => {
                         source: string;
                         name: string;
                       }) => (
-                        <P key={item.id} style=" text-gray-50">
-                          <P style="flex space-x-2 text-sm">
-                            <P style="text-base">
+                        <View key={item.id}>
+                          <View className="flex flex-row items-center text-sm">
+                            <P style="text-base text-white" textType="medium">
                               {item.source === "RAW" ? (
                                 item.name
                               ) : (
@@ -133,26 +148,28 @@ const Community = () => {
                                 </P>
                               )}
                             </P>
-                            <P style="text-gray-500">
+                            <P style="text-gray-500 ml-3 text-xs">
                               {new Intl.DateTimeFormat("en-GB", {
                                 dateStyle: "short",
                                 timeStyle: "short",
                               }).format(item.createdAt)}
                             </P>
-                          </P>
-                          <P style="whitespace-pre-line text-xl leading-tight">
+                          </View>
+                          <P style="whitespace-pre-line text-lg leading-tight">
                             {item.text}
                           </P>
-                        </P>
+                        </View>
                       ),
                     )}
                     <View ref={scrollTargetRef}></View>
                   </View>
                 </View>
-                <View className="absolute top-0 w-full">
+                <View className="">
+                  {/* <Animated.View style={translateStyle}> */}
                   <AddMessageForm
                     onMessagePost={() => scrollToBottomOfList()}
                   />
+                  {/* </Animated.View> */}
                   <P style="h-2 italic text-gray-400">
                     {currentlyTyping.length
                       ? `${currentlyTyping.join(", ")} typing...`
@@ -164,7 +181,7 @@ const Community = () => {
           </View>
         </ScrollView>
       </SafeAreaView>
-    </>
+    </KeyBoardAvoidView>
   );
 };
 
