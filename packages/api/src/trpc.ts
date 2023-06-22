@@ -13,6 +13,13 @@ import { ZodError } from "zod";
 
 import { getServerSession, type Session } from "@acme/auth";
 import { prisma } from "@acme/db";
+import { type inferAsyncReturnType } from "@trpc/server";
+import { getAuth } from "@clerk/nextjs/server";
+import type {
+  SignedInAuthObject,
+  SignedOutAuthObject,
+} from "@clerk/nextjs/api";
+import { type NextApiRequest } from "next";
 
 import EventEmitter from "stream"
 import ws from "ws";
@@ -31,9 +38,20 @@ import { getSession } from "next-auth/react";
  */
 type CreateContextOptions = {
   session: Session | null | undefined;
+  auth: SignedInAuthObject | SignedOutAuthObject;
+};
+// event emitter for the websocket server
+const eventEmitter = new EventEmitter();
+
+
+/**
+ * Stuff for clerk auth
+ * Replace this with an object if you want to pass things to createContextInner
+ */
+type AuthContextProps = {
+  auth: SignedInAuthObject | SignedOutAuthObject;
 };
 
-const eventEmitter = new EventEmitter();
 
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use
@@ -44,13 +62,17 @@ const eventEmitter = new EventEmitter();
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
+
+
 const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     session: opts.session,
+    clerk: opts.auth,
     prisma,
     eventEmitter,
   };
 };
+
 
 /**
  * This is the actual context you'll use in your router. It will be used to
@@ -67,8 +89,12 @@ export const createTRPCContext = async (
   const session = req && res && (await getSession({ req }));
   // const session = await getServerSession({ req, res });
 
+  const auth = getAuth(opts?.req as NextApiRequest)
+
   return createInnerTRPCContext({
     session,
+    auth,
+
   });
 };
 
@@ -128,6 +154,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
     ctx: {
       // infers the `session` as non-nullable
       session: { ...ctx.session, user: ctx.session.user },
+      auth: ctx.clerk,
     },
   });
 });

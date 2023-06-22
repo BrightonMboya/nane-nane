@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react";
-import { ScrollView, TextInput, TouchableOpacity } from "react-native";
+import { useEffect, useState } from "react";
+import { Keyboard, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -41,31 +41,45 @@ function AddMessageForm({ onMessagePost }: { onMessagePost: () => void }) {
       overScrollMode="always"
       showsVerticalScrollIndicator={true}
     >
-      <TextInput
-        value={message}
-        onChangeText={(e) => setMessage(e)}
-        multiline
-        numberOfLines={message.split(/\r|\n/).length}
-        autoFocus
-        onBlur={() => {
-          setEnterToPostMessage(true);
-          isTyping.mutate({ typing: false });
-        }}
-        onSubmitEditing={async (e) => {
-          await postMessage();
-        }}
-        className="w-screen rounded-lg  bg-[#383A40] px-2 py-4"
-      />
-      <TouchableOpacity
-        onPress={async (e) => {
-          await postMessage();
-        }}
-        className="ml-3 mt-5 w-[80px] rounded-md bg-pink-500 px-4 py-2"
-      >
-        <P style="text-white text-center" textType="medium">
-          Send
-        </P>
-      </TouchableOpacity>
+      <View className="relative mb-5 flex flex-row rounded-lg bg-[#383A40] ">
+        <TextInput
+          value={message}
+          onChangeText={(e) => setMessage(e)}
+          multiline
+          numberOfLines={message.split(/\r|\n/).length}
+          autoFocus
+          onBlur={() => {
+            setEnterToPostMessage(true);
+            isTyping.mutate({ typing: false });
+          }}
+          onSubmitEditing={async (e) => {
+            await postMessage();
+          }}
+          className="px-2 py-4"
+        />
+        {message && (
+          <TouchableOpacity
+            onPress={async (e) => {
+              await postMessage();
+            }}
+            className="absolute bottom-0 right-0 mb-2 mr-2"
+          >
+            <Ionicons name="send" size={24} color="white" />
+          </TouchableOpacity>
+        )}
+      </View>
+      {/* {message && (
+        <TouchableOpacity
+          onPress={async (e) => {
+            await postMessage();
+          }}
+          className="ml-3 mt-5 w-[80px] rounded-md bg-pink-500 px-4 py-2"
+        >
+          <P style="text-white text-center" textType="medium">
+            Send
+          </P>
+        </TouchableOpacity>
+      )} */}
       {addPost.isError && (
         <P style="text-red-500" textType="medium">
           {addPost.error.message}
