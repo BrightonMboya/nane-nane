@@ -15,7 +15,6 @@ import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 
 import { TRPCProvider } from "~/utils/api";
 import BottomTab from "~/components/BottomTab";
-import { Drawer } from "~/components/Drawer";
 import SignUpScreen from "~/components/Signup";
 import MyDrawer from "./MyDrawer";
 
@@ -45,8 +44,8 @@ const RootLayout = () => {
       publishableKey="pk_test_aG9uZXN0LWJvYmNhdC01OS5jbGVyay5hY2NvdW50cy5kZXYk"
       tokenCache={tokenCache}
     >
-      <TRPCProvider>
-        <SignedIn>
+      <SignedIn>
+        <TRPCProvider>
           <SafeAreaProvider className="relative">
             {/*
           The Stack component displays the current page.
@@ -58,11 +57,11 @@ const RootLayout = () => {
             <StatusBar />
             <BottomTab />
           </SafeAreaProvider>
-        </SignedIn>
-        <SignedOut>
-          <SignUpScreen />
-        </SignedOut>
-      </TRPCProvider>
+        </TRPCProvider>
+      </SignedIn>
+      <SignedOut>
+        <SignUpScreen />
+      </SignedOut>
     </ClerkProvider>
   );
 };

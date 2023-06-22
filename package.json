@@ -28,6 +28,7 @@
     "@clerk/nextjs": "^4.21.8",
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
     "@manypkg/cli": "^0.20.0",
+    "@tanstack/react-query-devtools": "^4.29.15",
     "@types/prettier": "^2.7.2",
     "clerk": "^0.8.3",
     "cross-env": "^7.0.3",

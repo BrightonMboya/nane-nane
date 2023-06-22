@@ -38,19 +38,11 @@ import { getSession } from "next-auth/react";
  */
 type CreateContextOptions = {
   session: Session | null | undefined;
-  auth: SignedInAuthObject | SignedOutAuthObject;
+  // auth: SignedInAuthObject | SignedOutAuthObject;
 };
 // event emitter for the websocket server
 const eventEmitter = new EventEmitter();
 
-
-/**
- * Stuff for clerk auth
- * Replace this with an object if you want to pass things to createContextInner
- */
-type AuthContextProps = {
-  auth: SignedInAuthObject | SignedOutAuthObject;
-};
 
 
 /**
@@ -67,7 +59,7 @@ type AuthContextProps = {
 const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     session: opts.session,
-    clerk: opts.auth,
+    // clerk: opts.auth,
     prisma,
     eventEmitter,
   };
@@ -93,7 +85,7 @@ export const createTRPCContext = async (
 
   return createInnerTRPCContext({
     session,
-    auth,
+    // auth,
 
   });
 };
@@ -150,14 +142,14 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   if (!ctx.session?.user) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
-  if (!ctx.clerk.userId) {
-    throw new TRPCError({ code: "UNAUTHORIZED", message: "Not authenticated" });
-  }
+  // if (!ctx.clerk.user) {
+  //   throw new TRPCError({ code: "UNAUTHORIZED", message: "Not authenticated" });
+  // }
   return next({
     ctx: {
       // infers the `session` as non-nullable
       session: { ...ctx.session, user: ctx.session.user },
-      auth: ctx.clerk,
+      // auth: ctx.clerk,
     },
   });
 });

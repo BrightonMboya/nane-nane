@@ -2,6 +2,7 @@ import React from "react";
 import Constants from "expo-constants";
 import { useAuth } from "@clerk/clerk-expo";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { httpBatchLink } from "@trpc/client";
 import { createWSClient, wsLink } from "@trpc/client/links/wsLink";
 import { createTRPCReact } from "@trpc/react-query";
@@ -71,22 +72,22 @@ export const TRPCProvider: React.FC<{ children: React.ReactNode }> = ({
   const [trpcClient] = React.useState(() =>
     api.createClient({
       transformer: superjson,
-      links: [
-        httpBatchLink({
-          async headers() {
-            const authToken = await getToken();
-            return {
-              Authorization: authToken ?? undefined,
-            };
-          },
-          url: `${getBaseUrl()}/api/trpc`,
-        }),
-      ],
       // links: [
       //   httpBatchLink({
+      //     async headers() {
+      //       const authToken = await getToken();
+      //       return {
+      //         Authorization: authToken ?? undefined,
+      //       };
+      //     },
       //     url: `${getBaseUrl()}/api/trpc`,
       //   }),
       // ],
+      links: [
+        httpBatchLink({
+          url: `${getBaseUrl()}/api/trpc`,
+        }),
+      ],
     }),
   );
 
