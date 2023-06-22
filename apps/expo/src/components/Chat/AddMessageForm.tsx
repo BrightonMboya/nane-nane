@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { ScrollView, TextInput, TouchableOpacity } from "react-native";
+import { ScrollView, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useUser } from "@clerk/clerk-expo";
@@ -48,7 +48,34 @@ function AddMessageForm({ onMessagePost }: { onMessagePost: () => void }) {
       overScrollMode="always"
       showsVerticalScrollIndicator={true}
     >
-      <TextInput
+      <View className="relative mb-5 flex flex-row rounded-lg bg-[#383A40] ">
+        <TextInput
+          value={message}
+          onChangeText={(e) => setMessage(e)}
+          multiline
+          numberOfLines={message.split(/\r|\n/).length}
+          autoFocus
+          onBlur={() => {
+            setEnterToPostMessage(true);
+            isTyping.mutate({ typing: false, name: data?.username as string });
+          }}
+          onSubmitEditing={async (e) => {
+            await postMessage();
+          }}
+          className="w-[90%]  px-2 py-4"
+        />
+        {message && (
+          <TouchableOpacity
+            onPress={async (e) => {
+              await postMessage();
+            }}
+            className="absolute bottom-0 right-0 mb-2 mr-2"
+          >
+            <Ionicons name="send" size={24} color="white" />
+          </TouchableOpacity>
+        )}
+      </View>
+      {/* <TextInput
         value={message}
         onChangeText={(e) => setMessage(e)}
         multiline
@@ -72,7 +99,7 @@ function AddMessageForm({ onMessagePost }: { onMessagePost: () => void }) {
         <P style="text-white text-center" textType="medium">
           Send
         </P>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       {addPost.isError && (
         <P style="text-red-500" textType="medium">
           {addPost.error.message}
