@@ -1,10 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
-import Animated, {
-  useAnimatedKeyboard,
-  useAnimatedStyle,
-} from "react-native-reanimated";
-import { SplashScreen, Stack, useSearchParams } from "expo-router";
+import { useAnimatedKeyboard, useAnimatedStyle } from "react-native-reanimated";
+import { Stack, useSearchParams } from "expo-router";
 
 import { api } from "~/utils/api";
 import AddMessageForm from "~/components/Chat/AddMessageForm";
@@ -165,11 +162,10 @@ const Community = () => {
                   </View>
                 </View>
                 <View className="">
-                  {/* <Animated.View style={translateStyle}> */}
                   <AddMessageForm
                     onMessagePost={() => scrollToBottomOfList()}
                   />
-                  {/* </Animated.View> */}
+
                   <P style="h-2 italic text-gray-400">
                     {currentlyTyping.length
                       ? `${currentlyTyping.join(", ")} typing...`

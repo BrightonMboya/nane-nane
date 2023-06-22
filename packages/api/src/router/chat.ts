@@ -50,33 +50,33 @@ export const chatRouter = createTRPCRouter({
             z.object({
                 id: z.string().uuid().optional(),
                 text: z.string().min(1),
+                name: z.string().min(1)
             }),
         )
         .mutation(async ({ input, ctx }) => {
-            // const { name } = ctx.user;
-            const name = 'tonero';
+            // const name = 'tonero';
             const post = await prisma.chats.create({
                 data: {
                     ...input,
-                    name,
+                    name: input.name,
                     source: 'GITHUB',
                 },
             });
             ee.emit('add', post);
-            delete currentlyTyping[name];
+            delete currentlyTyping[input.name];
             ee.emit('isTypingUpdate');
             return post;
         }),
 
     isTyping: publicProcedure
-        .input(z.object({ typing: z.boolean() }))
+        .input(z.object({ typing: z.boolean(), name: z.string().min(1) }))
         .mutation(({ input, ctx }) => {
-            // const { name } = ctx.user;
-            const name = 'tonero';
+
+            // const name = 'tonero';
             if (!input.typing) {
-                delete currentlyTyping[name];
+                delete currentlyTyping[input.name];
             } else {
-                currentlyTyping[name] = {
+                currentlyTyping[input.name] = {
                     lastTyped: new Date(),
                 };
             }

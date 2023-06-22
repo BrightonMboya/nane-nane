@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { ScrollView, TextInput, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useUser } from "@clerk/clerk-expo";
 
 import { api } from "~/utils/api";
 import P from "../DesignSys/Text";
@@ -10,9 +11,15 @@ function AddMessageForm({ onMessagePost }: { onMessagePost: () => void }) {
   const addPost = api.chat.add.useMutation();
   const [message, setMessage] = useState("");
   const [enterToPostMessage, setEnterToPostMessage] = useState(true);
+  const { user } = useUser();
+  const { data } = api.users.returnUserName.useQuery({
+    email: user?.primaryEmailAddress?.emailAddress as string,
+  });
+
   async function postMessage() {
     const input = {
       text: message,
+      name: data?.username as string,
     };
     try {
       await addPost.mutateAsync(input);
@@ -49,7 +56,7 @@ function AddMessageForm({ onMessagePost }: { onMessagePost: () => void }) {
         autoFocus
         onBlur={() => {
           setEnterToPostMessage(true);
-          isTyping.mutate({ typing: false });
+          isTyping.mutate({ typing: false, name: data?.username as string });
         }}
         onSubmitEditing={async (e) => {
           await postMessage();

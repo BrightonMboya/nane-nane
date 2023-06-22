@@ -17,9 +17,7 @@ function KeyBoardAvoidView(props: { children: React.ReactNode }) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={1}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        {props.children}
-      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback>{props.children}</TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 }

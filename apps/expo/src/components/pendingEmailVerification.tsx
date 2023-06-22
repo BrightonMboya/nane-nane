@@ -11,6 +11,7 @@ const PendingEmailVerification = ({ userName }: any) => {
 
   // recording the userEmail to our database
   const { mutate } = api.users.createEmail.useMutation();
+
   // This verifies the user using email code that is delivered.
   const onPressVerify = async () => {
     if (!isLoaded) {
