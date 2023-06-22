@@ -1,5 +1,6 @@
 import React from "react";
 import Constants from "expo-constants";
+import { useAuth } from "@clerk/clerk-expo";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { createWSClient, wsLink } from "@trpc/client/links/wsLink";
@@ -51,29 +52,7 @@ function getEndingLink() {
 
   return wsLink({ client });
 }
-// function getEndingLink(ctx: any) {
-//   if (typeof window === "undefined") {
-//     return httpBatchLink({
-//       url: `${url}/api/trpc`,
-//       headers() {
-//         if (!ctx?.req?.headers) {
-//           return {};
-//         }
-//         // on ssr, forward client's headers to the server
-//         return {
-//           ...ctx.req.headers,
-//           "x-ssr": "1",
-//         };
-//       },
-//     });
-//   }
-//   const client = createWSClient({
-//     url: url,
-//   });
-//   return wsLink<AppRouter>({
-//     client,
-//   });
-// }
+
 /**
  * A set of typesafe hooks for consuming your API.
  */
@@ -87,22 +66,27 @@ export { type RouterInputs, type RouterOutputs } from "@acme/api";
 export const TRPCProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { getToken } = useAuth();
   const [queryClient] = React.useState(() => new QueryClient());
   const [trpcClient] = React.useState(() =>
     api.createClient({
       transformer: superjson,
-      // links: [getEndingLink()],
-      // headers() {
-      //   if (ctx?.req) {
-      //     return { ...ctx.req.headers };
-      //   }
-      //   return {};
-      // },
       links: [
         httpBatchLink({
+          async headers() {
+            const authToken = await getToken();
+            return {
+              Authorization: authToken ?? undefined,
+            };
+          },
           url: `${getBaseUrl()}/api/trpc`,
         }),
       ],
+      // links: [
+      //   httpBatchLink({
+      //     url: `${getBaseUrl()}/api/trpc`,
+      //   }),
+      // ],
     }),
   );
 
