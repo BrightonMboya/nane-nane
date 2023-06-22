@@ -150,6 +150,9 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   if (!ctx.session?.user) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
+  if (!ctx.clerk.userId) {
+    throw new TRPCError({ code: "UNAUTHORIZED", message: "Not authenticated" });
+  }
   return next({
     ctx: {
       // infers the `session` as non-nullable

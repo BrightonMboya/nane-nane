@@ -53,8 +53,7 @@ export const chatRouter = createTRPCRouter({
             }),
         )
         .mutation(async ({ input, ctx }) => {
-            // const { name } = ctx.user;
-            const name = 'tonero';
+            const name = ctx.clerk?.user?.firstName ?? 'Anonymous';
             const post = await prisma.chats.create({
                 data: {
                     ...input,
@@ -71,8 +70,7 @@ export const chatRouter = createTRPCRouter({
     isTyping: publicProcedure
         .input(z.object({ typing: z.boolean() }))
         .mutation(({ input, ctx }) => {
-            // const { name } = ctx.user;
-            const name = 'tonero';
+            const name = ctx.clerk?.user?.firstName ?? 'Anonymous';
             if (!input.typing) {
                 delete currentlyTyping[name];
             } else {
