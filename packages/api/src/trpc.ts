@@ -20,6 +20,13 @@ import { IncomingMessage } from "http";
 import { NodeHTTPCreateContextFnOptions } from "@trpc/server/dist/adapters/node-http";
 import { getSession } from "next-auth/react";
 
+import { type inferAsyncReturnType } from "@trpc/server";
+import { getAuth } from "@clerk/nextjs/server";
+import type {
+  SignedInAuthObject,
+  SignedOutAuthObject,
+} from "@clerk/nextjs/api";
+import { type NextApiRequest } from "next";
 /**
  * 1. CONTEXT
  *
@@ -31,6 +38,7 @@ import { getSession } from "next-auth/react";
  */
 type CreateContextOptions = {
   session: Session | null | undefined;
+  auth: SignedInAuthObject | SignedOutAuthObject;
 };
 
 const eventEmitter = new EventEmitter();
@@ -47,6 +55,7 @@ const eventEmitter = new EventEmitter();
 const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     session: opts.session,
+    clerk: opts.auth,
     prisma,
     eventEmitter,
   };
@@ -66,9 +75,11 @@ export const createTRPCContext = async (
   // Get the session from the server using the unstable_getServerSession wrapper function
   const session = req && res && (await getSession({ req }));
   // const session = await getServerSession({ req, res });
+  const auth = getAuth(opts?.req as NextApiRequest)
 
   return createInnerTRPCContext({
     session,
+    auth
   });
 };
 
@@ -128,6 +139,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
     ctx: {
       // infers the `session` as non-nullable
       session: { ...ctx.session, user: ctx.session.user },
+      auth: ctx.clerk
     },
   });
 });
