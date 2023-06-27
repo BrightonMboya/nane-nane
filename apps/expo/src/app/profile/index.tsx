@@ -28,7 +28,7 @@ const Index = () => {
   const { data } = api.users.profile.useQuery({
     email: user?.primaryEmailAddress?.emailAddress as string,
   });
-  console.log(data, "data");
+  // console.log(data, "data");
   const { signOut } = useAuth();
   const router = useRouter();
   return (

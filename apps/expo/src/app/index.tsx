@@ -20,30 +20,8 @@ const Index = () => {
         <Stack.Screen
           options={{
             title: "",
-            // headerLeft: () => (
-            //   <TouchableOpacity onPress={() => {}}>
-            //     <Image
-            //       style={{ width: 40, height: 40, marginLeft: 10 }}
-            //       source={require("~/components/../../assets/logo.jpeg")}
-            //     />
-            //   </TouchableOpacity>
-            // ),
           }}
         />
-        <View className="">
-          {/* <TouchableOpacity
-            onPress={() => {
-              router.push(`/profile`);
-            }}
-          >
-            <Image
-              source={{
-                uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60.jpg",
-              }}
-              className="absolute right-5 top-5 h-10 w-10 rounded-full"
-            />
-          </TouchableOpacity> */}
-        </View>
 
         <View className=" flex flex-col items-center justify-center space-y-5 ">
           <TextInput
