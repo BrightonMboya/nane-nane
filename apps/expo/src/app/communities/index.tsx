@@ -19,7 +19,11 @@ const Index = () => {
   return (
     <SafeAreaView className="relative bg-[#f2f2f2]">
       <ScrollView>
-        <Stack.Screen options={{ title: "Home Page", headerShown: false }} />
+        <Stack.Screen
+          options={{
+            title: "",
+          }}
+        />
         <View className="">
           <TouchableOpacity
             onPress={() => {
@@ -28,7 +32,7 @@ const Index = () => {
           >
             <Image
               source={{
-                uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60.jpg",
+                uri: "https://st3.depositphotos.com/4111759/13425/v/450/depositphotos_134255532-stock-illustration-profile-placeholder-male-default-profile.jpg",
               }}
               className="absolute right-5 top-5 h-10 w-10 rounded-full"
             />
@@ -38,7 +42,7 @@ const Index = () => {
         <View className="mt-[80px] flex flex-col items-center justify-center space-y-5 ">
           <TextInput
             className="h-[50px] w-[300px] rounded-md border-[1px] border-[#ddd] px-5 "
-            placeholder="Search for your favourite profiles"
+            placeholder="Search for your favourite Communities"
             onChangeText={(text) => setSearch(text)}
             defaultValue={search}
           />
