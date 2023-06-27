@@ -53,7 +53,6 @@ const RootLayout = () => {
         */}
             {/* <Stack /> */}
             <MyDrawer />
-            {/* <Drawer /> */}
             <StatusBar />
             <BottomTab />
           </SafeAreaProvider>

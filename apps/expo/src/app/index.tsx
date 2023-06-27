@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ScrollView, TextInput, View } from "react-native";
+import { Image, ScrollView, TextInput, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useRouter } from "expo-router";
 
@@ -16,7 +17,19 @@ const Index = () => {
   return (
     <SafeAreaView className="relative min-h-screen bg-[#f2f2f2]">
       <ScrollView>
-        <Stack.Screen options={{ title: "" }} />
+        <Stack.Screen
+          options={{
+            title: "",
+            // headerLeft: () => (
+            //   <TouchableOpacity onPress={() => {}}>
+            //     <Image
+            //       style={{ width: 40, height: 40, marginLeft: 10 }}
+            //       source={require("~/components/../../assets/logo.jpeg")}
+            //     />
+            //   </TouchableOpacity>
+            // ),
+          }}
+        />
         <View className="">
           {/* <TouchableOpacity
             onPress={() => {

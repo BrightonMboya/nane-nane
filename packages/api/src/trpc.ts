@@ -40,10 +40,8 @@ type CreateContextOptions = {
   session: Session | null | undefined;
   auth: SignedInAuthObject | SignedOutAuthObject;
 };
-// event emitter for the websocket server
+
 const eventEmitter = new EventEmitter();
-
-
 
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use
@@ -54,8 +52,6 @@ const eventEmitter = new EventEmitter();
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-
-
 const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     session: opts.session,
@@ -64,7 +60,6 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
     eventEmitter,
   };
 };
-
 
 /**
  * This is the actual context you'll use in your router. It will be used to
@@ -80,8 +75,6 @@ export const createTRPCContext = async (
   // Get the session from the server using the unstable_getServerSession wrapper function
   const session = req && res && (await getSession({ req }));
   // const session = await getServerSession({ req, res });
-  const auth = getAuth(opts?.req as NextApiRequest)
-
   const auth = getAuth(opts?.req as NextApiRequest)
 
   return createInnerTRPCContext({
@@ -142,9 +135,6 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   if (!ctx.session?.user) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
-  // if (!ctx.clerk.user) {
-  //   throw new TRPCError({ code: "UNAUTHORIZED", message: "Not authenticated" });
-  // }
   return next({
     ctx: {
       // infers the `session` as non-nullable
