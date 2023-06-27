@@ -20,7 +20,6 @@ export default function MyDrawer() {
     <>
       <Drawer
         screenOptions={({ navigation }) => ({
-          // headerShown: true,
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
               <Image

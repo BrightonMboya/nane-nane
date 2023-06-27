@@ -10,6 +10,7 @@ export interface Post {
   name?: string;
   title?: string;
   content?: string;
+  profileUrl?: string;
 }
 
 const TweetCard: React.FC<{
@@ -21,26 +22,28 @@ const TweetCard: React.FC<{
       <View className="flex flex-row items-center space-x-3 pl-5 pt-5">
         <Image
           source={{
-            uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+            uri: post.profileUrl
+              ? post.profileUrl
+              : "https://st3.depositphotos.com/4111759/13425/v/450/depositphotos_134255532-stock-illustration-profile-placeholder-male-default-profile.jpg",
           }}
           className="h-10 w-10 rounded-full"
         />
 
-        <P style="text-3xl">{post.name}</P>
-        <Button
+        <P style="text-base ml-3 ">{post.name}</P>
+        {/* <Button
           title="Follow"
           onPress={() => {
             router.push(`/post/${post.id}`);
           }}
-        />
+        /> */}
       </View>
 
       <P style="mt-2 pl-5">{post.content}</P>
-      <View className="mt-5 flex flex-row items-center space-x-1 pl-5">
+      {/* <View className="mt-5 flex flex-row items-center space-x-1 pl-5">
         <AntDesign name="hearto" size={15} color="#ddd" />
         <IoniIcons name="chatbubble-outline" size={15} color="#ddd" />
         <IoniIcons name="paper-plane-outline" size={15} color="#ddd" />
-      </View>
+      </View> */}
     </View>
   );
 };
