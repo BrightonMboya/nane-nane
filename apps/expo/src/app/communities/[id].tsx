@@ -1,10 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
-import Animated, {
-  useAnimatedKeyboard,
-  useAnimatedStyle,
-} from "react-native-reanimated";
-import { SplashScreen, Stack, useSearchParams } from "expo-router";
+import { useAnimatedKeyboard, useAnimatedStyle } from "react-native-reanimated";
+import { Stack, useSearchParams } from "expo-router";
 
 import { api } from "~/utils/api";
 import AddMessageForm from "~/components/Chat/AddMessageForm";
@@ -60,16 +57,16 @@ const Community = () => {
     addMessages(msgs);
   }, [postsQuery.data?.pages, addMessages]);
 
-  const scrollToBottomOfList = useCallback(() => {
-    if (scrollTargetRef.current == null) {
-      return;
-    }
+  // const scrollToBottomOfList = useCallback(() => {
+  //   if (scrollTargetRef.current == null) {
+  //     return;
+  //   }
 
-    scrollTargetRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-    });
-  }, [scrollTargetRef]);
+  //   scrollTargetRef.current.scrollIntoView({
+  //     behavior: "smooth",
+  //     block: "end",
+  //   });
+  // }, [scrollTargetRef]);
   // useEffect(() => {
   //   scrollToBottomOfList();
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -168,7 +165,8 @@ const Community = () => {
                 </View>
               </View>
               <View className="">
-                <AddMessageForm onMessagePost={() => scrollToBottomOfList()} />
+                {/* <AddMessageForm onMessagePost={() => scrollToBottomOfList()} /> */}
+                <AddMessageForm onMessagePost={() => {}} />
 
                 <P style="h-2 italic text-gray-400">
                   {currentlyTyping.length
