@@ -1,7 +1,6 @@
 {
   "name": "create-t3-turbo",
   "private": true,
-  "type": "commonjs",
   "engines": {
     "node": ">=v18.16.0"
   },
