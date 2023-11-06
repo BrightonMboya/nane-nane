@@ -28,10 +28,10 @@ const getBaseUrl = () => {
     Constants.manifest2?.extra?.expoGo?.debuggerHost;
   const localhost = debuggerHost?.split(":")[0];
   if (!localhost) {
-    // return "https://your-production-url.com";
-    throw new Error(
-      "Failed to get localhost. Please point to your production server.",
-    );
+    return` https://nane-nane.vercel.app/`
+    // throw new Err or(
+    //   "Failed to get localhost. Please point to your production server.",
+    // );
   }
   return `http://${localhost}:3000`;
 };
