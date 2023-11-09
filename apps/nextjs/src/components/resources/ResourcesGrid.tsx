@@ -20,7 +20,7 @@ export function ResourcesGrid() {
           <ResourceCard key={`${resource.id}`} resource={resource} />
         ))}
         {isLoading
-         && <h3>Mamaaa .....</h3>
+         && <h3>Loading .....</h3>
         }
       </section>
     </div>

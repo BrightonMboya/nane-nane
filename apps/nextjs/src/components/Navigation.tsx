@@ -70,30 +70,30 @@ export function Navigation() {
                 </svg>
 
                 <span className="font-bold leading-3">
-                  type
+                  nane
                   <br />
-                  hero
+                  nane
                 </span>
               </Link>
              
-                <Link href="/explore" className="ml-4">
+                <Link href="/jobBoard" className="ml-4">
                   <div
                     className={clsx('hover:text-foreground text-foreground/80 transition-colors', {
-                      '!text-foreground': pathname === '/explore',
+                      '!text-foreground': pathname === '/jobBoard',
                     })}
                   >
-                    Explore
+                    Job Board
                   </div>
                 </Link>
              
               
-                <Link href="/tracks" className="ml-4">
+                <Link href="/resources" className="ml-4">
                   <div
                     className={clsx('hover:text-foreground text-foreground/80 transition-colors', {
-                      '!text-foreground': pathname === '/tracks',
+                      '!text-foreground': pathname === '/resources',
                     })}
                   >
-                    Tracks
+                   Resources
                   </div>
                 </Link>
              
