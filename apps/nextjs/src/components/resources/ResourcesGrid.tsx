@@ -11,14 +11,17 @@ export function ResourcesGrid() {
   //   const session = await getServerAuthSession();
 
 
-  const { data } = api.resources.all.useQuery();
+  const { data, isLoading } = api.resources.all.useQuery();
 
   return (
     <div className="container flex items-center justify-between gap-3">
       <section className="grid w-full grid-flow-row grid-cols-1 gap-10 lg:grid-cols-2 xl:grid-cols-3">
-        {/* {data?.map((resource: any) => (
-          <ResourceCard key={`track-${resource.id}`} track={resource} />
-        ))} */}
+        {data?.map((resource: any) => (
+          <ResourceCard key={`${resource.id}`} resource={resource} />
+        ))}
+        {isLoading
+         && <h3>Mamaaa .....</h3>
+        }
       </section>
     </div>
   );
