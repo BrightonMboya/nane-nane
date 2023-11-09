@@ -1,6 +1,19 @@
-// export {Resources as default} from "~/components/resources/Index";
+// import { getServerAuthSession } from '@repo/auth/server';
+// import { redirect } from "next/navigation";
 
-export default function Index() {
+// import { isBetaUser } from '~/utils/server/is-beta-user';
+// import { EnrolledTrackSection } from './track-enrolled-section';
+import { ResourcesGrid } from "./ResourcesGrid";
+
+export function Resources() {
+  // early acces you must be authorized
+  // const session = await getServerAuthSession();
+  // const isBeta = await isBetaUser(session);
+
+  // if (!isBeta) {
+  //   return redirect('/claim');
+  // }
+
   return (
     <div className="flex flex-col gap-5 py-8 md:gap-10 md:py-10">
       <div className="container">
