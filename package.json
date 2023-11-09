@@ -22,7 +22,7 @@
     "type-check": "turbo type-check"
   },
   "dependencies": {
-    "@acme/eslint-config": "^0.1.0",
+    "@repo/eslint-config": "^0.1.0",
     "@clerk/clerk-expo": "^0.17.6",
     "@clerk/nextjs": "^4.21.8",
     "@expo/config-plugins": "~6.0.0",

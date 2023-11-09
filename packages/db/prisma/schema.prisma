@@ -7,7 +7,7 @@ generator client {
 }
 
 datasource db {
-    provider     = "mysql"
+    provider     = "postgresql"
     url          = env("DATABASE_URL")
     relationMode = "prisma"
 }
@@ -179,17 +179,19 @@ model Jobs {
     title       String
     company     String
     location    String
-    description String   @db.LongText
-    link        String   @db.TinyText
+    jobType     String
+    description String   @db.Text
+    link        String   @db.VarChar()
     createdAt   DateTime @default(now())
 }
 
 model LearningResources {
     id          String   @id @default(cuid())
     title       String
-    description String   @db.LongText
+    description String   @db.Text
     category   String
 }
+
 
 model Communities {
     id           String @id @default(cuid())

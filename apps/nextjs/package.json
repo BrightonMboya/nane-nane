@@ -1,7 +1,8 @@
 {
-  "name": "@acme/nextjs",
+  "name": "@repo/nextjs",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "pnpm with-env next build",
     "clean": "git clean -xdf .next .turbo node_modules",
@@ -13,10 +14,13 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@acme/api": "^0.1.0",
-    "@acme/auth": "^0.1.0",
-    "@acme/db": "^0.1.0",
+    "@repo/api": "^0.1.0",
+    "@repo/auth": "^0.1.0",
+    "@repo/db": "^0.1.0",
+    "@repo/ui": "^0.1.0",
     "@t3-oss/env-nextjs": "^0.3.1",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/typography": "^0.5.10",
     "@tanstack/react-query": "^4.29.5",
     "@trpc/client": "^10.27.1",
     "@trpc/next": "^10.27.1",
@@ -26,12 +30,13 @@
     "next-auth": "^4.22.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-intersection-observer": "^9.5.3",
     "superjson": "1.9.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@acme/eslint-config": "^0.1.0",
-    "@acme/tailwind-config": "^0.1.0",
+    "@repo/eslint-config": "^0.1.0",
+    "@repo/tailwind-config": "^0.1.0",
     "@types/node": "^18.16.5",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
