@@ -10,8 +10,8 @@ export default function Index() {
         </h1>
         <p className=" max-w-[69ch] text-lg leading-10 text-neutral-600 dark:text-white/50">
          Nane-nane has a set of Resources that you can use to increase your chances of getting hired. These resources are
-         hand picked by Industry experts to help you in your job application process
-        </p>pers to enhance their skills.
+         hand picked by Industry experts to help you in your job application process pers to enhance their skills.
+        </p>
        
       </div>
       <ResourcesGrid /> 

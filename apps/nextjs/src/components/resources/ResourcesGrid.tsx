@@ -4,6 +4,7 @@ import { prisma } from "@repo/db";
 import { api } from "~/utils/api";
 // import { withUnstableCache } from '~/utils/withUnstableCache';
 import { ResourceCard } from "./ResourceCard";
+import Spinner from "@repo/ui/components/Spinner";
 
 
 
@@ -20,7 +21,7 @@ export function ResourcesGrid() {
           <ResourceCard key={`${resource.id}`} resource={resource} />
         ))}
         {isLoading
-         && <h3>Loading .....</h3>
+         && <Spinner/>
         }
       </section>
     </div>
