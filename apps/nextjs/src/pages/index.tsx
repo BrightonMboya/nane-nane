@@ -1,3 +1,5 @@
+import Feed from "~/components/Tweets/Feed"
+
 export default function Index() {
-  return <h3>Hello World</h3>;
+  return <Feed/>
 }

@@ -6,7 +6,7 @@ import TweetCard from "./TweetCard"
 import { useInView } from "react-intersection-observer";
 // import { newTweet } from "../../../../server/src/router/routes/tweetRouter/newTweet";
 
-export default function HomeContent() {
+export default function Feed() {
   let getTweets = api.tweets.getAllTweets.useMutation();
   const [tweets, setTweets] = useState(getTweets.data?.tweets);
   const [hasMore, setHasMore] = useState(false);
