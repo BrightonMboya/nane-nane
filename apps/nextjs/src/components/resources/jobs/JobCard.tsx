@@ -7,14 +7,16 @@ interface JobProps {
     location: string;
     description: string;
     link: string;
+    company: string;
 }
 
 export default function JobCard ({job}: {job: JobProps}) {
+    console.log(job)
     return (
         <Card>
           <CardHeader>
             <CardTitle>{job.title}</CardTitle>
-            <CardDescription>`${job.jobType} | ${job.location}`</CardDescription>
+            <CardDescription>{job.company} | {job.location}</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm/relaxed">{job.description}</p>

@@ -179,6 +179,7 @@ model Jobs {
     title       String
     company     String
     location    String
+    jobType     String
     description String   @db.Text
     link        String   @db.VarChar()
     createdAt   DateTime @default(now())
