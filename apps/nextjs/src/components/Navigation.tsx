@@ -76,10 +76,10 @@ export function Navigation() {
                 </span>
               </Link>
              
-                <Link href="/jobBoard" className="ml-4">
+                <Link href="/jobs" className="ml-4">
                   <div
                     className={clsx('hover:text-foreground text-foreground/80 transition-colors', {
-                      '!text-foreground': pathname === '/jobBoard',
+                      '!text-foreground': pathname === '/jobs',
                     })}
                   >
                     Job Board

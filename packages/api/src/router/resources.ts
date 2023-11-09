@@ -9,11 +9,18 @@ export const resourcesRouter = createTRPCRouter({
   all: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.learningResources.findMany();
   }),
+
+  jobs: publicProcedure.query(({ctx}) => {
+    return ctx.prisma.jobs.findMany();
+  }),
+
   byId: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.prisma.jobs.findFirst({ where: { id: input.id } });
     }),
+
+
   create: publicProcedure
     .input(
       z.object({
@@ -27,6 +34,8 @@ export const resourcesRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       return ctx.prisma.jobs.create({ data: input });
     }),
+
+
   add: publicProcedure
     .input(
       z.object({
@@ -40,9 +49,13 @@ export const resourcesRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       return ctx.prisma.jobs.create({ data: input });
     }),
+
+
   learningResources: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.learningResources.findMany();
   }),
+
+  
   learningResourceById: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
