@@ -1,4 +1,5 @@
 // export {Resources as default} from "~/components/resources/Index";
+import { ResourcesGrid } from "~/components/resources/ResourcesGrid";
 
 export default function Index() {
   return (
@@ -14,7 +15,8 @@ export default function Index() {
         </p>
       </div>
       {/* <EnrolledTrackSection /> */}
-      {/* <ResourcesGrid /> */}
+      <ResourcesGrid /> 
+
     </div>
   );
 }

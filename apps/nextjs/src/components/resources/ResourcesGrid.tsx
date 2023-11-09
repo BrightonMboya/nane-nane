@@ -5,25 +5,20 @@ import { api } from "~/utils/api";
 // import { withUnstableCache } from '~/utils/withUnstableCache';
 import { ResourceCard } from "./ResourceCard";
 
-export const createTrackGridCacheKey = (userId: string) =>
-  `user-${userId}-tracks`;
 
-export async function ResourcesGrid() {
+
+export function ResourcesGrid() {
   //   const session = await getServerAuthSession();
 
-  //   const tracks = await withUnstableCache({
-  //     fn: getTracks,
-  //     args: [session],
-  //     keys: [createTrackGridCacheKey(session?.user.id ?? '')],
-  //     tags: [createTrackGridCacheKey(session?.user.id ?? '')],
-  const { data } = await api.resources.all.useQuery();
-  //   });
+
+  const { data } = api.resources.all.useQuery();
+
   return (
     <div className="container flex items-center justify-between gap-3">
       <section className="grid w-full grid-flow-row grid-cols-1 gap-10 lg:grid-cols-2 xl:grid-cols-3">
-        {data?.map((resource: any) => (
+        {/* {data?.map((resource: any) => (
           <ResourceCard key={`track-${resource.id}`} track={resource} />
-        ))}
+        ))} */}
       </section>
     </div>
   );
