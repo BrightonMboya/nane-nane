@@ -4,10 +4,10 @@ import type { Variants } from "framer-motion";
 import { TweetMetadata } from "./TweetMetaData";
 import { Body } from "./Body";
 import { TweetActions } from "./TweetActions";
-import NextLink from "@components/NextLink";
+import NextLink from "./NextLink";
 import Avatar from "./Avatar";
-import { TweetProps } from "@types";
-import TweetOptions from "@components/TweetOptions";
+import { TweetProps } from "./TweetMetaData";
+import TweetOptions from "./TweetOptions";
 
 export const variants: Variants = {
   initial: { opacity: 0 },
