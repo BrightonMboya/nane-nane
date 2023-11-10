@@ -11,9 +11,10 @@ export function TweetActions(props: TweetProps) {
     }
 
     let { data } = useSession();
-    let likeTweet = api.tweet.likeTweet.useMutation();
-    let replyTweet = api.tweet.replyTweet.useMutation();
-    let reTweet0 = api.tweet.reTweet.useMutation();
+    
+    let likeTweet = api.tweets.likeTweet.useMutation();
+    let replyTweet = api.tweets.replyTweet.useMutation();
+    let reTweet0 = api.tweets.reTweet.useMutation();
     function like() {
         let result = likeTweet.mutate({ id: props.id });
         console.log("like", result);
@@ -49,7 +50,7 @@ export function TweetActions(props: TweetProps) {
     }, []);
     return (
         <div className="flex items-center">
-            <ReplyModal tweet={props} isOpen={isOpen} closeModal={closeModal} />
+            <ReplyModal tweet={props} isOpen={isOpen} closeModal={closeModal} onReply={undefined} />
             <div
                 onClick={reply}
                 className={`duration-350 flex flex-1 items-center text-xs ${interactionState.replied

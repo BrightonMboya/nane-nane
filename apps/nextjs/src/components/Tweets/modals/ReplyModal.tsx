@@ -1,13 +1,10 @@
 import { ReplyInput } from "@components/inputs/ReplyInput";
 import { TweetInput } from "@components/inputs/TweetInput";
-import  Avatar  from "../Avatar";
 import { Dialog, Transition } from "@headlessui/react";
-import { signIn } from "next-auth/react";
 import { Fragment } from "react";
 
-import { useForm, SubmitHandler } from "react-hook-form";
-import { TweetProps } from "@types";
-import MainTweet from "@components/MainTweet";
+import { TweetProps } from "../TweetMetaData";
+import{ MainTweet} from "../MainTweet";
 import { TweetReply } from "@components/TweetReply";
 
 type Inputs = {

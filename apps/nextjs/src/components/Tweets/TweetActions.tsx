@@ -2,13 +2,13 @@ import React, { ReactNode, useEffect, useState } from "react";
 import cn from "clsx";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
-import ReplyModal from "@components/modals/ReplyModal";
-import { TweetProps } from "@types";
+import ReplyModal from "./modals/ReplyModal";
+import { TweetProps } from "./TweetMetaData";
 import ReplyIcon from "@icons/tweet/ReplyIcon";
 import RetweetIcon from "@icons/tweet/RetweetIcon";
 import LikeIcon from "@icons/tweet/LikeIcon";
 import ShareIcon from "@icons/tweet/ShareIcon";
-import NextLink from "@components/NextLink";
+import NextLink from "./NextLink";
 import { Counter } from "./Counter";
 import { getUserSession } from "@hooks/getUserSession";
 
@@ -66,9 +66,9 @@ export function TweetActions({
   }
 
   let { data } = useSession();
-  let likeTweet = trpc.tweet.likeTweet.useMutation();
-  let replyTweet = trpc.tweet.replyTweet.useMutation();
-  let reTweet0 = trpc.tweet.reTweet.useMutation();
+  let likeTweet = api.tweets.likeTweet.useMutation();
+  let replyTweet = api.tweets.replyTweet.useMutation();
+  let reTweet0 = api.tweets.reTweet.useMutation();
   function interact(id: ToInteract, inc: boolean) {
     let newBtns = buttons;
     newBtns.forEach((b) => {
