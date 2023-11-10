@@ -17,14 +17,19 @@ export const env = createEnv({
     //   process.env.VERCEL ? z.string() : z.string().url(),
     // ),
     CLERK_SECRET_KEY: z.string().min(1),
+    SUPABASE_KEY: z.string(),
+    SUPABASE_URL: z.string()
   },
   client: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),
+
   },
   runtimeEnv: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+    SUPABASE_URL: process.env.SUPABASE_URL,
+    SUPABASE_KEY: process.env.SUPABASE_KEY
   },
   skipValidation: !!process.env.CI || !!process.env.SKIP_ENV_VALIDATION,
 });
