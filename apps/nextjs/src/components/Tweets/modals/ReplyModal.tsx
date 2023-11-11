@@ -1,11 +1,11 @@
-import { ReplyInput } from "@components/inputs/ReplyInput";
-import { TweetInput } from "@components/inputs/TweetInput";
+import { TweetInput } from "../inputs/TweetInput";
+import { ReplyInput } from "../inputs/ReplyInput";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
 import { TweetProps } from "../TweetMetaData";
 import{ MainTweet} from "../MainTweet";
-import { TweetReply } from "@components/TweetReply";
+import { TweetReply } from "../TweetReply";
 
 type Inputs = {
     username: string;

@@ -24,7 +24,7 @@ export function TweetInput({ onPost }: { onPost?: any }) {
     reset,
     formState: { errors },
   } = useForm<Inputs>();
-  let { data } = useSession();
+  // let { data } = useSession();
   let newTweet = api.tweets.newTweet.useMutation();
 
   const [selectedFile, setSelectedFile] = useState<string | null>();

@@ -4,20 +4,22 @@ import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
 import ReplyModal from "./modals/ReplyModal";
 import { TweetProps } from "./TweetMetaData";
-import ReplyIcon from "@icons/tweet/ReplyIcon";
-import RetweetIcon from "@icons/tweet/RetweetIcon";
-import LikeIcon from "@icons/tweet/LikeIcon";
-import ShareIcon from "@icons/tweet/ShareIcon";
+import ReplyIcon from "./TweetIcons/ReplyIcon";
+import RetweetIcon from "./TweetIcons/RetweetIcon";
+import LikeIcon from "./TweetIcons/LikeIcon";
+import ShareIcon from "./TweetIcons/ShareIcon";
 import NextLink from "./NextLink";
-import { Counter } from "./Counter";
-import { getUserSession } from "@hooks/getUserSession";
+import  Counter  from "./Counter";
+
+// import { getUserSession } from "@hooks/getUserSession";
 
 export function TweetActions({
   allDisabled,
   ...props
 }: TweetProps & { allDisabled?: boolean }) {
   let [isOpen, setIsOpen] = useState(false);
-  let userId = getUserSession().id!;
+//   let userId = getUserSession().id!;
+let userId = '';
   const [buttons, setButtons] = useState<ActionButtonProps[]>([
     {
       id: "reply",

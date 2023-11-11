@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-// import { TweetInput } from "@components/inputs/TweetInput";
 import { api } from "~/utils/api";
+import { TweetInput } from "./inputs/TweetInput";
 import Spinner from "@repo/ui/components/Spinner";
 import TweetCard from "./TweetCard"
 import { useInView } from "react-intersection-observer";
-// import { newTweet } from "../../../../server/src/router/routes/tweetRouter/newTweet";
+import { newTweet } from "@repo/api/src/router/tweetRouter/newTweet";
 
 export default function Feed() {
   let getTweets = api.tweets.getAllTweets.useMutation();
@@ -56,7 +56,7 @@ export default function Feed() {
     <div className="main-content ">
       <div className="main-border mcz border-b border-l border-r ">
        
-        {/* <TweetInput onPost={onPost} /> */}
+        <TweetInput onPost={onPost} />
 
         {/* 
          <NewTweets /> */}
