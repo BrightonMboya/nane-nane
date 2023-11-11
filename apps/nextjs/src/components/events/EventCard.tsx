@@ -13,7 +13,6 @@ interface EventProps {
 
 export default function EventCard({event} : {event: EventProps}) {
     return (
-        <div className="grid gap-6 mt-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <div className="rounded-md shadow-md overflow-hidden">
           <Image
             alt="Event Image"
@@ -35,6 +34,6 @@ export default function EventCard({event} : {event: EventProps}) {
             </Button>
           </div>
         </div>
-      </div>
+    
     )
 }
