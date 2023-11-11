@@ -2,7 +2,6 @@
 import "./src/env.mjs";
 import "@repo/auth/env.mjs";
 import nextPWA from 'next-pwa'
-// import withPWA from 'next-pwa';
 
 const withPWA = nextPWA({
   dest: 'public',
