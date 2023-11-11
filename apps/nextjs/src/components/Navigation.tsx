@@ -96,6 +96,16 @@ export function Navigation() {
                    Resources
                   </div>
                 </Link>
+
+                <Link href="/events" className="ml-4">
+                  <div
+                    className={clsx('hover:text-foreground text-foreground/80 transition-colors', {
+                      '!text-foreground': pathname === '/events',
+                    })}
+                  >
+                   Events
+                  </div>
+                </Link>
              
             </div>
             <div className="flex">
