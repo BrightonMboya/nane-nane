@@ -8,7 +8,7 @@ export function Body(props: TweetProps) {
       <p className="text-tweet whitespace-pre-line mb-2 break-words">
         <TweetBody body={props.body} />
       </p>
-      {props.images[0] && (
+      {/* {props?.images[0] && (
         <div className="my-3 mr-2 flex rounded-2xl ">
           <img
             className="max-h-[560px] rounded-2xl w-full "
@@ -16,7 +16,7 @@ export function Body(props: TweetProps) {
             alt=""
           />
         </div>
-      )}
+      )} */}
     </>
   );
 }

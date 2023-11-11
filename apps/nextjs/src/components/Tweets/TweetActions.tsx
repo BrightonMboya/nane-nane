@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import cn from "clsx";
 import { api } from "~/utils/api";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import ReplyModal from "./modals/ReplyModal";
 import { TweetProps } from "./TweetMetaData";
 import ReplyIcon from "./TweetIcons/ReplyIcon";
@@ -67,7 +67,8 @@ let userId = '';
     setIsOpen(false);
   }
 
-  let { data } = useSession();
+  // let { data } = useSession();
+  let data = ''
   let likeTweet = api.tweets.likeTweet.useMutation();
   let replyTweet = api.tweets.replyTweet.useMutation();
   let reTweet0 = api.tweets.reTweet.useMutation();

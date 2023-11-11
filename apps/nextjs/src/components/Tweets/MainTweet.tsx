@@ -23,7 +23,7 @@ export function MainTweet({
 }) {
   return (
     <NextLink disabled={reply} href={`/tweet/${tweet.id}`}>
-      <div className="tweet-hover main-border border-b p-4 ">
+      <div className="tweet-hover main-border border-b p-4  w-[390px] mt-5 ">
         <div className="fade-in flex   cursor-pointer space-x-2  transition-all  ease-in-out">
           <div className=" flex min-h-full flex-col items-center ">
             <Avatar avatarImage={tweet.user.profileImage!} />

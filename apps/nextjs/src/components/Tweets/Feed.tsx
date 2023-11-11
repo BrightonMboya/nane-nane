@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { api } from "~/utils/api";
 import { TweetInput } from "./inputs/TweetInput";
 import Spinner from "@repo/ui/components/Spinner";
-import TweetCard from "./TweetCard"
+import { MainTweet } from "./MainTweet";
 import { useInView } from "react-intersection-observer";
 import { newTweet } from "@repo/api/src/router/tweetRouter/newTweet";
 
@@ -62,7 +62,7 @@ export default function Feed() {
         {/* 
          <NewTweets /> */}
         {tweets?.map((t, i) => (
-          <TweetCard key={i} tweet={t} />
+          <MainTweet key={i} tweet={t} />
         ))}
         <div ref={ref}>
           {hasMore && <Spinner />}

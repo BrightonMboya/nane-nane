@@ -10,7 +10,7 @@ export default function TweetBody({ body }: { body: string }) {
           // Check if the previous character was a new line or the beginning of the string
           const isStartOfLine = index === 0 || /\n/.test(words[index-1]);
           const blueClass = isStartOfLine ? "text-blue-500" : "";
-          return <span className={blueClass}>{word} </span>;
+          return <span className={blueClass} key={index}>{word} </span>;
         } else {
           return <span>{word} </span>;
         }

@@ -1,7 +1,7 @@
-import { useFormattedDate } from "@hooks/useFormattedDate";
+import { useFormattedDate } from "~/hooks/useFormattedDate";
 import React from "react";
-import { VerifiedIcon } from "@icons/tweet/VerifiedIcon";
-import { TweetProps } from "@types";
+import { TweetProps } from "../TweetMetaData";
+import { VerifiedIcon } from "../TweetIcons/VerifiedIcon";
 
 export function TweetMetadata(props: TweetProps) {
     const formattedDate = useFormattedDate(props.createdAt);

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { api } from "~/utils/api";
-import { useSession } from "next-auth/react";
 import { TweetProps } from "../TweetMetaData";
 import ReplyModal from "../modals/ReplyModal";
 
@@ -10,7 +9,8 @@ export function TweetActions(props: TweetProps) {
         setIsOpen(false);
     }
 
-    let { data } = useSession();
+    // let { data } = useSession();
+    let data = ''
     
     let likeTweet = api.tweets.likeTweet.useMutation();
     let replyTweet = api.tweets.replyTweet.useMutation();
