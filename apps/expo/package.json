@@ -1,5 +1,5 @@
 {
-  "name": "@arepo/expo",
+  "name": "@repo/expo",
   "version": "0.1.0",
   "scripts": {
     "clean": "git clean -xdf .expo .turbo node_modules",
