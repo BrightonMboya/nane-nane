@@ -8,7 +8,7 @@ import { newTweet } from "@repo/api/src/router/tweetRouter/newTweet";
 
 export default function Feed() {
   let getTweets = api.tweets.getAllTweets.useMutation();
-  const [tweets, setTweets] = useState(getTweets.data?.tweets);
+  const [tweets, setTweets] = useState(getTweets.data?.tweets)
   const [hasMore, setHasMore] = useState(false);
 
   const { ref, inView, entry } = useInView({
@@ -27,7 +27,7 @@ export default function Feed() {
 
   function removeDuplicates(tweets:any) {
     const tweetSet = new Set();
-    return tweets.filter((tweet) => {
+    return tweets.filter((tweet: any) => {
       if (tweetSet.has(tweet.id)) {
         return false;
       } else {
@@ -50,8 +50,9 @@ export default function Feed() {
 
   function onPost(data: any) {
     //@ts-ignore
-    data && setTweets([data, ...tweets]);
-  }
+    data && setTweets([data, ...tweets])
+  };
+
   return (
     <div className="main-content ">
       <div className="main-border mcz border-b border-l border-r ">

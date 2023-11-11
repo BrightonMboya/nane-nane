@@ -129,6 +129,7 @@ model Tweet {
     
 }
 
+
 model Retweet {
     id          String   @id @default(uuid())
     tweetId     String
