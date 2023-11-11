@@ -11,7 +11,6 @@ interface JobProps {
 }
 
 export default function JobCard ({job}: {job: JobProps}) {
-    console.log(job)
     return (
         <Card>
           <CardHeader>

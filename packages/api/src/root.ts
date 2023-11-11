@@ -7,6 +7,7 @@ import { createTRPCRouter } from "./trpc";
 import { userRouter } from "./router/users";
 import { eventsRouter } from "./router/events";
 import { tweetsRouter } from "./router/tweets";
+import { tweetRouter } from "./router/tweetRouter";
 
 export const appRouter = createTRPCRouter({
   post: postRouter,
@@ -16,7 +17,7 @@ export const appRouter = createTRPCRouter({
   chat: chatRouter,
   users: userRouter,
   events: eventsRouter,
-  tweets: tweetsRouter
+  tweets: tweetRouter
 });
 
 // export type definition of API

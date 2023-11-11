@@ -82,7 +82,7 @@ model User {
     likeCount        Int          @default(0)
     accounts      Account[]
     sessions      Session[]
-    events          Events[]
+    // events          Events[]
     tweets           Tweet[]
     likes            Like[]
     retweets         Retweet[]
@@ -128,6 +128,7 @@ model Tweet {
     replies      Reply[]
     
 }
+
 
 model Retweet {
     id          String   @id @default(uuid())
@@ -204,13 +205,15 @@ model Events {
     id          String @id @default(cuid())
     name        String
     description String @db.Text
+    previewDescription String @db.Text
     date        DateTime
     location    String
-    attendees   User @relation(fields: [attendeesId], references: [id])
-    attendeesId String
+    // attendees   User @relation(fields: [attendeesId], references: [id])
+    // attendeesId String
     imagePreview String
+    hubLocation String
 
-    @@index([attendeesId])
+    // @@index([attendeesId])
 }
 
 

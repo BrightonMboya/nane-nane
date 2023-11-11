@@ -47,5 +47,8 @@ export const tweetsRouter = createTRPCRouter ({
     }
 
     return { success: true, tweets:removeProperties(tweets) , hasMore };
-})
+}),
+
+
+  
 })

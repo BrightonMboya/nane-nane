@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-// import { TweetInput } from "@components/inputs/TweetInput";
 import { api } from "~/utils/api";
+import { TweetInput } from "./inputs/TweetInput";
 import Spinner from "@repo/ui/components/Spinner";
-import TweetCard from "./TweetCard"
+import { MainTweet } from "./MainTweet";
 import { useInView } from "react-intersection-observer";
-// import { newTweet } from "../../../../server/src/router/routes/tweetRouter/newTweet";
+import { newTweet } from "@repo/api/src/router/tweetRouter/newTweet";
 
 export default function Feed() {
   let getTweets = api.tweets.getAllTweets.useMutation();
-  const [tweets, setTweets] = useState(getTweets.data?.tweets);
+  const [tweets, setTweets] = useState(getTweets.data?.tweets)
   const [hasMore, setHasMore] = useState(false);
 
   const { ref, inView, entry } = useInView({
@@ -27,7 +27,7 @@ export default function Feed() {
 
   function removeDuplicates(tweets:any) {
     const tweetSet = new Set();
-    return tweets.filter((tweet) => {
+    return tweets.filter((tweet: any) => {
       if (tweetSet.has(tweet.id)) {
         return false;
       } else {
@@ -50,18 +50,19 @@ export default function Feed() {
 
   function onPost(data: any) {
     //@ts-ignore
-    data && setTweets([data, ...tweets]);
-  }
+    data && setTweets([data, ...tweets])
+  };
+
   return (
     <div className="main-content ">
       <div className="main-border mcz border-b border-l border-r ">
        
-        {/* <TweetInput onPost={onPost} /> */}
+        <TweetInput onPost={onPost} />
 
         {/* 
          <NewTweets /> */}
         {tweets?.map((t, i) => (
-          <TweetCard key={i} tweet={t} />
+          <MainTweet key={i} tweet={t} />
         ))}
         <div ref={ref}>
           {hasMore && <Spinner />}
