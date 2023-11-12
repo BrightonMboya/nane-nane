@@ -1,8 +1,27 @@
 import { z } from "zod";
 import { protectedProcedure, publicProcedure } from "../../trpc";
 // import _ from "lodash";
-import { TO_REMOVE } from "@repo/nextjs/src/utils/removeProperties";
-import { removeProperties } from "@repo/nextjs/src/utils/removeProperties";
+
+export const TO_REMOVE=["password"]
+
+export function removeProperties<T>(obj: T, toRemove?: string[]): T {
+  if (!toRemove) toRemove = TO_REMOVE;
+  if (obj instanceof Date || typeof obj !== "object" || obj === null) {
+    return obj as T;
+  }
+
+  const newObj: any = Array.isArray(obj) ? [] : {};
+
+  for (const [key, value] of Object.entries(obj)) {
+    if (toRemove.includes(key)) {
+      continue;
+    }
+
+    newObj[key] = removeProperties(value, toRemove);
+  }
+
+  return newObj as T;
+}
 
 export const getAllTweets = publicProcedure
   .input(z.object({ skip: z.number().nullish() }))

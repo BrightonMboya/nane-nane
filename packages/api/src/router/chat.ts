@@ -1,7 +1,7 @@
 import { Chats } from '@prisma/client';
 import { observable } from '@trpc/server/observable';
 import { EventEmitter } from 'events';
-import { prisma } from '@acme/db';
+import { prisma } from '@repo/db';
 import { z } from 'zod';
 import { createTRPCRouter, publicProcedure } from '../trpc';
 

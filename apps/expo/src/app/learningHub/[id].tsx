@@ -9,6 +9,7 @@ const Index: React.FC = () => {
   const { id } = useSearchParams();
   //   if (!id || typeof id !== "string") throw new Error("unreachable");
   const { data, isLoading, error } =
+  //@ts-ignore
     api.resources.learningResourceById.useQuery({ id });
   //   if (!data) return <SplashScreen />;
 
