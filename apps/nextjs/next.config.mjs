@@ -1,6 +1,7 @@
 // Importing env files here to validate on build
 import "./src/env.mjs";
 import "@repo/auth/env.mjs";
+//@ts-ignore remove this line and install next-pwa types and check the CI
 import nextPWA from 'next-pwa'
 
 const withPWA = nextPWA({
