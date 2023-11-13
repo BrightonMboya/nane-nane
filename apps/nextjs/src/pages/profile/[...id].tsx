@@ -1,7 +1,8 @@
 import { prisma } from "@repo/db";
 import Image from "next/image";
 import { useRouter } from "next/router";
-
+import { Button } from "@repo/ui/components/button";
+import Link from "next/link";
 
 type Props = {
     name: string,
@@ -64,6 +65,8 @@ export default function Index(props: Props) {
                       </p>
                     </div>
                   </button>
+
+                  
                 </div>
               </div>
             </div>
@@ -76,6 +79,15 @@ export default function Index(props: Props) {
                 <p className="mt-2 text-sm ">
                   {props?.about ? props.about : "No Bio "}
                 </p>
+
+                {
+                    props.calendlyLink && (
+                        
+                <Link href={`${props.calendlyLink}`}>
+               <Button className="mt-5">Book a Mentorship</Button>
+                </Link>
+                    )
+                }
               </div>
             </div>
 
@@ -160,8 +172,7 @@ export async function getStaticProps({params}: Params) {
             classOf: true,
             mentoringAreas: true,
             profileImage: true,
-            
-            
+            calendlyLink: true,   
         }
     })
     return {
