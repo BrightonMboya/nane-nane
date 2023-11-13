@@ -4,7 +4,6 @@ import React from "react";
 import { TweetMetadata } from "./TweetMetaData";
 import { Body } from "./Body";
 import { TweetActions } from "./TweetActions";
-import NextLink from "./NextLink";
 import Avatar from "./Avatar";
 import { TweetProps } from "./TweetMetaData";
 import TweetOptions from "./TweetOptions";

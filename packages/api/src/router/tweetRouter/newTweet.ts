@@ -1,9 +1,8 @@
 import { z } from "zod";
-import { protectedProcedure } from "../../trpc";
+import { protectedProcedure, publicProcedure } from "../../trpc";
 // import { uploadImg } from "@repo/nextjs/src/utils/uploadImage";
 
 import { v4 as uuidv4 } from "uuid";
-
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -31,11 +30,12 @@ export async function uploadImg(imageURI: string) {
 }
 
 
-export const newTweet = protectedProcedure
+export const newTweet = publicProcedure
   .input(
     z.object({
       body: z.string().trim().min(3),
       image: z.string().nullish(),
+      emailAddress: z.string()
     })
   )
   .mutation(async ({ ctx, input }) => {
@@ -43,11 +43,20 @@ export const newTweet = protectedProcedure
     if (input.image) {
       imageUrl = await uploadImg(input.image);
     }
+
+    const userId = await ctx.prisma.user.findUnique({
+      where: {
+        email: input.emailAddress
+      },
+      select: {
+        id: true
+      }
+    })
     let newTweet = await ctx.prisma.tweet.create({
       data: {
         body: limitTextLines(input.body),
-        images: [imageUrl],
-        userId: ctx.session.id,
+        // images: [imageUrl],
+        userId: userId?.id as string
       },
       include: {
         user: true,

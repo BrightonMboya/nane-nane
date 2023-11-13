@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -8,6 +10,8 @@ import { OtherIcons } from "./OtherIcons";
 import { FilePreview } from "./FilePreview";
 import { compressFile } from "~/utils/compressImage";
 // import { getUserSession } from "@hooks/getUserSession";
+import { useAuth, useUser } from "@clerk/nextjs";
+
 
 type Inputs = {
   body: string;
@@ -16,7 +20,10 @@ export function TweetInput({ onPost }: { onPost?: any }) {
   const [isPosting, setIsPosting] = useState(false);
   // let session = getUserSession();
   // const [user, setUser] = useState(session);
-  let user = 'tony';
+  const { userId } = useAuth();
+  const { isLoaded, isSignedIn, user } = useUser();
+
+
   const {
     register,
     handleSubmit,
@@ -29,14 +36,20 @@ export function TweetInput({ onPost }: { onPost?: any }) {
 
   const [selectedFile, setSelectedFile] = useState<string | null>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    setIsPosting(true);
-    newTweet.mutate({
-      body: data.body,
-      image: selectedFile || null,
-    });
-    // if (!newTweet.isError) onPost(newTweet.data?.tweet);
-    reset();
-    clearInputs();
+    try {
+
+      setIsPosting(true);
+      newTweet.mutate({
+        body: data.body,
+        image: selectedFile || null,
+        emailAddress: user?.primaryEmailAddress?.emailAddress as string
+      });
+      // if (!newTweet.isError) onPost(newTweet.data?.tweet);
+      reset();
+      clearInputs();
+    } catch(cause) {
+      console.log(cause)
+    }
   };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
