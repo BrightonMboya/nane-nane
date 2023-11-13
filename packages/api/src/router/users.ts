@@ -57,6 +57,15 @@ export const userRouter = createTRPCRouter({
                 where: { email: input.email },
                 data: input
             })
+        }),
+
+    getAllUserId: publicProcedure
+        .query(({ctx}) => {
+            return ctx.prisma.user.findMany({
+                select: {
+                    id: true
+                }
+            })
         })
 
 
