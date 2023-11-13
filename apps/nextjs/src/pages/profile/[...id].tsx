@@ -1,8 +1,5 @@
-import { api } from "~/utils/api"
 import { prisma } from "@repo/db";
-import { GetServerSideProps } from "next";
 import Image from "next/image";
-import { Button } from "@repo/ui/components/button";
 import { useRouter } from "next/router";
 
 
@@ -13,11 +10,11 @@ type Props = {
     mentoringAreas: string,
     about: string,
     classOf: string,
-    profileImage: string
+    profileImage: string,
+    calendlyLink: string
 }
 
 export default function Index(props: Props) {
-    console.log(props, "sajhsdkajdbsajhdsad")
     const router = useRouter()
     return (
         <div className="flex flex-col items-center ">
@@ -39,7 +36,7 @@ export default function Index(props: Props) {
                   {props?.name}
                 </p>
                 <p>{props?.currentRole}</p>
-                <div className="flex flex-row gap-3 pt-[10px]">
+                <div className="flex flex-row gap-3 pt-[5px]">
                   <p>{props?.location}</p>
                   <p>{`Class of ${props?.classOf}`}</p>
                 </div>
@@ -101,13 +98,13 @@ export default function Index(props: Props) {
               </div>
             </div>
 
-            <div className="mt-5 min-h-min w-[350px] rounded-md border-[1px] border-[#ddd] bg-white pb-3 shadow-md">
+            {/* <div className="mt-5 min-h-min w-[350px] rounded-md border-[1px] border-[#ddd] bg-white pb-3 shadow-md">
               <div className=" pl-5 pt-5">
                 <p className="text-base" >
                   Experience
                 </p>
                 <div className="flex flex-col gap-3 pt-3">
-                  {/* {profileprops.experience.map((exp) => (
+                  {profileprops.experience.map((exp) => (
                     <div
                       className="max-w-[200px] rounded-md  "
                       key={exp.company}
@@ -116,11 +113,10 @@ export default function Index(props: Props) {
                       <p className="">{exp.role}</p>
                       <p className="text-gray-700">{exp.duration}</p>
                     </div>
-                  ))} */}
+                  ))}
                 </div>
               </div>
-            </div>
-            <div className="mt-5 h-10" />
+            </div> */}
           </div>
     )
 }

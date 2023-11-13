@@ -82,6 +82,7 @@ model User {
     likeCount        Int          @default(0)
     accounts      Account[]
     sessions      Session[]
+    calendlyLink   String?
     // events          Events[]
     tweets           Tweet[]
     likes            Like[]
