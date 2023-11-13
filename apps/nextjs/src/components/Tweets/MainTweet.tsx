@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { Variants } from "framer-motion";
+// import type { Variants } from "framer-motion";
 import { TweetMetadata } from "./TweetMetaData";
 import { Body } from "./Body";
 import { TweetActions } from "./TweetActions";
@@ -9,11 +9,11 @@ import Avatar from "./Avatar";
 import { TweetProps } from "./TweetMetaData";
 import TweetOptions from "./TweetOptions";
 
-export const variants: Variants = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1, transition: { duration: 0.8 } },
-  exit: { opacity: 0, transition: { duration: 0.2 } },
-};
+// export const variants: Variants = {
+//   initial: { opacity: 0 },
+//   animate: { opacity: 1, transition: { duration: 0.8 } },
+//   exit: { opacity: 0, transition: { duration: 0.2 } },
+// };
 export function MainTweet({
   reply,
   tweet,
@@ -26,14 +26,16 @@ export function MainTweet({
       <div className="tweet-hover main-border border-b p-4  w-[390px] mt-5 ">
         <div className="fade-in flex   cursor-pointer space-x-2  transition-all  ease-in-out">
           <div className=" flex min-h-full flex-col items-center ">
+           
+            
             <Avatar avatarImage={tweet.user.profileImage!} />
             {reply && (
               <div className="hover-animation  bg-line-reply dark:bg-dark-line-reply  h-[80%] w-0.5"></div>
             )}
           </div>
           <div className="flex w-full grow flex-col">
-            <NextLink href={`/${tweet.user.username}`}>
-              <TweetMetadata color={tweet.user.badge} {...tweet} />
+            <NextLink href={`/profile/${tweet.userId}`}>
+              <TweetMetadata  {...tweet} />
             </NextLink>
             <Body {...tweet} />
             <TweetActions {...tweet} />
