@@ -17,11 +17,11 @@ import RootLayout from "~/components/Layout";
 // };
 const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
   return (
-    <ClerkProvider {...pageProps}>
+    // <ClerkProvider {...pageProps}>
       <RootLayout>
         <Component {...pageProps} />
       </RootLayout>
-    </ClerkProvider>
+    // </ClerkProvider>
      );
 };
 export default api.withTRPC(MyApp);
