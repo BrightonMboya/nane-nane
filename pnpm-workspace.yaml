@@ -1,5 +1,6 @@
 packages:
   - apps/expo
   - apps/nextjs
+  - apps/socials
   - packages/*
   - packages/config/*
